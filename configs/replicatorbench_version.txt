@@ -1,0 +1,3 @@
+Repository: https://github.com/CenterForOpenScience/llm-benchmarking.git
+Commit: fb6a804fd710764f3ad3c8b84e1323c2804c4776
+Local expected path: ~/llm-benchmarking/replicatorbench
