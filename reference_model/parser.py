@@ -1,100 +1,113 @@
-import argparse
+import json
 import math
+from pathlib import Path
+from typing import Any
 
-def positive_float(value: str) -> float:
-    """Parse a strictly positive finite float."""
+
+REQUIRED_PARAMETERS = {
+    "name",
+    "capital",
+    "labor",
+    "sigma",
+    "productivity",
+}
+
+
+def load_parameter_cases(
+    json_path: str | Path,
+) -> list[dict[str, Any]]:
+    """
+    Load and validate model parameter cases from a JSON file.
+    """
+    path = Path(json_path)
+
+    if not path.is_file():
+        raise FileNotFoundError(f"Parameter file not found: {path}")
+
     try:
-        parsed = float(value)
-    except ValueError as exc:
-        raise argparse.ArgumentTypeError(
-            f"Expected a number, got {value!r}."
+        with path.open("r", encoding="utf-8") as file:
+            document = json.load(file)
+    except json.JSONDecodeError as exc:
+        raise ValueError(
+            f"Invalid JSON in parameter file {path}: {exc}"
         ) from exc
 
-    if not math.isfinite(parsed):
-        raise argparse.ArgumentTypeError("Value must be finite.")
+    cases = document.get("cases")
 
-    if parsed <= 0:
-        raise argparse.ArgumentTypeError("Value must be greater than 0.")
+    if not isinstance(cases, list) or not cases:
+        raise ValueError(
+            "The parameter file must contain a non-empty 'cases' list."
+        )
 
-    return parsed
+    validated_cases = []
 
+    for index, case in enumerate(cases):
+        if not isinstance(case, dict):
+            raise ValueError(f"Case {index} must be a JSON object.")
 
-def phi_float(value: str) -> float:
-    """Parse phi as a finite float in the closed interval [0, 1]."""
-    try:
-        parsed = float(value)
-    except ValueError as exc:
-        raise argparse.ArgumentTypeError(
-            f"Expected a number, got {value!r}."
-        ) from exc
+        missing = REQUIRED_PARAMETERS - case.keys()
 
-    if not math.isfinite(parsed):
-        raise argparse.ArgumentTypeError("Phi must be finite.")
+        if missing:
+            missing_names = ", ".join(sorted(missing))
+            raise ValueError(
+                f"Case {index} is missing required fields: {missing_names}"
+            )
 
-    if not 0 <= parsed <= 1:
-        raise argparse.ArgumentTypeError("Phi must be between 0 and 1.")
+        validated_case = {
+            "name": case["name"],
+            "capital": _validate_positive_number(
+                case["capital"], "capital", index
+            ),
+            "labor": _validate_positive_number(
+                case["labor"], "labor", index
+            ),
+            "sigma": _validate_sigma(case["sigma"], index),
+            "productivity": _validate_positive_number(
+                case["productivity"], "productivity", index
+            ),
+        }
 
-    return parsed
+        if not isinstance(validated_case["name"], str):
+            raise ValueError(
+                f"Case {index}: 'name' must be a string."
+            )
 
+        if not validated_case["name"].strip():
+            raise ValueError(
+                f"Case {index}: 'name' cannot be empty."
+            )
 
-def sigma_float(value: str) -> float:
-    """
-    Parse sigma.
+        validated_cases.append(validated_case)
 
-    The paper's baseline model assumes 0 < sigma < 1.
-    Sigma = 1 is also invalid because the CES formulas divide by sigma - 1.
-    """
-    parsed = positive_float(value)
+    return validated_cases
 
-    if parsed >= 1:
-        raise argparse.ArgumentTypeError(
-            "Sigma must satisfy 0 < sigma < 1."
+def _validate_positive_number(
+    value: object,
+    parameter_name: str,
+    case_index: int,
+) -> float:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise ValueError(
+            f"Case {case_index}: '{parameter_name}' must be numeric."
+        )
+
+    parsed = float(value)
+
+    if not math.isfinite(parsed) or parsed <= 0:
+        raise ValueError(
+            f"Case {case_index}: '{parameter_name}' must be "
+            "finite and greater than zero."
         )
 
     return parsed
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description=(
-            "Compute the static scarcity-of-labor equilibrium "
-            "for a given automation share."
+def _validate_sigma(value: object, case_index: int) -> float:
+    sigma = _validate_positive_number(value, "sigma", case_index)
+
+    if sigma >= 1:
+        raise ValueError(
+            f"Case {case_index}: 'sigma' must satisfy 0 < sigma < 1."
         )
-    )
 
-    parser.add_argument(
-        "--phi",
-        required=True,
-        type=phi_float,
-        help="Fraction of automatable tasks, between 0 and 1.",
-    )
-
-    parser.add_argument(
-        "--capital",
-        required=True,
-        type=positive_float,
-        help="Capital endowment K. Must be greater than 0.",
-    )
-
-    parser.add_argument(
-        "--labor",
-        required=True,
-        type=positive_float,
-        help="Labor endowment L. Must be greater than 0.",
-    )
-
-    parser.add_argument(
-        "--sigma",
-        required=True,
-        type=sigma_float,
-        help="Elasticity of substitution sigma, satisfying 0 < sigma < 1.",
-    )
-
-    parser.add_argument(
-        "--productivity",
-        required=True,
-        type=positive_float,
-        help="Total factor productivity A. Must be greater than 0.",
-    )
-
-    return parser.parse_args()
+    return sigma

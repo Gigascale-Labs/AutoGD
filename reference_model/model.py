@@ -1,6 +1,3 @@
-import math
-import parser
-
 """
 Helper functions for computing the equations
 """
@@ -84,45 +81,31 @@ def compute_region_2(
         "capital_income": capital_return * capital,
     }
 
+def compute_equilibrium(
+    phi: float,
+    capital: float,
+    labor: float,
+    sigma: float,
+    productivity: float,
+) -> dict[str, float]:
+    threshold = compute_threshold(capital, labor)
 
-"""
-Program entry point
-"""
-def main() -> None:
-    # 1. Parse
-    args = parser.parse_args()
-
-    #2. Compute threshold
-    threshold = compute_threshold(
-        capital=args.capital,
-        labor=args.labor,
-    )
-
-    #3. Compute equations for the threshold
-    if args.phi < threshold:
+    if phi < threshold:
         result = compute_region_1(
-            phi=args.phi,
-            capital=args.capital,
-            labor=args.labor,
-            sigma=args.sigma,
-            productivity=args.productivity,
+            phi=phi,
+            capital=capital,
+            labor=labor,
+            sigma=sigma,
+            productivity=productivity,
         )
     else:
         result = compute_region_2(
-            capital=args.capital,
-            labor=args.labor,
-            productivity=args.productivity,
+            capital=capital,
+            labor=labor,
+            productivity=productivity,
         )
 
-    result["phi"] = args.phi
+    result["phi"] = phi
     result["threshold"] = threshold
 
-
-    # 4. print results
-    for name, value in result.items():
-        print(f"{name}: {value}")
-
-    #5. Plot
-
-if __name__ == "__main__":
-    main()
+    return result
