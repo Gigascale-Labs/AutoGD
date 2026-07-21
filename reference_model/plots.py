@@ -84,28 +84,48 @@ def plot_series(
 def plot_cases(
     cases,
     output_path: str | Path,
-) -> None:
+    number_of_points: int = 500,
+) -> Path:
     """
-    Plot one panel for each supplied parameter case.
-    """
-    if len(cases) != 2:
-        raise ValueError(
-            "This plotting function currently expects exactly two cases."
-        )
+    Plot one panel for each parameter case.
 
-    figure, axes = plt.subplots(1, 2, figsize=(14, 6))
+    Each case must contain:
+        name, capital, labor, sigma, productivity
+
+    Returns the path of the saved plot.
+    """
+    if not cases:
+        raise ValueError("At least one parameter case is required.")
+
+    number_of_cases = len(cases)
+
+    figure, axes = plt.subplots(
+        nrows=1,
+        ncols=number_of_cases,
+        figsize=(7 * number_of_cases, 5),
+        squeeze=False,
+    )
+
+    axes = axes.flatten()
 
     for axis, case in zip(axes, cases):
+        capital = case["capital"]
+        labor = case["labor"]
+        sigma = case["sigma"]
+        productivity = case["productivity"]
+        name = case["name"]
+
         series = compute_series(
-            capital=case["capital"],
-            labor=case["labor"],
-            sigma=case["sigma"],
-            productivity=case["productivity"],
+        capital=capital,
+        labor=labor,
+        sigma=sigma,
+        productivity=productivity,
+        num_points=number_of_points,
         )
 
         threshold = model.compute_threshold(
-            capital=case["capital"],
-            labor=case["labor"],
+            capital=capital,
+            labor=labor,
         )
 
         axis.plot(
@@ -113,43 +133,54 @@ def plot_cases(
             series["output"],
             label="Output (Y)",
         )
+
         axis.plot(
             series["phi"],
             series["wage_bill"],
             label="Wage bill (wL)",
         )
+
         axis.plot(
             series["phi"],
             series["capital_income"],
             label="Capital income (RK)",
         )
+
         axis.axvline(
-            x=threshold,
+            threshold,
             linestyle="--",
-            label=f"Threshold = {threshold:.4f}",
+            label=f"Threshold = {threshold:.3f}",
         )
 
-        axis.set_xlabel("Φ")
-        axis.set_ylabel("Value")
         axis.set_title(
-            f"{case['name']}\n"
-            f"K={case['capital']}, "
-            f"L={case['labor']}, "
-            f"σ={case['sigma']}, "
-            f"A={case['productivity']}"
+            f"{name}\n"
+            f"K={capital}, L={labor}, "
+            f"σ={sigma}, A={productivity}"
         )
-        axis.grid(True)
+
+        axis.set_xlabel("Automation share (φ)")
+        axis.set_ylabel("Value")
+        axis.set_xlim(0.0, 1.0)
+        axis.grid(True, alpha=0.3)
         axis.legend()
 
     figure.tight_layout()
 
-    path = Path(output_path)
-    path.parent.mkdir(parents=True, exist_ok=True)
+    saved_path = Path(output_path)
+    saved_path.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
 
-    figure.savefig(path, dpi=150)
-    print(f"Plot saved to {path}")
+    figure.savefig(
+        saved_path,
+        dpi=150,
+        bbox_inches="tight",
+    )
 
-    plt.show()
+    plt.close(figure)
+
+    return saved_path
 
 
 def main() -> None:
