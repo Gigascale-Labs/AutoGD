@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+notebooks/.virtual_documents/
+
+reference_model/.vscode/
+reference_model/outputs/
