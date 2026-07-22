@@ -1,0 +1,3 @@
+[submodule "replicatoragent"]
+	path = replicatoragent
+	url = https://github.com/CenterForOpenScience/llm-benchmarking.git
