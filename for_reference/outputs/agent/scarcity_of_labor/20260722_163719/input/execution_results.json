@@ -1,0 +1,49 @@
+{
+  "execution_summary": "The replication environment was successfully generated and built in Docker using Python 3.10 with numpy and matplotlib. The planned Python entrypoint, scarcity_of_labor_model.py, was executed after human approval and completed without errors (exit code 0). The run produced left and right result outputs in both CSV and JSON formats, indicating the analysis completed successfully and aligned with the Python-based replication workflow.",
+  "code_executed": [
+    {
+      "command": "python scarcity_of_labor_model.py",
+      "status": "Success",
+      "logs": "Execution completed cleanly with exit_code 0. Stdout reported generated artifacts: /workspace/artifacts/left_results.csv, /workspace/artifacts/left_results.json, /workspace/artifacts/right_results.csv, and /workspace/artifacts/right_results.json. No stderr output.",
+      "environment": "Python 3.10 in Docker; numpy and matplotlib installed."
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The focal replication tested the study's Python analysis pipeline for the scarcity of labor model, producing left and right side results as specified by the entrypoint.",
+    "findings_summary": [
+      {
+        "outcome_name": "Left results output",
+        "value": "Generated",
+        "standard_error": "N/A",
+        "confidence_interval": "N/A",
+        "p_value": "N/A",
+        "statistical_significance": "N/A",
+        "direction": "N/A",
+        "effect_size": "N/A"
+      },
+      {
+        "outcome_name": "Right results output",
+        "value": "Generated",
+        "standard_error": "N/A",
+        "confidence_interval": "N/A",
+        "p_value": "N/A",
+        "statistical_significance": "N/A",
+        "direction": "N/A",
+        "effect_size": "N/A"
+      }
+    ],
+    "tables": [
+      {
+        "table_id": "left_results.csv",
+        "table_description": "Tabular output for the left-side analysis results.",
+        "table_file": "/workspace/artifacts/left_results.csv"
+      },
+      {
+        "table_id": "right_results.csv",
+        "table_description": "Tabular output for the right-side analysis results.",
+        "table_file": "/workspace/artifacts/right_results.csv"
+      }
+    ],
+    "figures": []
+  }
+}

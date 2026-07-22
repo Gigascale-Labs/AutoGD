@@ -1,0 +1,59 @@
+{
+  "execution_summary": "The replication study was already successfully executed in Python using the provided theoretical model entrypoint, with no need to modify the code or dependencies. The Docker environment was generated from replication metadata and the existing run completed with exit code 0. The outputs consist of left and right result artifacts covering the model\u2019s parameter grid over phi, reproducing the expected region transition behavior in the scarcity-of-labor model. No major deviations or runtime errors were observed in the successful execution logs.",
+  "code_executed": [
+    {
+      "command": "python scarcity_of_labor_model.py",
+      "status": "Success",
+      "logs": "Execution completed with exit code 0. The script produced left_results.csv/json and right_results.csv/json in /workspace/artifacts. Logs indicate simulation outputs over phi values with region-specific results and no exceptions.",
+      "environment": "Python 3.10 with numpy and matplotlib"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The static scarcity-of-labor model can accurately predict output, wages, and returns under specified labor-scarcity and automation conditions.",
+    "findings_summary": [
+      {
+        "outcome_name": "Region transition threshold behavior",
+        "value": "Transition occurs around phi = 0.5",
+        "standard_error": "N/A",
+        "confidence_interval": "N/A",
+        "p_value": "N/A",
+        "statistical_significance": "N/A",
+        "direction": "Region 1 to Region 2 shift",
+        "effect_size": "Identity gap falls to 0 at the threshold"
+      },
+      {
+        "outcome_name": "Identity gap in Region 1",
+        "value": "Positive and increasing as phi rises below threshold",
+        "standard_error": "N/A",
+        "confidence_interval": "N/A",
+        "p_value": "N/A",
+        "statistical_significance": "N/A",
+        "direction": "positive",
+        "effect_size": "N/A"
+      },
+      {
+        "outcome_name": "Identity gap in Region 2",
+        "value": "0 across phi values above threshold",
+        "standard_error": "N/A",
+        "confidence_interval": "N/A",
+        "p_value": "N/A",
+        "statistical_significance": "N/A",
+        "direction": "null",
+        "effect_size": "N/A"
+      }
+    ],
+    "tables": [
+      {
+        "table_id": "left_results",
+        "table_description": "Model outputs for the left-side region across the phi grid.",
+        "table_file": "/home/stephen/sysrisk/execution/our_models/scarcity_of_labor/input/artifacts/left_results.csv"
+      },
+      {
+        "table_id": "right_results",
+        "table_description": "Model outputs for the right-side region across the phi grid.",
+        "table_file": "/home/stephen/sysrisk/execution/our_models/scarcity_of_labor/input/artifacts/right_results.csv"
+      }
+    ],
+    "figures": []
+  }
+}

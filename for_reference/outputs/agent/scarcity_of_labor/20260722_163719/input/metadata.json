@@ -54,66 +54,66 @@
   },
   "generate-execute": {
     "status": "Success",
-    "total_time_seconds": 48.44,
-    "total_tokens": 50777,
-    "prompt_tokens": 49462,
-    "completion_tokens": 1315,
-    "total_turns": 10,
+    "total_time_seconds": 43.06,
+    "total_tokens": 35787,
+    "prompt_tokens": 34769,
+    "completion_tokens": 1018,
+    "total_turns": 8,
     "checkpoint_stats": {
       "1. Generate Dockerfile": {
-        "time": 5.275620937347412,
-        "tokens": 12355,
-        "prompt_tokens": 12068,
-        "completion_tokens": 287,
-        "turns": 3
+        "time": 2.6254405975341797,
+        "tokens": 3860,
+        "prompt_tokens": 3782,
+        "completion_tokens": 78,
+        "turns": 1
       },
       "2. Build Image": {
-        "time": 4.345638275146484,
-        "tokens": 5067,
-        "prompt_tokens": 4984,
-        "completion_tokens": 83,
+        "time": 1.951697826385498,
+        "tokens": 4138,
+        "prompt_tokens": 4059,
+        "completion_tokens": 79,
         "turns": 1
       },
       "3. Start Container": {
-        "time": 3.4899258613586426,
-        "tokens": 5170,
-        "prompt_tokens": 5098,
-        "completion_tokens": 72,
+        "time": 1.8910789489746094,
+        "tokens": 4235,
+        "prompt_tokens": 4167,
+        "completion_tokens": 68,
         "turns": 1
       },
       "4. Plan & Preview": {
-        "time": 1.0797672271728516,
-        "tokens": 5236,
-        "prompt_tokens": 5198,
-        "completion_tokens": 38,
+        "time": 1.7702805995941162,
+        "tokens": 4337,
+        "prompt_tokens": 4263,
+        "completion_tokens": 74,
         "turns": 1
       },
       "5. Human Approval": {
-        "time": 1.269873857498169,
-        "tokens": 5386,
-        "prompt_tokens": 5315,
-        "completion_tokens": 71,
+        "time": 2.2956223487854004,
+        "tokens": 4480,
+        "prompt_tokens": 4416,
+        "completion_tokens": 64,
         "turns": 1
       },
       "6. Execute Code": {
-        "time": 26.676329135894775,
-        "tokens": 5469,
-        "prompt_tokens": 5400,
+        "time": 2.1749823093414307,
+        "tokens": 4563,
+        "prompt_tokens": 4494,
         "completion_tokens": 69,
         "turns": 1
       },
       "7. Stop Container": {
-        "time": 2.1119368076324463,
-        "tokens": 5728,
-        "prompt_tokens": 5652,
-        "completion_tokens": 76,
+        "time": 1.6562013626098633,
+        "tokens": 4823,
+        "prompt_tokens": 4746,
+        "completion_tokens": 77,
         "turns": 1
       },
       "8. Final Output & Parsing": {
-        "time": 4.190231800079346,
-        "tokens": 6366,
-        "prompt_tokens": 5747,
-        "completion_tokens": 619,
+        "time": 28.690374851226807,
+        "tokens": 5351,
+        "prompt_tokens": 4842,
+        "completion_tokens": 509,
         "turns": 1
       }
     },
@@ -122,82 +122,64 @@
         "turn": 1,
         "action": "orchestrator_generate_dockerfile",
         "checkpoint": "1. Generate Dockerfile",
-        "duration_seconds": 1.8,
+        "duration_seconds": 2.63,
         "prompt_tokens": 3782,
         "completion_tokens": 78,
         "total_tokens": 3860
       },
       {
         "turn": 2,
-        "action": "list_files_in_folder",
-        "checkpoint": "1. Generate Dockerfile",
-        "duration_seconds": 1.59,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 1.95,
         "prompt_tokens": 4059,
-        "completion_tokens": 73,
-        "total_tokens": 4132
+        "completion_tokens": 79,
+        "total_tokens": 4138
       },
       {
         "turn": 3,
-        "action": "read_json",
-        "checkpoint": "1. Generate Dockerfile",
+        "action": "orchestrator_run_container",
+        "checkpoint": "3. Start Container",
         "duration_seconds": 1.89,
-        "prompt_tokens": 4227,
-        "completion_tokens": 136,
-        "total_tokens": 4363
+        "prompt_tokens": 4167,
+        "completion_tokens": 68,
+        "total_tokens": 4235
       },
       {
         "turn": 4,
-        "action": "orchestrator_build_image",
-        "checkpoint": "2. Build Image",
-        "duration_seconds": 4.35,
-        "prompt_tokens": 4984,
-        "completion_tokens": 83,
-        "total_tokens": 5067
+        "action": "orchestrator_plan",
+        "checkpoint": "4. Plan & Preview",
+        "duration_seconds": 1.77,
+        "prompt_tokens": 4263,
+        "completion_tokens": 74,
+        "total_tokens": 4337
       },
       {
         "turn": 5,
-        "action": "orchestrator_run_container",
-        "checkpoint": "3. Start Container",
-        "duration_seconds": 3.49,
-        "prompt_tokens": 5098,
-        "completion_tokens": 72,
-        "total_tokens": 5170
+        "action": "ask_human_input",
+        "checkpoint": "5. Human Approval",
+        "duration_seconds": 2.3,
+        "prompt_tokens": 4416,
+        "completion_tokens": 64,
+        "total_tokens": 4480
       },
       {
         "turn": 6,
-        "action": "orchestrator_plan",
-        "checkpoint": "4. Plan & Preview",
-        "duration_seconds": 1.08,
-        "prompt_tokens": 5198,
-        "completion_tokens": 38,
-        "total_tokens": 5236
+        "action": "orchestrator_execute_entry",
+        "checkpoint": "6. Execute Code",
+        "duration_seconds": 2.17,
+        "prompt_tokens": 4494,
+        "completion_tokens": 69,
+        "total_tokens": 4563
       },
       {
         "turn": 7,
-        "action": "ask_human_input",
-        "checkpoint": "5. Human Approval",
-        "duration_seconds": 1.27,
-        "prompt_tokens": 5315,
-        "completion_tokens": 71,
-        "total_tokens": 5386
-      },
-      {
-        "turn": 8,
-        "action": "orchestrator_execute_entry",
-        "checkpoint": "6. Execute Code",
-        "duration_seconds": 26.68,
-        "prompt_tokens": 5400,
-        "completion_tokens": 69,
-        "total_tokens": 5469
-      },
-      {
-        "turn": 9,
         "action": "orchestrator_stop_container",
         "checkpoint": "7. Stop Container",
-        "duration_seconds": 2.11,
-        "prompt_tokens": 5652,
-        "completion_tokens": 76,
-        "total_tokens": 5728
+        "duration_seconds": 1.66,
+        "prompt_tokens": 4746,
+        "completion_tokens": 77,
+        "total_tokens": 4823
       }
     ]
   }
