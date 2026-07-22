@@ -50,8 +50,8 @@ fi
 STUDY_ROOT="$(dirname "$STUDY_PATH")"
 TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
 SNAPSHOT_DIR="$STUDY_ROOT/runs/$TIMESTAMP"
-mkdir -p "$SNAPSHOT_DIR"
-cp -r "$STUDY_PATH" "$SNAPSHOT_DIR/input"
+mkdir -p "$SNAPSHOT_DIR/input"
+rsync -a --exclude='*.pdf' "$STUDY_PATH/" "$SNAPSHOT_DIR/input/"
 echo "==> snapshot saved to $SNAPSHOT_DIR/input"
 
 exit $STATUS
