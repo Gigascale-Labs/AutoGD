@@ -25,6 +25,17 @@ if [[ ! -f "$PROJECT_DIR/Makefile" ]]; then
   exit 1
 fi
 
+if ! command -v git-lfs >/dev/null 2>&1; then
+  echo "ERROR: git-lfs not installed; study datasets will be LFS pointer stubs"
+  exit 1
+fi
+
+SAMPLE_CSV="$PROJECT_DIR/data/original/1/input/replication_data/county_variables.csv"
+if head -c 7 "$SAMPLE_CSV" 2>/dev/null | grep -q "version"; then
+  echo "ERROR: study data not pulled from Git LFS; run: git -C $REPO_ROOT lfs pull"
+  exit 1
+fi
+
 if [[ -n "$(git -C "$REPO_ROOT" status --porcelain)" ]]; then
   echo "WARNING: ReplicatorBench working tree has local changes"
 else
