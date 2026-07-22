@@ -35,4 +35,4 @@ echo "ReplicatorBench path: $PROJECT_DIR"
 echo "Pinned commit verified: $ACTUAL_COMMIT"
 docker info >/dev/null
 echo "Docker: OK"
-python --version
+uv run python --version
