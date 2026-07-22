@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Run a ReplicatorBench make target against a study, then snapshot the study
-# directory's outputs into <study_root>/runs/<timestamp>/ so the next run's
-# overwrite (replication_info.json, execution_results.json, artifacts/, etc.
-# are all written in-place by the pipeline) doesn't destroy prior results.
+# directory's outputs into outputs/agent/<study_name>/<timestamp>/ (matching
+# the outputs/reference/ convention used by reference_model/plots.py) so the
+# next run's in-place overwrite (replication_info.json, execution_results.json,
+# artifacts/, etc.) doesn't destroy prior results.
 #
 # Usage: scripts/run_study.sh <make-target> STUDY=<path> [MODEL=...] [ARGS...]
 # Example: scripts/run_study.sh execute-easy STUDY=$(pwd)/our_models/scarcity_of_labor/input MODEL=gpt-5.4-mini
@@ -48,8 +49,9 @@ if [[ $STATUS -ne 0 ]]; then
 fi
 
 STUDY_ROOT="$(dirname "$STUDY_PATH")"
+STUDY_NAME="$(basename "$STUDY_ROOT")"
 TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
-SNAPSHOT_DIR="$STUDY_ROOT/runs/$TIMESTAMP"
+SNAPSHOT_DIR="$REPO_ROOT/outputs/agent/$STUDY_NAME/$TIMESTAMP"
 mkdir -p "$SNAPSHOT_DIR/input"
 rsync -a --exclude='*.pdf' "$STUDY_PATH/" "$SNAPSHOT_DIR/input/"
 echo "==> snapshot saved to $SNAPSHOT_DIR/input"
