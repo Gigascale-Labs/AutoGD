@@ -33,7 +33,7 @@
     },
     "codebase": {
       "files": {
-        "scarcity_of_labor_model.py": "Implements the static 'scarcity of labor' model equations and computes economic metrics."
+        "scarcity_of_labor_model.py": "Python entrypoint implementing the static 'scarcity of labor' model equations and computing economic metrics."
       },
       "notes": "The code is designed to replicate the theoretical model using Python."
     },

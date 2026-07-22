@@ -1,0 +1,60 @@
+{
+  "execution_summary": "The static scarcity-of-labor model from Korinek and Suh was implemented in Python and executed successfully inside the Docker container. I generated the runtime environment, created a Python entrypoint for the model, fixed a malformed JSON configuration edit, removed an unavailable plotting dependency from the script, and reran the analysis until it completed without errors. The final run produced CSV and JSON outputs for both Figure 6 parameter cases (left and right) and preserved the required theoretical structure: threshold computation, Region 1/Region 2 logic, wage bill and capital income calculations, and numerical identity checks. No empirical data were used, consistent with the preregistration.",
+  "code_executed": [
+    {
+      "command": "python scarcity_of_labor_model.py",
+      "status": "Success",
+      "logs": "Initial attempts failed due to a missing entrypoint and then a missing matplotlib dependency. After rewriting the script to avoid matplotlib and fixing a syntax error introduced during editing, the script completed successfully with exit code 0 and wrote outputs to /workspace/artifacts/left_results.csv, /workspace/artifacts/left_results.json, /workspace/artifacts/right_results.csv, and /workspace/artifacts/right_results.json.",
+      "environment": "Python 3.10 runtime in Docker; final script used standard library plus NumPy."
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "For fixed K, L, sigma, and A, the model should switch between Region 1 and Region 2 based on the automation threshold, producing output Y, wage bill wL, and capital income RK consistent with the scarcity-of-labor equations in Section 2.3 and Figure 6.",
+    "findings_summary": [
+      {
+        "outcome_name": "Left case outputs",
+        "value": "Computed and saved for K=1, L=1, sigma=0.5, A=1 across Phi in [0,1]",
+        "standard_error": "N/A",
+        "confidence_interval": "N/A",
+        "p_value": "N/A",
+        "statistical_significance": "N/A",
+        "direction": "N/A",
+        "effect_size": "N/A"
+      },
+      {
+        "outcome_name": "Right case outputs",
+        "value": "Computed and saved for K=10, L=1, sigma=0.2, A=1 across Phi in [0,1]",
+        "standard_error": "N/A",
+        "confidence_interval": "N/A",
+        "p_value": "N/A",
+        "statistical_significance": "N/A",
+        "direction": "N/A",
+        "effect_size": "N/A"
+      }
+    ],
+    "tables": [
+      {
+        "table_id": "Figure 6 left case",
+        "table_description": "CSV and JSON outputs for the left parameterization were generated.",
+        "table_file": "/workspace/artifacts/left_results.csv"
+      },
+      {
+        "table_id": "Figure 6 right case",
+        "table_description": "CSV and JSON outputs for the right parameterization were generated.",
+        "table_file": "/workspace/artifacts/right_results.csv"
+      }
+    ],
+    "figures": [
+      {
+        "figure_id": "Figure 6 left case",
+        "figure_description": "Plotting was removed due to missing matplotlib in the runtime; numerical outputs were still generated.",
+        "figure_file": "N/A"
+      },
+      {
+        "figure_id": "Figure 6 right case",
+        "figure_description": "Plotting was removed due to missing matplotlib in the runtime; numerical outputs were still generated.",
+        "figure_file": "N/A"
+      }
+    ]
+  }
+}
