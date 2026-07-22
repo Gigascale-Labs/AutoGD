@@ -42,11 +42,20 @@ STUDY_PATH="$(cd "$STUDY_PATH" && pwd)"
 # Auto-approve ReplicatorBench's human-confirmation prompts (core/tools.py,
 # generator/execute_tools.py) so headless runs never block on stdin. This is a
 # root-level shim (execution/scripts/autoapprove/sitecustomize.py), not a submodule edit.
-export PYTHONPATH="$SCRIPT_DIR/autoapprove${PYTHONPATH:+:$PYTHONPATH}"
+#
+# Passed as a `make` command-line variable (not just exported) because
+# replicatorbench/Makefile does `export PYTHONPATH := .` unconditionally at its
+# top; a plain shell-exported PYTHONPATH gets clobbered by that before the
+# generator subprocess ever sees it. A command-line variable assignment beats
+# a makefile `:=` assignment (short of an `override` directive, which this
+# Makefile doesn't use), so this survives. The trailing `:.` preserves the
+# Makefile's own "." entry, which the generator needs to import its local
+# packages.
+AUTOAPPROVE_PYTHONPATH="$SCRIPT_DIR/autoapprove:."
 
 echo "==> make $TARGET STUDY=$STUDY_PATH ${EXTRA_ARGS[*]}"
 set +e
-( cd "$PROJECT_DIR" && uv run --project "$REPO_ROOT" make "$TARGET" "STUDY=$STUDY_PATH" "${EXTRA_ARGS[@]}" )
+( cd "$PROJECT_DIR" && uv run --project "$REPO_ROOT" make "$TARGET" "STUDY=$STUDY_PATH" "PYTHONPATH=$AUTOAPPROVE_PYTHONPATH" "${EXTRA_ARGS[@]}" )
 STATUS=$?
 set -e
 
