@@ -218,5 +218,4 @@ __marimo__/
 .streamlit/secrets.toml
 notebooks/.virtual_documents/
 
-reference_model/.vscode/
-reference_model/outputs/
+for_reference/reference_model/.vscode/
