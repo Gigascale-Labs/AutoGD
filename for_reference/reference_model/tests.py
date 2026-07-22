@@ -1,6 +1,9 @@
 import math
+import sys
+from pathlib import Path
 
-import reference.reference_model.model as model
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import model
 
 
 REL_TOL = 1e-6

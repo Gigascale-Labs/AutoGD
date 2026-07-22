@@ -1,8 +1,13 @@
+import sys
 import matplotlib.pyplot as plt
 import numpy as np
-import reference.reference_model.model as model
 from pathlib import Path
-import reference.reference_model.parser as parser
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import model
+import parser
+
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
 def compute_series(
     capital: float,
@@ -185,12 +190,12 @@ def plot_cases(
 
 def main() -> None:
     cases = parser.load_parameter_cases(
-        "configs/reference_parameters.json"
+        REPO_ROOT / "configs" / "reference_parameters.json"
     )
 
     plot_cases(
         cases=cases,
-        output_path="outputs/reference/reference_plot.png",
+        output_path=REPO_ROOT / "for_reference" / "outputs" / "reference" / "reference_plot.png",
     )
 
 
