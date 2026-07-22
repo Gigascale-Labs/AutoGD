@@ -7,6 +7,7 @@ Jupyter notebook testing whether ReplicatorAgent can reproduce a social-science 
 - Python 3.10+
 - [uv](https://docs.astral.sh/uv/)
 - Git
+- [git-lfs](https://git-lfs.com/)
 - Docker (running)
 - OpenAI API key
 
@@ -15,12 +16,13 @@ Jupyter notebook testing whether ReplicatorAgent can reproduce a social-science 
 ```bash
 git clone https://github.com/Gigascale-Labs/sysrisk.git && cd sysrisk
 git submodule update --init --recursive
+git -C replicatoragent lfs install --local && git -C replicatoragent lfs pull
 uv sync
 uv pip install -r replicatoragent/replicatorbench/requirements-dev.txt
 cp TEMPLATE_ENV .env   # then set OPENAI_API_KEY
 ```
 
-`replicatoragent/` is the ReplicatorBench submodule, pinned to the commit in `configs/replicatorbench_version.txt`. `uv sync` creates `.venv` and installs this repo's deps from `pyproject.toml`/`uv.lock`; the second `uv pip install` adds ReplicatorBench's own deps (pytest, openai, pandas, docker, …) into the same environment.
+`replicatoragent/` is the ReplicatorBench submodule, pinned to the commit in `configs/replicatorbench_version.txt`. Its study datasets (`*.csv`, `*.dta`) are stored in Git LFS; without `git-lfs` installed, checkout leaves pointer-text stubs instead of real data, and `git lfs pull` is required to materialize them. `uv sync` creates `.venv` and installs this repo's deps from `pyproject.toml`/`uv.lock`; the second `uv pip install` adds ReplicatorBench's own deps (pytest, openai, pandas, docker, …) into the same environment.
 
 ## Run
 
