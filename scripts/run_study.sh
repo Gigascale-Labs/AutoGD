@@ -39,6 +39,11 @@ fi
 
 STUDY_PATH="$(cd "$STUDY_PATH" && pwd)"
 
+# Auto-approve ReplicatorBench's human-confirmation prompts (core/tools.py,
+# generator/execute_tools.py) so headless runs never block on stdin. This is a
+# root-level shim (scripts/autoapprove/sitecustomize.py), not a submodule edit.
+export PYTHONPATH="$SCRIPT_DIR/autoapprove${PYTHONPATH:+:$PYTHONPATH}"
+
 echo "==> make $TARGET STUDY=$STUDY_PATH ${EXTRA_ARGS[*]}"
 set +e
 ( cd "$PROJECT_DIR" && uv run --project "$REPO_ROOT" make "$TARGET" "STUDY=$STUDY_PATH" "${EXTRA_ARGS[@]}" )
