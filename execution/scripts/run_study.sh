@@ -6,12 +6,12 @@
 # (replication_info.json, execution_results.json, artifacts/, etc.) doesn't
 # destroy prior results.
 #
-# Usage: scripts/run_study.sh <make-target> STUDY=<path> [MODEL=...] [ARGS...]
-# Example: scripts/run_study.sh execute-easy STUDY=$(pwd)/our_models/scarcity_of_labor/input MODEL=gpt-5.4-mini
+# Usage: execution/scripts/run_study.sh <make-target> STUDY=<path> [MODEL=...] [ARGS...]
+# Example: execution/scripts/run_study.sh execute-easy STUDY=$(pwd)/execution/our_models/scarcity_of_labor/input MODEL=gpt-5.4-mini
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 PROJECT_DIR="$REPO_ROOT/replicatoragent/replicatorbench"
 
 if [[ $# -lt 1 ]]; then
@@ -41,7 +41,7 @@ STUDY_PATH="$(cd "$STUDY_PATH" && pwd)"
 
 # Auto-approve ReplicatorBench's human-confirmation prompts (core/tools.py,
 # generator/execute_tools.py) so headless runs never block on stdin. This is a
-# root-level shim (scripts/autoapprove/sitecustomize.py), not a submodule edit.
+# root-level shim (execution/scripts/autoapprove/sitecustomize.py), not a submodule edit.
 export PYTHONPATH="$SCRIPT_DIR/autoapprove${PYTHONPATH:+:$PYTHONPATH}"
 
 echo "==> make $TARGET STUDY=$STUDY_PATH ${EXTRA_ARGS[*]}"

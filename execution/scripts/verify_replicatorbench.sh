@@ -3,7 +3,7 @@ set -euo pipefail
 
 EXPECTED_COMMIT="fb6a804fd710764f3ad3c8b84e1323c2804c4776"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="${REPLICATORBENCH_REPO:-$SCRIPT_DIR/../replicatoragent}"
+REPO_ROOT="${REPLICATORBENCH_REPO:-$SCRIPT_DIR/../../replicatoragent}"
 PROJECT_DIR="$REPO_ROOT/replicatorbench"
 
 if [[ ! -e "$REPO_ROOT/.git" ]]; then

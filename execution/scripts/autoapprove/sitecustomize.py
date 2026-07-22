@@ -1,6 +1,6 @@
 """
 Auto-imported by Python at interpreter startup whenever this directory is on
-PYTHONPATH (see scripts/run_study.sh). Monkey-patches the `input` builtin so
+PYTHONPATH (see execution/scripts/run_study.sh). Monkey-patches the `input` builtin so
 ReplicatorBench's human-approval prompts (core/tools.py, generator/execute_tools.py)
 never block waiting on stdin during headless/non-interactive runs.
 
