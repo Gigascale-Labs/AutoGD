@@ -13,42 +13,36 @@ Jupyter notebook testing whether ReplicatorAgent can reproduce a social-science 
 
 ## Setup
 
-```bash
-git clone https://github.com/Gigascale-Labs/sysrisk.git && cd sysrisk
-git submodule update --init --recursive
-git -C replicatoragent lfs install --local && git -C replicatoragent lfs pull
-uv sync
-uv pip install -r replicatoragent/replicatorbench/requirements-dev.txt
-cp TEMPLATE_ENV .env   # then set OPENAI_API_KEY
-```
+1. `git clone https://github.com/Gigascale-Labs/sysrisk.git && cd sysrisk`
+2. `git submodule update --init --recursive`
+3. `git -C replicatoragent lfs install --local && git -C replicatoragent lfs pull`
+4. `uv sync`
+5. `uv pip install -r replicatoragent/replicatorbench/requirements-dev.txt`
+6. `cp TEMPLATE_ENV .env` then set `OPENAI_API_KEY`
 
 `replicatoragent/` is the ReplicatorBench submodule, pinned to the commit in `configs/replicatorbench_version.txt`. Its study datasets (`*.csv`, `*.dta`) are stored in Git LFS; without `git-lfs` installed, checkout leaves pointer-text stubs instead of real data, and `git lfs pull` is required to materialize them. `uv sync` creates `.venv` and installs this repo's deps from `pyproject.toml`/`uv.lock`; the second `uv pip install` adds ReplicatorBench's own deps (pytest, openai, pandas, docker, …) into the same environment.
 
 ## Run
 
-```bash
-docker info                              # confirm daemon is up
-./execution/scripts/verify_replicatorbench.sh      # checks submodule commit, deps, Docker
-uv run jupyter lab execution/notebooks/day1_environment_setup.ipynb
-```
+1. `docker info` — confirm daemon is up
+2. `./execution/scripts/verify_replicatorbench.sh` — checks submodule commit, deps, Docker
+3. `uv run jupyter lab execution/notebooks/` — launches JupyterLab on the `uv`-managed `.venv`; open `day1_environment_setup.ipynb` or `day4_scarcity_of_labor_validation.ipynb`
+4. Select the `.venv` kernel, then Kernel → Restart Kernel and Run All Cells, top to bottom, no skipped cells
 
-Select the `.venv` kernel. Kernel → Restart Kernel and Run All Cells, top to bottom, no skipped cells. The notebook drives ReplicatorBench (`make extract-stage1`, `make pipeline-easy`) against the pinned commit; `for_reference/reference_model/{model.py,parser.py,plots.py}` implements the reference equations independently, with `tests.py` asserting correctness. Its own setup cell sets `PYTHONPATH` so the auto-approve shim (below) applies to every `make` call it makes.
+The notebook drives ReplicatorBench (`make extract-stage1`, `make pipeline-easy`) against the pinned commit; `for_reference/reference_model/{model.py,parser.py,plots.py}` implements the reference equations independently, with `tests.py` asserting correctness. Its own setup cell sets `PYTHONPATH` so the auto-approve shim (below) applies to every `make` call it makes.
 
 ## Adding a new benchmark study (submodule-native)
 
 No scaffolding tool exists; create the folder by hand, locally (not upstreamed — submodule stays pinned to `configs/replicatorbench_version.txt`; `verify_replicatorbench.sh` only warns on local changes).
 
-Create `replicatoragent/replicatorbench/data/original/<N>/` (next free integer ID) containing:
-- `original_paper.pdf` — source paper
-- `initial_details.txt` — orienting notes/hints
-- `replication_data/` — datasets/scripts (`.csv`, `.dta`, `.R`, `.do`, …)
-- `human_preregistration.(pdf|docx)`, `human_report.(pdf|docx)` — human reference docs
-- `expected_post_registration.json` — ground truth (schema: `replicatorbench/templates/`)
-
-```bash
-cd replicatoragent/replicatorbench
-make pipeline-easy STUDY=./data/original/<N> MODEL=gpt-5.4-mini
-```
+1. Create `replicatoragent/replicatorbench/data/original/<N>/` (next free integer ID) containing:
+   - `original_paper.pdf` — source paper
+   - `initial_details.txt` — orienting notes/hints
+   - `replication_data/` — datasets/scripts (`.csv`, `.dta`, `.R`, `.do`, …)
+   - `human_preregistration.(pdf|docx)`, `human_report.(pdf|docx)` — human reference docs
+   - `expected_post_registration.json` — ground truth (schema: `replicatorbench/templates/`)
+2. `cd replicatoragent/replicatorbench`
+3. `make pipeline-easy STUDY=./data/original/<N> MODEL=gpt-5.4-mini`
 
 Runs Extract → Design → Execute → Interpret against the study folder. Individual stages (`extract-stage1`, `design-easy`, `execute-easy`, `interpret-easy`) and evaluators (`evaluate-extract`, `evaluate-design`, `evaluate-execute`, `evaluate-summary`) take the same `STUDY=` arg. Prefer `execution/scripts/run_study.sh` (below) over calling `make` directly — it adds auto-approval and result snapshots.
 
@@ -56,10 +50,8 @@ Runs Extract → Design → Execute → Interpret against the study folder. Indi
 
 For papers outside the submodule's benchmark set, `execution/our_models/<name>/input/` holds the study: `original_paper.pdf`, `initial_details.txt`, and `replication_data/` if there's a dataset (omit for a purely theoretical model). `replication_info.json` is normally generated by `make design-easy`; hand-author it to skip straight to `execute-easy`. No copying into `replicatoragent/` is required — ReplicatorBench resolves `STUDY=` to an absolute path dynamically, so any location works.
 
-```bash
-./execution/scripts/run_study.sh execute-easy STUDY=execution/our_models/scarcity_of_labor/input MODEL=gpt-5.4-mini
-./execution/scripts/run_study.sh interpret-easy STUDY=execution/our_models/scarcity_of_labor/input MODEL=gpt-5.4-mini
-```
+1. `./execution/scripts/run_study.sh execute-easy STUDY=execution/our_models/scarcity_of_labor/input MODEL=gpt-5.4-mini`
+2. `./execution/scripts/run_study.sh interpret-easy STUDY=execution/our_models/scarcity_of_labor/input MODEL=gpt-5.4-mini`
 
 `execution/scripts/run_study.sh <target> STUDY=<path> [MODEL=... ...]` wraps `make <target>` and:
 - **Auto-approves** ReplicatorBench's human-confirmation prompts via `execution/scripts/autoapprove/sitecustomize.py`, loaded through `PYTHONPATH`. It monkey-patches `input()` to return `"yes"`. Without it, `core/tools.py`/`generator/execute_tools.py` block on stdin and crash (`EOFError`) in any non-interactive run.
