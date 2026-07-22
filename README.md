@@ -42,10 +42,11 @@ python -m pip install --upgrade pip
 pip install -r requirements-poc.txt
 ```
 
-ReplicatorBench is tracked as a git submodule at `replicatoragent/`, pinned to the commit in `configs/replicatorbench_version.txt`. Initialize it after cloning:
+ReplicatorBench is tracked as a git submodule at `replicatoragent/`, pinned to the commit in `configs/replicatorbench_version.txt`. Initialize it after cloning, then install its own dependencies as well:
 
 ```bash
 git submodule update --init --recursive
+pip install -r replicatoragent/replicatorbench/requirements-dev.txt
 ```
 
 ## API key
@@ -94,8 +95,9 @@ git clone https://github.com/Gigascale-Labs/sysrisk.git && cd sysrisk
 git submodule update --init --recursive
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements-poc.txt
+pip install -r replicatoragent/replicatorbench/requirements-dev.txt
 echo "OPENAI_API_KEY=<key>" > .env
-REPLICATORBENCH_REPO="$(pwd)/replicatoragent" ./scripts/verify_replicatorbench.sh
+./scripts/verify_replicatorbench.sh
 docker info
 jupyter lab notebooks/day1_environment_setup.ipynb
 ```

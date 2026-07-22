@@ -1,1 +1,5 @@
 markdownify
+jupyterlab
+nbconvert
+numpy
+matplotlib
