@@ -57,6 +57,9 @@ fi
 STUDY_ROOT="$(dirname "$STUDY_PATH")"
 STUDY_NAME="$(basename "$STUDY_ROOT")"
 TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
+if [[ $STATUS -ne 0 ]]; then
+  TIMESTAMP="${TIMESTAMP}_FAILED"
+fi
 SNAPSHOT_DIR="$REPO_ROOT/for_reference/outputs/agent/$STUDY_NAME/$TIMESTAMP"
 mkdir -p "$SNAPSHOT_DIR/input"
 rsync -a --exclude='*.pdf' "$STUDY_PATH/" "$SNAPSHOT_DIR/input/"
