@@ -42,22 +42,10 @@ python -m pip install --upgrade pip
 pip install -r requirements-poc.txt
 ```
 
-Clone the required ReplicatorBench repository beside this repository and use the pinned commit:
+ReplicatorBench is tracked as a git submodule at `replicatoragent/`, pinned to the commit in `configs/replicatorbench_version.txt`. Initialize it after cloning:
 
 ```bash
-cd ..
-git clone https://github.com/CenterForOpenScience/llm-benchmarking.git
-cd llm-benchmarking
-git checkout fb6a804fd710764f3ad3c8b84e1323c2804c4776
-cd ../<REPOSITORY_DIRECTORY>
-```
-
-The folders should be arranged as follows:
-
-```text
-parent-directory/
-├── llm-benchmarking/
-└── <REPOSITORY_DIRECTORY>/
+git submodule update --init --recursive
 ```
 
 ## API key
@@ -91,9 +79,28 @@ Select the `.venv` Python kernel when prompted. In Jupyter, use **Kernel → Res
 ```text
 configs/                  Configuration and parameter files
 notebooks/                Jupyter notebook
+reference_model/          Reference model implementation, parser, plots, tests
+replicatoragent/          ReplicatorBench submodule (pinned commit)
 scripts/                  Helper scripts
 requirements-poc.txt      Python dependencies
 ```
+
+## Reference model reproduction (procedure)
+
+Preconditions: Python ≥3.9, Docker daemon active, `OPENAI_API_KEY` valid.
+
+```bash
+git clone https://github.com/Gigascale-Labs/sysrisk.git && cd sysrisk
+git submodule update --init --recursive
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements-poc.txt
+echo "OPENAI_API_KEY=<key>" > .env
+REPLICATORBENCH_REPO="$(pwd)/replicatoragent" ./scripts/verify_replicatorbench.sh
+docker info
+jupyter lab notebooks/day1_environment_setup.ipynb
+```
+
+Kernel: `.venv`. Execution mode: Kernel → Restart Kernel and Run All Cells, sequential, no cell skipped. Notebook exercises `reference_model/{model.py,parser.py,plots.py}` against the submodule at pinned commit `fb6a804fd710764f3ad3c8b84e1323c2804c4776`; `reference_model/tests.py` provides correctness assertions independent of notebook execution. Verification script asserts: submodule presence, commit equality, `Makefile` existence under `replicatoragent/replicatorbench`, working-tree cleanliness, Docker reachability.
 
 ## Common issues
 

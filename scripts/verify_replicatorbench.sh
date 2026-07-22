@@ -2,10 +2,11 @@
 set -euo pipefail
 
 EXPECTED_COMMIT="fb6a804fd710764f3ad3c8b84e1323c2804c4776"
-REPO_ROOT="${REPLICATORBENCH_REPO:-$HOME/llm-benchmarking}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="${REPLICATORBENCH_REPO:-$SCRIPT_DIR/../replicatoragent}"
 PROJECT_DIR="$REPO_ROOT/replicatorbench"
 
-if [[ ! -d "$REPO_ROOT/.git" ]]; then
+if [[ ! -e "$REPO_ROOT/.git" ]]; then
   echo "ERROR: ReplicatorBench repository not found at $REPO_ROOT"
   exit 1
 fi
