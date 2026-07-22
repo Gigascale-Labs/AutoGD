@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import model
+import reference.reference_model.model as model
 from pathlib import Path
-import parser
+import reference.reference_model.parser as parser
 
 def compute_series(
     capital: float,

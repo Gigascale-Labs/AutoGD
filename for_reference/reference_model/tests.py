@@ -1,6 +1,6 @@
 import math
 
-import model
+import reference.reference_model.model as model
 
 
 REL_TOL = 1e-6
