@@ -1,0 +1,63 @@
+{
+  "replication_study": {
+    "hypothesis": "The static 'scarcity of labor' model can accurately predict the behavior of output and wages under specified conditions of labor scarcity and automation.",
+    "study_type": "Other",
+    "data_plan": {
+      "dataset_identifier": "N/A",
+      "source_type": "Theoretical Model",
+      "wave_or_subset": "N/A",
+      "sample_size": "N/A",
+      "unit_of_analysis": "N/A",
+      "access_details": "No dataset required.",
+      "qualification": {
+        "explanation": "The model is theoretical and does not require empirical data.",
+        "similarity_to_original": "The model directly implements equations from the original paper.",
+        "deviation_from_original": "N/A"
+      },
+      "notes": "No empirical data is used; the focus is on theoretical implementation."
+    },
+    "planned_method": {
+      "steps": "1. Implement the Region 1 and Region 2 equations. 2. Compute the automation threshold. 3. Compute total output Y. 4. Compute wage w. 5. Compute return to capital R. 6. Compute wage bill wL. 7. Compute capital income RK. 8. Evaluate these values over a grid of Phi values from 0 to 1. 9. Reproduce both Figure 6 parameter cases from the specification. 10. Produce numerical outputs as well as plots.",
+      "models": "Theoretical economic model based on specified equations.",
+      "outcome_variable": "Output Y, wage w, return to capital R.",
+      "independent_variables": "Phi values, K, L, sigma, A.",
+      "control_variables": "N/A",
+      "tools_software": "Python, NumPy, Matplotlib.",
+      "planned_estimation_and_test": {
+        "estimation": "Economic metrics (Y, w, R).",
+        "test": "Comparison against original paper's results."
+      },
+      "missing_data_handling": "N/A",
+      "multiple_testing_policy": "N/A",
+      "inference_criteria": "Numerical comparison with original results."
+    },
+    "codebase": {
+      "files": {
+        "scarcity_of_labor_model.py": "Python entrypoint implementing the static 'scarcity of labor' model equations and computing economic metrics."
+      },
+      "notes": "The code is designed to replicate the theoretical model using Python."
+    },
+    "docker_specs": {
+      "base_image": "python:3.10",
+      "packages": {
+        "python": [
+          "numpy>=1.21.0",
+          "matplotlib>=3.4.0"
+        ],
+        "other": []
+      },
+      "hardware": {
+        "gpu_support": "false",
+        "min_gpu_memory_gb": "0",
+        "min_ram_gb": "4"
+      },
+      "volumes": [
+        "./data:/app/data"
+      ]
+    },
+    "analysis": {
+      "instructions": "Run the Python script to compute and plot the economic metrics.",
+      "comparison_metrics": "Numerical values of Y, w, and R compared to original paper's results."
+    }
+  }
+}
