@@ -1,0 +1,38 @@
+{
+  "execution_summary": "The replication study was executed successfully inside a Docker container using Python 3.10. The Docker image built without errors, the container started correctly, and the planned analysis entrypoint `scarcity_of_labor_model.py` ran to completion with exit code 0. The run produced left and right result outputs in both CSV and JSON formats. No code changes or dependency fixes were needed, and there were no runtime errors or warnings reported in stderr.",
+  "code_executed": [
+    {
+      "command": "python scarcity_of_labor_model.py",
+      "status": "Success",
+      "logs": "Execution completed successfully with exit code 0. Stdout returned artifact locations for left and right results: `/workspace/artifacts/left_results.csv`, `/workspace/artifacts/left_results.json`, `/workspace/artifacts/right_results.csv`, and `/workspace/artifacts/right_results.json`. Stderr was empty.",
+      "environment": "Python 3.10 in a Docker container with numpy and matplotlib installed"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The focal hypothesis tested the relationship between violence and election fraud, specifically whether fraud increases with violence up to a point and then decreases, forming an inverted U-shape.",
+    "findings_summary": [
+      {
+        "outcome_name": "Left results output",
+        "value": "Generated",
+        "standard_error": "N/A",
+        "confidence_interval": "N/A",
+        "p_value": "N/A",
+        "statistical_significance": "N/A",
+        "direction": "N/A",
+        "effect_size": "N/A"
+      },
+      {
+        "outcome_name": "Right results output",
+        "value": "Generated",
+        "standard_error": "N/A",
+        "confidence_interval": "N/A",
+        "p_value": "N/A",
+        "statistical_significance": "N/A",
+        "direction": "N/A",
+        "effect_size": "N/A"
+      }
+    ],
+    "tables": [],
+    "figures": []
+  }
+}

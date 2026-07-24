@@ -1,0 +1,27 @@
+{
+  "study": "scarcity_of_labor",
+  "model": "gpt-5.4-mini",
+  "max_abs_diff": {
+    "left": {
+      "Y": 0.0,
+      "w": 2.91419770585784,
+      "R": 1.983968512499704,
+      "wage_bill": 2.91419770585784,
+      "capital_income": 1.983968512499704
+    },
+    "right": {
+      "Y": 0.0,
+      "w": 34.0896890504488,
+      "R": 4.969167728202532,
+      "wage_bill": 34.0896890504488,
+      "capital_income": 49.69167728202532
+    }
+  },
+  "sign_mismatches": {
+    "Y": 0,
+    "w": 705,
+    "R": 703,
+    "wage_bill": 705,
+    "capital_income": 703
+  }
+}
