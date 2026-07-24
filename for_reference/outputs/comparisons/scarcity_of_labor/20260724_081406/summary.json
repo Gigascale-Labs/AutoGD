@@ -1,0 +1,27 @@
+{
+  "study": "scarcity_of_labor",
+  "model": "codex",
+  "max_abs_diff": {
+    "left": {
+      "Y": 0.0,
+      "w": 0.0,
+      "R": 0.0,
+      "wage_bill": 0.0,
+      "capital_income": 0.0
+    },
+    "right": {
+      "Y": 0.0,
+      "w": 0.0,
+      "R": 0.0,
+      "wage_bill": 0.0,
+      "capital_income": 0.0
+    }
+  },
+  "sign_mismatches": {
+    "Y": 0,
+    "w": 0,
+    "R": 0,
+    "wage_bill": 0,
+    "capital_income": 0
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "task": "scarcity_of_labor_baseline_implementation",
+  "agent": "codex",
+  "codex_cli_version": "0.145.0",
+  "web_access": false,
+  "workspace": "agent_workspace/baseline",
+  "manual_code_edits": false,
+  "execution_command": "python3 run_model.py",
+  "validation_notebook": "execution/notebooks/codex_baseline_validation.ipynb",
+  "baseline_validation": "pass",
+  "max_absolute_difference": 0.0,
+  "sign_mismatches": 0,
+  "input_tokens": 941241,
+  "cached_input_tokens": 835840,
+  "output_tokens": 10640
+}
