@@ -219,3 +219,5 @@ __marimo__/
 execution/notebooks/.virtual_documents/
 
 for_reference/reference_model/.vscode/
+notebooks/.ipynb_checkpoints/
+notebooks/.virtual_documents/
