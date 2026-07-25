@@ -1,0 +1,25 @@
+Implemented and ran the static scarcity-of-labor model successfully.
+
+Created:
+
+- [model.py](/Users/juanlopez/sysrisk/agent_workspace/baseline/model.py)
+- [run_model.py](/Users/juanlopez/sysrisk/agent_workspace/baseline/run_model.py)
+- [parameters.json](/Users/juanlopez/sysrisk/agent_workspace/baseline/parameters.json)
+- [requirements.txt](/Users/juanlopez/sysrisk/agent_workspace/baseline/requirements.txt)
+- [README.md](/Users/juanlopez/sysrisk/agent_workspace/baseline/README.md)
+
+Command executed:
+
+```sh
+python3 run_model.py
+```
+
+Execution succeeded. All 202 accounting checks passed (`Y = wage_bill + capital_income`) within floating-point tolerance.
+
+Outputs:
+
+- [left_results.json](/Users/juanlopez/sysrisk/agent_workspace/baseline/outputs/left_results.json)
+- [right_results.json](/Users/juanlopez/sysrisk/agent_workspace/baseline/outputs/right_results.json)
+- [figure6.png](/Users/juanlopez/sysrisk/agent_workspace/baseline/outputs/figure6.png)
+
+No unresolved issues.
