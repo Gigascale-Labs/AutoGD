@@ -221,3 +221,7 @@ execution/notebooks/.virtual_documents/
 for_reference/reference_model/.vscode/
 notebooks/.ipynb_checkpoints/
 notebooks/.virtual_documents/
+
+# Generated coding-agent workspaces and run artifacts
+agent_workspace/
+for_reference/outputs/codex/

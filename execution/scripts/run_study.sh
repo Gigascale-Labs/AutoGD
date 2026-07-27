@@ -90,9 +90,29 @@ if [[ ${#STALE_OUTPUTS[@]} -gt 0 ]]; then
   shopt -u nullglob
 fi
 
-echo "==> make $TARGET STUDY=$STUDY_PATH ${EXTRA_ARGS[*]}"
+if [[ ${#EXTRA_ARGS[@]} -gt 0 ]]; then
+  echo "==> make $TARGET STUDY=$STUDY_PATH ${EXTRA_ARGS[*]}"
+else
+  echo "==> make $TARGET STUDY=$STUDY_PATH"
+fi
+
 set +e
-( cd "$PROJECT_DIR" && uv run --project "$REPO_ROOT" make "$TARGET" "STUDY=$STUDY_PATH" "PYTHONPATH=$AUTOAPPROVE_PYTHONPATH" "${EXTRA_ARGS[@]}" )
+if [[ ${#EXTRA_ARGS[@]} -gt 0 ]]; then
+  (
+    cd "$PROJECT_DIR"
+    uv run --project "$REPO_ROOT" make "$TARGET" \
+      "STUDY=$STUDY_PATH" \
+      "PYTHONPATH=$AUTOAPPROVE_PYTHONPATH" \
+      "${EXTRA_ARGS[@]}"
+  )
+else
+  (
+    cd "$PROJECT_DIR"
+    uv run --project "$REPO_ROOT" make "$TARGET" \
+      "STUDY=$STUDY_PATH" \
+      "PYTHONPATH=$AUTOAPPROVE_PYTHONPATH"
+  )
+fi
 STATUS=$?
 set -e
 
@@ -106,9 +126,15 @@ TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
 if [[ $STATUS -ne 0 ]]; then
   TIMESTAMP="${TIMESTAMP}_FAILED"
 fi
+
 SNAPSHOT_DIR="$REPO_ROOT/for_reference/outputs/agent/$STUDY_NAME/$TIMESTAMP"
 mkdir -p "$SNAPSHOT_DIR/input"
-rsync -a --exclude='*.pdf' "$STUDY_PATH/" "$SNAPSHOT_DIR/input/"
+
+rsync -a \
+  --exclude='*.pdf' \
+  --exclude='replication_data/' \
+  --exclude='task_input/replication_data/' \
+  "$STUDY_PATH/" "$SNAPSHOT_DIR/input/"
 echo "==> snapshot saved to $SNAPSHOT_DIR/input"
 
 exit $STATUS

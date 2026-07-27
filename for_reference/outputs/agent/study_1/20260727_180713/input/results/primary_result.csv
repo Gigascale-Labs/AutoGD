@@ -1,0 +1,2 @@
+n_counties,r_squared,trump_share_iqr,coefficient_per_unit_trump_share,iqr_effect_percentage_points,iqr_effect_ci_lower_95,iqr_effect_ci_upper_95,p_value,hypothesis_supported
+3114,0.14152832116740166,0.20475953701938276,0.9707013665726512,0.1987603624034982,-1.1644688304264696,1.5619895552334662,0.7750581382669653,False

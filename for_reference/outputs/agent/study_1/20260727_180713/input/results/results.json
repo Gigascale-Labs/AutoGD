@@ -1,0 +1,16 @@
+{
+  "hypothesis": "County Trump support is negatively associated with social distancing.",
+  "outcome_definition": "Percent reduction in trip-count-weighted mean trip distance from 2020-03-02 through 2020-03-08 to 2020-03-19 through 2020-03-28.",
+  "interpretive_choice": "The supplied materials identify a pre-COVID reference week but not its dates; March 2-8, 2020 was selected as the immediately preceding complete pre-COVID week.",
+  "model": "OLS with state fixed effects and HC1 robust standard errors; controls are supplied demographic, education, rurality, and essential-worker composition variables.",
+  "n_counties": 3114,
+  "trump_share_iqr": 0.20475953701938276,
+  "trump_share_coefficient": 0.9707013665726512,
+  "iqr_effect_percentage_points": 0.1987603624034982,
+  "iqr_effect_95_ci": [
+    -1.1644688304264696,
+    1.5619895552334662
+  ],
+  "p_value": 0.7750581382669653,
+  "hypothesis_supported": false
+}
