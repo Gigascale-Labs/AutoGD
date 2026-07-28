@@ -1,0 +1,68 @@
+{
+  "replication_study": {
+    "hypothesis": "Among sampled U.S. counties, a higher 2016 Trump vote share is associated with a lower percentage-point change in the share of residents staying home from the February 16\u201329, 2020 reference period to March 19\u2013April 1, 2020, conditional on county covariates and state fixed effects.",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "Supplied county_variables.csv and transportation.csv replication dataset",
+      "source_type": "County-level election, socioeconomic, and aggregated mobility records",
+      "wave_or_subset": "A reproducible 5% simple random sample of counties (seed 2982); mobility averages use February 16\u201329, March 19\u2013April 1, and August 16\u201329, 2020.",
+      "sample_size": "157 sampled counties before merging and 155 complete counties in the executed regressions.",
+      "unit_of_analysis": "U.S. county",
+      "access_details": "CSV files supplied in task_input/replication_data with this task.",
+      "qualification": {
+        "explanation": "The data contain the same county-level constructs required for the focal analysis\u20142016 Trump vote share, demographic/economic controls, and daily home-versus-not-home mobility\u2014and permit the paper's comparison of a pre-COVID reference period with March 2020. The supplied analysis code deliberately takes a 5% county sample, creating a reproducible replication sample rather than refitting the reported estimate to every county.",
+        "similarity_to_original": "The original-study description identifies Unacast mobility, ACS socioeconomic measures, and MIT Election Data and Science Lab election data (task_input/post_registration.json, data and method sections). The supplied transportation.csv has county FIPS, date, pop_home, and pop_not_home; county_variables.csv has fips, trump_share, income_per_capita, demographics, employment shares, and rurality. These directly operationalize the variables described in task_input/post_registration.json and the original paper (task_input/original_paper.pdf).",
+        "deviation_from_original": "The original claim reports an interquartile range of 20.3% and an effect of -4.1 percentage points (task_input/initial_details.txt). The provided replication workflow requests a 5% sample with seed 2982 (task_input/replication_data/kavanagh_analysis.R), yielding a distinct 157-county sample and an observed Trump-share IQR of 17.4 percentage points. Also, the supplied county file stores finer age bands (for example percent_10_14 and percent_15_19) rather than the coarser age-band names expected by the supplied R code; the analysis uses the observed bands without fabricating values."
+      },
+      "notes": "The analysis streams transportation.csv in chunks because it has about 1.95 million rows. Counties without all three required mobility periods or any modeled variable are excluded listwise. Percent_rural is converted from a proportion to percentage points; income_per_capita is expressed in thousands of dollars."
+    },
+    "planned_method": {
+      "steps": "1. Load a deterministic 5% sample of county covariates. 2. Stream transportation records, retain the three specified date windows, and compute county-period mean pop_home/(pop_home + pop_not_home). 3. Express March and August mobility as percentage changes from the February reference mean. 4. Merge by FIPS and listwise delete incomplete county records. 5. Fit separate OLS models for March and August, including state fixed effects and the available county controls. 6. Multiply the Trump-share coefficient and 95% confidence interval by the sample IQR and save numerical and graphical outputs.",
+      "models": "Ordinary least squares with state fixed effects, implemented as state indicator variables in statsmodels.",
+      "outcome_variable": "Percentage-point change in county proportion staying home relative to February 16\u201329, 2020; the focal outcome is March 19\u2013April 1, with August 16\u201329 saved as a secondary follow-up outcome from the supplied code.",
+      "independent_variables": "2016 county Trump vote share (trump_share).",
+      "control_variables": "Income per capita; male, Black, Hispanic, college, retail, transportation, health/education/social-services, and rural percentages; available age-category percentages; and state fixed effects.",
+      "tools_software": "Python 3 with pandas, numpy, statsmodels, and matplotlib.",
+      "planned_estimation_and_test": {
+        "estimation": "OLS coefficient for trump_share and its implied change in outcome for a one-sample-IQR increase in Trump vote share.",
+        "test": "Two-sided t test of the OLS Trump-share coefficient equal to zero, with conventional model-based 95% confidence intervals."
+      },
+      "missing_data_handling": "Listwise deletion after merging for missing outcomes, covariates, state, or required period means; rows with zero mobility denominator are excluded before calculating proportions.",
+      "multiple_testing_policy": "The March outcome is the prespecified focal test. The August model is reported descriptively as a secondary analysis and is not used to alter the focal inference.",
+      "inference_criteria": "The focal hypothesis is supported when the March Trump-share coefficient is negative and its two-sided p value is below 0.05. The IQR effect is compared descriptively with the original reported -4.1 percentage-point estimate."
+    },
+    "codebase": {
+      "files": {
+        "replicate_analysis.py": "Executable end-to-end analysis. It reads the supplied CSVs using paths relative to its own location, processes mobility data in chunks, estimates state-fixed-effect OLS models, writes machine-readable results/tables/figure under results/, prints a concise summary, and exits nonzero on error."
+      },
+      "notes": "Run from the workspace with ./replicate_analysis.py or python replicate_analysis.py. The script is self-contained and does not use supplied code paths with absolute /app/data references."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "pandas==2.2.3",
+          "numpy==1.23.2",
+"scipy==1.10.1",
+          "statsmodels==0.14.4",
+          "matplotlib==3.9.2"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": "false",
+        "min_gpu_memory_gb": "0",
+        "min_ram_gb": "2"
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "Install requirements with pip install -r requirements.txt, then run python replicate_analysis.py. Inspect results/results.json for machine-readable estimates, results/trump_support_effects.csv for the compact table, results/prop_home_change_march_model.txt and results/prop_home_change_august_model.txt for model summaries, and results/trump_support_effects.png for the effect plot.",
+      "comparison_metrics": "Compare the March IQR-scaled Trump-share effect, its 95% confidence interval, sign, and p value with the original claim of a -4.1 percentage-point effect (95% CI -5.2 to -3.0 when stated in signed terms; initial_details.txt reports magnitude 3.0\u20135.2) and p < 0.001. The executed replication produced -3.530 percentage points (95% CI -6.557 to -0.503; p = 0.0228), so the direction and p < 0.05 criterion replicate, while the original effect size and precision do not match exactly."
+    }
+  }
+}

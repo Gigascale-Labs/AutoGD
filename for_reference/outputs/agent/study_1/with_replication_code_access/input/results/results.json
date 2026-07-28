@@ -1,0 +1,41 @@
+{
+  "analysis_sample_n": 155,
+  "models": [
+    {
+      "outcome": "prop_home_change_march",
+      "n": 155,
+      "r_squared": 0.8823890649644002,
+      "trump_share_coefficient_per_unit": -20.27724068734893,
+      "trump_share_95ci_per_unit": [
+        -37.667788569058686,
+        -2.8866928056391714
+      ],
+      "trump_share_p_value": 0.022783253437454017,
+      "trump_share_iqr": 0.174082788820362,
+      "effect_per_iqr_percentage_points": -3.5299186084354153,
+      "effect_95ci_per_iqr_percentage_points": [
+        -6.5573136827974885,
+        -0.5025235340733422
+      ],
+      "supports_preregistered_direction_and_p_lt_0_05": true
+    },
+    {
+      "outcome": "prop_home_change_august",
+      "n": 155,
+      "r_squared": 0.8107385334340574,
+      "trump_share_coefficient_per_unit": -15.188908311067067,
+      "trump_share_95ci_per_unit": [
+        -34.91416980028794,
+        4.5363531781538065
+      ],
+      "trump_share_p_value": 0.12964772493030072,
+      "trump_share_iqr": 0.174082788820362,
+      "effect_per_iqr_percentage_points": -2.644127517927329,
+      "effect_95ci_per_iqr_percentage_points": [
+        -6.077956048181785,
+        0.7897010123271271
+      ],
+      "supports_preregistered_direction_and_p_lt_0_05": false
+    }
+  ]
+}

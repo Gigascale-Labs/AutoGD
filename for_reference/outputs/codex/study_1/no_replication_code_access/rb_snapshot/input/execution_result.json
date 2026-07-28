@@ -1,0 +1,20 @@
+{
+  "plan_id": "study",
+  "steps": [
+    {
+      "name": "prepare-env",
+      "ok": true
+    },
+    {
+      "name": "run-analysis",
+      "ok": true,
+      "exit_code": 0,
+      "stdout": "Replication completed: n=3114, Trump-share IQR=0.2048; effect=0.199 pp (95% CI -1.164, 1.562), p=0.7751; hypothesis supported=False.\n",
+      "stderr": "",
+      "artifacts": [],
+      "entry": "replication_analysis.py",
+      "resolved_path": "/workspace/replication_analysis.py"
+    }
+  ],
+  "ok": true
+}

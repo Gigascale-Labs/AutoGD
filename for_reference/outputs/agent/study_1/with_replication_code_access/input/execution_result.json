@@ -1,0 +1,20 @@
+{
+  "plan_id": "study",
+  "steps": [
+    {
+      "name": "prepare-env",
+      "ok": true
+    },
+    {
+      "name": "run-analysis",
+      "ok": true,
+      "exit_code": 0,
+      "stdout": "Replication completed: 155 complete counties; Trump-share IQR=0.1741.\nMarch IQR effect: -3.530 pp (95% CI -6.557, -0.503; p=0.02278).\n",
+      "stderr": "",
+      "artifacts": [],
+      "entry": "replicate_analysis.py",
+      "resolved_path": "/workspace/replicate_analysis.py"
+    }
+  ],
+  "ok": true
+}
