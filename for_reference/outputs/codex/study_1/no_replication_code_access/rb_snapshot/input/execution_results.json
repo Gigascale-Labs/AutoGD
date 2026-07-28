@@ -1,5 +1,5 @@
 {
-  "execution_summary": "The replication study was executed successfully using Python within a Docker container. The analysis was performed on the dataset with n=3114 observations, testing the hypothesis related to the Trump-share IQR. The analysis completed without any major deviations from the preregistration.",
+  "execution_summary": "The replication analysis was executed using Python within a Docker container. The analysis tested the hypothesis on a dataset with n=3114 observations, focusing on the Trump-share IQR effect. The analysis completed without major deviations from the preregistration.",
   "code_executed": [
     {
       "command": "python replication_analysis.py",
@@ -9,10 +9,10 @@
     }
   ],
   "results": {
-    "hypothesis_tested": "The hypothesis tested was related to the Trump-share IQR and its effect.",
+    "hypothesis_tested": "The hypothesis tested whether the Trump-share IQR has a significant effect.",
     "findings_summary": [
       {
-        "outcome_name": "Effect of Trump-share IQR",
+        "outcome_name": "Trump-share IQR effect",
         "value": "0.199",
         "standard_error": "Not provided",
         "confidence_interval": "[-1.164, 1.562]",

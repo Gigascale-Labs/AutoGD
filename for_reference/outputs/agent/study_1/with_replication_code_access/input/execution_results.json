@@ -1,0 +1,28 @@
+{
+  "execution_summary": "The OLS regression was executed on the supplied county-level dataset, testing the hypothesis on the association between 2016 Trump vote share and changes in residents staying home during the specified periods. The analysis was completed successfully with no major deviations from the preregistration.",
+  "code_executed": [
+    {
+      "command": "python replicate_analysis.py",
+      "status": "Success",
+      "logs": "Replication completed: 155 complete counties; Trump-share IQR=0.1741.\nMarch IQR effect: -3.530 pp (95% CI -6.557, -0.503; p=0.02278).",
+      "environment": "Python 3.11 with pandas 2.2.3, numpy 1.23.2, scipy 1.10.1, statsmodels 0.14.4, matplotlib 3.9.2"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "Among sampled U.S. counties, a higher 2016 Trump vote share is associated with a lower percentage-point change in the share of residents staying home from the February 16\u201329, 2020 reference period to March 19\u2013April 1, 2020, conditional on county covariates and state fixed effects.",
+    "findings_summary": [
+      {
+        "outcome_name": "March IQR effect",
+        "value": "-3.530",
+        "standard_error": "Not explicitly provided",
+        "confidence_interval": "[-6.557, -0.503]",
+        "p_value": "0.02278",
+        "statistical_significance": "p < 0.05",
+        "direction": "negative",
+        "effect_size": "Not explicitly provided"
+      }
+    ],
+    "tables": [],
+    "figures": []
+  }
+}

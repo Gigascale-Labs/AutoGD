@@ -4,13 +4,7 @@ You are implementing a replication analysis for a ReplicatorBench study.
 
 Work only inside the current workspace.
 
-You may read only:
-
-- task_input/initial_details.txt
-- task_input/original_paper.pdf
-- task_input/post_registration.json
-- files inside task_input/replication_data/
-- files you create during this task
+You may inspect all files supplied inside `task_input/`, including any provided replication data and code, as well as files you create during this task.
 
 Do not access parent directories, hidden files, reference implementations,
 previous outputs, graders, the surrounding repository, web search, or any
@@ -18,17 +12,17 @@ network resource.
 
 ## Task
 
-Independently implement the analysis described by the supplied paper,
-claim, preregistration, and datasets.
+Implement the replication analysis using the supplied paper, claim,
+preregistration, datasets, and any replication code included in `task_input/`.
+You may inspect, reuse, adapt, or replace supplied code as appropriate.
 
-The workspace is data-only. Do not assume that an existing implementation
-is available.
-
-Create:
+Create exactly:
 
 - one executable Python analysis script;
 - `requirements.txt`;
 - `replication_info.json`.
+
+Do not create alternate metadata files such as `replication_info_rb.json`.
 
 Run and debug the analysis before completing the task.
 
@@ -38,8 +32,9 @@ Run and debug the analysis before completing the task.
 
 - `task_input/pre_registration_template.json`
 
-Its `replication_study.codebase.files` field must list the executable Python
-script you created.
+Its `replication_study.codebase.files` field must be a JSON object whose
+keys are the exact executable filenames and whose values describe what each
+file does. Do not retain placeholder keys such as `file_name`.
 
 Use a Docker-compatible Python base image and list every required Python
 package under:

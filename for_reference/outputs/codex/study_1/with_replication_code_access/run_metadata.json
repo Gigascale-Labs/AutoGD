@@ -1,0 +1,34 @@
+{
+  "study_id": "1",
+  "mode": "data_only",
+  "model": "gpt-5.6-terra",
+  "codex_home": "/Users/juanlopez/.codex-api",
+  "workspace": "/Users/juanlopez/sysrisk/agent_workspace/replicatorbench_data_only/study_1",
+  "status": "completed",
+  "codex_exit_code": 0,
+  "duration_seconds": 112,
+  "token_usage": {
+    "input_tokens": 343558,
+    "cached_input_tokens": 314135,
+    "output_tokens": 8662,
+    "reasoning_output_tokens": 1725
+  },
+  "rb_execution": {
+    "status": "completed",
+    "exit_code": 0,
+    "duration_seconds": 299,
+    "input_path": "/Users/juanlopez/sysrisk/agent_workspace/replicatorbench_data_only/study_1/rb_input",
+    "log_path": "/Users/juanlopez/sysrisk/for_reference/outputs/codex/study_1/with_replication_code_access/rb_execute.log",
+    "snapshot_path": "/Users/juanlopez/sysrisk/for_reference/outputs/agent/study_1/with_replication_code_access/input"
+  },
+  "rb_evaluation": {
+    "status": "completed",
+    "exit_code": 0,
+    "duration_seconds": 66,
+    "model": "gpt-4o",
+    "log_path": "/Users/juanlopez/sysrisk/for_reference/outputs/codex/study_1/with_replication_code_access/rb_evaluate_execute.log",
+    "result_path": "/Users/juanlopez/sysrisk/for_reference/outputs/codex/study_1/with_replication_code_access/grading/evals/gpt-4o/execute_llm_eval.json",
+    "passed_checks": 10,
+    "total_checks": 10
+  }
+}

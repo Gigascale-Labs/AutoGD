@@ -1,0 +1,17 @@
+{
+  "study_id": "1",
+  "mode": "data_only_rb_only",
+  "model": "gpt-5.6-terra",
+  "workspace": "/Users/juanlopez/sysrisk/agent_workspace/replicatorbench_data_only/study_1",
+  "status": "completed",
+  "codex_exit_code": 0,
+  "codex_reused": true,
+  "rb_execution": {
+    "status": "completed",
+    "exit_code": 0,
+    "duration_seconds": 49,
+    "input_path": "/Users/juanlopez/sysrisk/agent_workspace/replicatorbench_data_only/study_1/rb_input",
+    "log_path": "/Users/juanlopez/sysrisk/for_reference/outputs/codex/study_1/20260727_193823/rb_execute.log",
+    "snapshot_path": "/Users/juanlopez/sysrisk/for_reference/outputs/agent/study_1/20260727_193913/input"
+  }
+}
