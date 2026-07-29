@@ -1,0 +1,17 @@
+{
+  "model": "three-level random-intercept linear mixed model (country, school nested in country)",
+  "formula": "average_english ~ bilingual + C(gender) + c_age + c_hisei + z_parental + z_cultural",
+  "sample": {
+    "raw_rows": 20026,
+    "after_home_language_exclusion": 16226,
+    "complete_cases": 14968,
+    "countries": 11,
+    "schools": 773
+  },
+  "bilingual_estimate": 0.35130008319544515,
+  "bilingual_standard_error": 0.02569146868872207,
+  "bilingual_p_value": 1.4558311685032902e-42,
+  "converged": true,
+  "decision": "supports positive association",
+  "coding_note": "Primary coding exactly reproduces the supplied R expression I03_ST_A_S26A == (2 | 3), which evaluates as comparison to 1 in R."
+}

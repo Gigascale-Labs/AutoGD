@@ -1,0 +1,20 @@
+{
+  "plan_id": "study",
+  "steps": [
+    {
+      "name": "prepare-env",
+      "ok": true
+    },
+    {
+      "name": "run-analysis",
+      "ok": false,
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/workspace/replication_analysis.py\", line 25, in <module>\n    import statsmodels.api as sm\n  File \"/usr/local/lib/python3.13/site-packages/statsmodels/api.py\", line 76, in <module>\n    from . import datasets, distributions, iolib, regression, robust, tools\n  File \"/usr/local/lib/python3.13/site-packages/statsmodels/distributions/__init__.py\", line 7, in <module>\n    from .discrete import (\n        genpoisson_p, zipoisson, zigenpoisson, zinegbin,\n        )\n  File \"/usr/local/lib/python3.13/site-packages/statsmodels/distributions/discrete.py\", line 5, in <module>\n    from scipy._lib._util import _lazywhere\nImportError: cannot import name '_lazywhere' from 'scipy._lib._util' (/usr/local/lib/python3.13/site-packages/scipy/_lib/_util.py)\n",
+      "artifacts": [],
+      "entry": "replication_analysis.py",
+      "resolved_path": "/workspace/replication_analysis.py"
+    }
+  ],
+  "ok": false
+}

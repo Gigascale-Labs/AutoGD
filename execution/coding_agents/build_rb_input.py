@@ -15,7 +15,6 @@ from normalize_rb_replication_info import normalize_metadata, read_json
 REQUIRED_TASK_FILES = (
     "initial_details.txt",
     "original_paper.pdf",
-    "post_registration.json",
 )
 
 
@@ -155,6 +154,10 @@ def build_rb_input(
 
     for filename in REQUIRED_TASK_FILES:
         copy_file(task_input / filename, output / filename)
+
+    optional_post_registration = task_input / "post_registration.json"
+    if optional_post_registration.is_file():
+        copy_file(optional_post_registration, output / "post_registration.json")
 
     # RB execution scripts may retain the original task_input-relative path,
     # while the execution evaluator expects replication_data at the input root.

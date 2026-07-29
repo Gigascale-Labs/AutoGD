@@ -1,0 +1,28 @@
+{
+  "execution_summary": "The replication study was executed successfully using a Python environment within a Docker container. The analysis was conducted on a dataset with 10,071 observations, comparing means between women and men. The t-test results indicated a significant difference with a p-value of 1.74e-16.",
+  "code_executed": [
+    {
+      "command": "run_replication.py",
+      "status": "Success",
+      "logs": "Replication completed: N=10071; women mean=3.075; men mean=2.890; t(10069)=8.253, p=1.74e-16; top-two-box women=32.6%, men=32.8%.",
+      "environment": "Python 3.11 with pandas, scipy"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The hypothesis tested was whether there is a significant difference in means between women and men.",
+    "findings_summary": [
+      {
+        "outcome_name": "Mean difference between women and men",
+        "value": "3.075 (women), 2.890 (men)",
+        "standard_error": "Not provided",
+        "confidence_interval": "Not provided",
+        "p_value": "1.74e-16",
+        "statistical_significance": "p < 0.01",
+        "direction": "positive",
+        "effect_size": "Not provided"
+      }
+    ],
+    "tables": [],
+    "figures": []
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "execution_summary": "The replication study was executed successfully within a Docker container. The analysis script `replication_analysis.py` was run, testing the hypothesis on the dataset. The execution aligned with the preregistration, and no major deviations occurred.",
+  "code_executed": [
+    {
+      "command": "python replication_analysis.py",
+      "status": "Success",
+      "logs": "n=858, countries=14; imm_concern=0.1779, SE=0.0389, one-sided p=2.737e-06; supports hypothesis=True",
+      "environment": "Python 3.11 with numpy, pandas, scipy, statsmodels, matplotlib"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The hypothesis tested was related to immigration concern and its statistical significance.",
+    "findings_summary": [
+      {
+        "outcome_name": "Immigration Concern Coefficient",
+        "value": "0.1779",
+        "standard_error": "0.0389",
+        "confidence_interval": "Not provided",
+        "p_value": "2.737e-06",
+        "statistical_significance": "p < 0.01",
+        "direction": "positive",
+        "effect_size": "Not provided"
+      }
+    ],
+    "tables": [],
+    "figures": []
+  }
+}

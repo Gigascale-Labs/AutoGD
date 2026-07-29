@@ -1,0 +1,26 @@
+--- a/replicatorbench/validator/evaluate_execute.py
++++ b/replicatorbench/validator/evaluate_execute.py
+@@ -356,7 +356,10 @@
+     "read_file": read_file
+ }
+ 
+-action_re = re.compile(r'^Action: (\w+): (.*)$', re.MULTILINE) # Use re.MULTILINE for multiline parsing
++action_re = re.compile(
++    r'^Action: (\w+)(?::\s*(.*)|\((.*)\))$',
++    re.MULTILINE,
++)
+ def save_output(extracted_json, study_path, evaluator_model="gpt-4o"):
+     final_output = {
+         "stage": "execute",
+@@ -449,7 +452,10 @@
+             if actions_matches:
+                 # There is an action to run
+                 match = actions_matches[0]
+-                action, action_input_str = match.groups()
++                action, colon_input, function_input = match.groups()
++                action_input_str = (
++                    colon_input if colon_input is not None else function_input
++                )
+ 
+                 logger.info(f" -- Running Action: {action} with input: {action_input_str}")
+ 

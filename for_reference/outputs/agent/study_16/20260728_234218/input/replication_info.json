@@ -1,0 +1,68 @@
+{
+  "replication_study": {
+    "hypothesis": "After adjustment for calendar time and a city-level random intercept, the binary lockdown/social-distancing-measure indicator is associated with a negative coefficient for Google Community Mobility Reports transit mobility change (CMRT_transit).",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "replicationDataset_Malik2020_with.year.csv",
+      "source_type": "City-day panel assembled from Google Community Mobility Reports and coded governmental social-distancing/lockdown measures.",
+      "wave_or_subset": "39 cities observed daily from 2020-03-02 through 2020-03-26; the focal analysis uses complete observations for city, date, CMRT_transit, and lockdown.",
+      "sample_size": "975 city-day observations from 39 cities.",
+      "unit_of_analysis": "City-day observation.",
+      "access_details": "Supplied locally in task_input/replication_data/replicationDataset_Malik2020_with.year.csv; no external access is required.",
+      "qualification": {
+        "explanation": "The supplied dataset contains the focal transit-mobility outcome, a binary lockdown measure, dates, and cities needed to fit the mixed model described in the supplied replication Stata code. It therefore permits a high-fidelity re-estimation of the stated association using a clearly defined city-day panel.",
+        "similarity_to_original": "The original paper PDF is titled 'COVID-19 related social distancing measures and reduction in city mobility' and the supplied claim concerns social distancing and mobility. The supplied data include city, date, CMRT_transit, lockdown, and other CMRT outcomes, while task_input/replication_data/mycode_for.replication.dataset.do explicitly specifies `xtmixed CMRT_transit date2 lockdown ||city:, var` as the focal analysis.",
+        "deviation_from_original": "The materials do not provide the original analysis dataset or a separate preregistration. The supplied replication dataset is a 39-city, 975-row daily panel dated 2020-03-02 to 2020-03-26 (as recorded in replicationDataset_Malik2020_with.year.csv). The supplied Stata code requests an unseeded 5% random sample; to make the replication deterministic, the Python analysis uses all complete supplied observations and documents that deviation."
+      },
+      "notes": "CMRT_transit is interpreted as percentage-point change from the Google mobility baseline. The `lockdown` field is required to be binary 0/1. The paper and supplied Stata script do not define a random seed for their 5% sample."
+    },
+    "planned_method": {
+      "steps": "1. Read the supplied CSV from a path relative to the executable script. 2. Parse MDY dates and coerce focal variables to numeric. 3. Listwise-delete rows missing a focal model variable. 4. Create calendar days since the first observed date. 5. Fit a REML random-intercept linear mixed model grouped by city. 6. Extract the lockdown coefficient, Wald 95% confidence interval, and p-value. 7. Save numerical outputs and a descriptive mobility figure.",
+      "models": "Linear mixed-effects model estimated by REML: CMRT_transit ~ day_index + lockdown + (1 | city). This is the Python analogue of the supplied Stata `xtmixed CMRT_transit date2 lockdown ||city:, var` command.",
+      "outcome_variable": "CMRT_transit, the transit mobility percentage change from baseline.",
+      "independent_variables": "lockdown (binary 0/1); calendar day index is included as the time trend.",
+      "control_variables": "Calendar day index; city-specific random intercept.",
+      "tools_software": "Python 3.11 with pandas, statsmodels, numpy, and matplotlib.",
+      "planned_estimation_and_test": {
+        "estimation": "The adjusted fixed-effect coefficient of lockdown, reported in transit-mobility percentage points with a Wald 95% confidence interval.",
+        "test": "Wald z test for the lockdown fixed effect, evaluated at alpha = 0.05; the focal directional hypothesis requires a negative coefficient."
+      },
+      "missing_data_handling": "Listwise deletion only for missing city, date, CMRT_transit, or lockdown values.",
+      "multiple_testing_policy": "No correction: there is one preregistered focal outcome/hypothesis. The residential model in the supplied Stata file is not used for the focal claim.",
+      "inference_criteria": "The hypothesis is supported when the lockdown coefficient is negative and its two-sided Wald p-value is below 0.05. Agreement with the original numerical claim is additionally assessed by overlap of the replication decrease-magnitude CI with the stated original 20% to 27% CI."
+    },
+    "codebase": {
+      "files": {
+        "run_replication.py": "Executable analysis script. It validates and reads the supplied city-day CSV, fits the REML city random-intercept mixed model for transit mobility, tests the negative lockdown association, and writes results/replication_results.json, results/coefficient_table.csv, and results/transit_mobility_by_lockdown.png."
+      },
+      "notes": "The executable intentionally uses all complete supplied observations because the supplied Stata script's 5% sample has no seed. Results are deterministic under the pinned Python dependencies."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "matplotlib==3.9.2",
+          "numpy==1.23.5",
+          "pandas==2.2.3",
+          "statsmodels==0.14.4",
+          "scipy==1.10.1"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": "false",
+        "min_gpu_memory_gb": "0",
+        "min_ram_gb": "2"
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "From the workspace, install `pip install -r requirements.txt` and run `python run_replication.py`. Review the numerical decision in results/replication_results.json and the coefficient table in results/coefficient_table.csv.",
+      "comparison_metrics": "Adjusted lockdown coefficient, its Wald 95% confidence interval and p-value, direction/significance decision, and overlap between the replication decrease-magnitude CI and the original claim's stated 20% to 27% CI."
+    }
+  }
+}

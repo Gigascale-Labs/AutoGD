@@ -1,0 +1,40 @@
+{
+  "hypothesis": "Higher T1 realistic COVID-19 threat predicts higher T2 negative affect, controlling for T1 symbolic threat.",
+  "model": "OLS: T2 PANAS negative-affect sum ~ T1 realistic-threat mean + T1 symbolic-threat mean",
+  "data_file": "task_input/replication_data/Kachanoff_Survey_deidentify.csv",
+  "cleaning_and_pairing": {
+    "source_notebook": "task_input/replication_data/Analysis_updated.Rmd",
+    "audit": {
+      "raw_rows": 633,
+      "after_start_time_exclusion": 627,
+      "after_documented_duplicate_session_exclusions": 622,
+      "after_unmatched_blank_id_exclusion": 608,
+      "after_attention_check_exclusion": 588,
+      "participants_with_two_retained_visits": 258,
+      "complete_cases_in_focal_model": 258
+    },
+    "interpretive_choice": "The documented preprocessing exclusions and attention screen were applied before pairing. Participants with one retained visit were excluded; retained pairs use the chronologically first response as T1 and second as T2."
+  },
+  "focal_result": {
+    "term": "realistic_threat_t1",
+    "estimate": 1.3892835748253762,
+    "std_error": 1.0046127356688515,
+    "t_value": 1.382904601443678,
+    "p_value": 0.16790385268817928,
+    "ci_95": [
+      -0.5891109041330918,
+      3.367678053783844
+    ],
+    "direction": "positive",
+    "supports_hypothesis_at_alpha_0_05": false
+  },
+  "model_fit": {
+    "r_squared": 0.05111557000256317,
+    "adjusted_r_squared": 0.043673339179053916,
+    "residual_df": 255.0
+  },
+  "outputs": {
+    "regression_table": "regression_table.csv",
+    "coefficient_figure": "coefficient_plot.png"
+  }
+}

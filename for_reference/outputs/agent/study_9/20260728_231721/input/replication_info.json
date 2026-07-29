@@ -1,0 +1,69 @@
+{
+  "replication_study": {
+    "hypothesis": "At the country-election level, the logged number of qualifying parties in the party system has a positive association with logged economic policy dispersion, measured as the distance between the most extreme party PCA scores.",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "Supplied CMP_final.dta and CPDS_final.dta (Andrews-Money replication data)",
+      "source_type": "Comparative Manifesto Project party/election data merged with Comparative Political Data Set electoral-system data",
+      "wave_or_subset": "All available observations, as specified by task_input/replication_data/Andrews-Money_Replication.do; CMP data_sample labels include old countries/old timeframe, old countries/new timeframe, new countries/new timeframe, and additional potential observations.",
+      "sample_size": "3,110 deduplicated CMP party-election records and 1,743 deduplicated CPDS records before merging; the executed script reports the final regression N in results/analysis_sample_summary.csv.",
+      "unit_of_analysis": "Country-election party system for the regression, constructed from party-election manifesto and seat records.",
+      "access_details": "Local files supplied in task_input/replication_data; no external access is required.",
+      "qualification": {
+        "explanation": "The supplied datasets directly support the same party-system construction, manifesto-category PCA, electoral-rule control, and country-clustered regression used for the claim, while providing a broader replication sample.",
+        "similarity_to_original": "The original paper describes economic positions from a PCA of CMP categories 303, 401, 402, 403, 404, 407, 412, 413, 414, 504, 505, and 701 (original_paper.pdf, p. 814) and dispersion as the distance between extreme parties (pp. 815-816). CMP_final.dta contains exactly these per* fields, party seats, election dates, and country labels; CPDS_final.dta contains country-year proportional-system information. The supplied Andrews-Money_Replication.do applies these same variables and a country-clustered OLS model.",
+        "deviation_from_original": "The paper reports policy positions for 20 countries from 1945 to 1999 (original_paper.pdf, p. 814), whereas the supplied CMP data include 29 countries and data_sample groups extending through 2018 (inspection of CMP_final.dta). The supplied do-file explicitly directs the replication to use all available observations, so this is a new, expanded sample rather than the paper's original scope."
+      },
+      "notes": "The supplied do-file's two sequential party-screening operations are implemented literally. PCA is fit on complete records for its 12 economic-manifesto inputs, and regression uses complete country-election systems."
+    },
+    "planned_method": {
+      "steps": "Deduplicate each supplied Stata file; merge CMP party-election records to CPDS by country and election year; create ordered country-election IDs; retain parties according to the two consecutive-seat-share screening steps in the supplied do-file; count retained parties; derive the first economic PCA score; calculate the within-system extreme-party distance; log both focal measures; construct single-member and lagged-dispersion controls; fit clustered OLS.",
+      "models": "Ordinary least squares with country-clustered robust covariance, matching the supplied Stata command reg dispersion count_parties single_member lagged_dispersion, cluster(id_country).",
+      "outcome_variable": "Natural log of economic dispersion: the within-country-election maximum minus minimum first-component economic-policy score.",
+      "independent_variables": "Natural log of the count of qualifying parties in the country-election party system.",
+      "control_variables": "Single-member-district indicator (prop == 0) and lagged logged dispersion.",
+      "tools_software": "Python 3 with pandas/Stata reader, scikit-learn PCA, and statsmodels OLS.",
+      "planned_estimation_and_test": {
+        "estimation": "The coefficient on logged party count in the economic-dispersion regression.",
+        "test": "Two-sided 95% cluster-robust confidence interval using a t critical value with country clusters minus one degrees of freedom; the hypothesis is supported if the coefficient and lower confidence bound are positive."
+      },
+      "missing_data_handling": "PCA scores are assigned only to complete 12-category manifesto records. Systems with missing/nonfinite logged dispersion, controls, or lag are excluded listwise from OLS.",
+      "multiple_testing_policy": "No multiplicity correction: this replication tests the single preregistered economic-dimension hypothesis.",
+      "inference_criteria": "Support requires a positive focal coefficient and a 95% country-clustered confidence interval excluding zero in the positive direction."
+    },
+    "codebase": {
+      "files": {
+        "replicate_analysis.py": "Executable analysis script. It reads the two supplied .dta files using relative paths, implements the supplied Stata replication workflow, saves a machine-readable JSON result and CSV coefficient/sample-summary tables in results/, prints a concise summary, and raises an error on failure."
+      },
+      "notes": "Only replicate_analysis.py is executed. Input data and the original Stata do-file remain under task_input/; output files are generated at runtime under results/."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "numpy>=1.26,<3",
+          "pandas>=2.1,<3",
+          "pyreadstat>=1.2,<2",
+          "scikit-learn>=1.4,<2",
+          "scipy>=1.11,<2",
+          "statsmodels>=0.14,<1"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": "false",
+        "min_gpu_memory_gb": "0",
+        "min_ram_gb": "2"
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "From the workspace root, install requirements with pip install -r requirements.txt and run python replicate_analysis.py. Read results/replication_results.json for the focal inference and results/model_coefficients.csv for all model terms.",
+      "comparison_metrics": "Compare the focal logged-party-count coefficient's sign, clustered robust standard error, 95% confidence interval, and statistical conclusion with the supplied claim (reported original coefficient 0.39 and robust SE 0.14)."
+    }
+  }
+}

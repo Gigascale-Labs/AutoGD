@@ -1,0 +1,28 @@
+{
+  "execution_summary": "The replication study was executed successfully within a Docker container. The main steps included building the Docker image, running the container, and executing the Python script 'run_replication.py'. The analysis was performed on the dataset with 2610 input rows, resulting in 2537 confirmatory complete cases across 216 village clusters. The hypothesis regarding 'locaste_land_v' was tested but not supported.",
+  "code_executed": [
+    {
+      "command": "python run_replication.py",
+      "status": "Success",
+      "logs": "Replication analysis completed successfully. Input rows: 2610; confirmatory complete cases: 2537; village clusters: 216\nlocaste_land_v: b=5.622, SE=8.237, t=0.683, p=0.4956\nHypothesis conclusion: not_supported\nResults written to: output",
+      "environment": "Python 3.11 with numpy, pandas, scipy, statsmodels"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The hypothesis regarding the effect of 'locaste_land_v' on the outcome variable.",
+    "findings_summary": [
+      {
+        "outcome_name": "Coefficient for locaste_land_v",
+        "value": "5.622",
+        "standard_error": "8.237",
+        "confidence_interval": "Not provided",
+        "p_value": "0.4956",
+        "statistical_significance": "Not significant",
+        "direction": "Positive",
+        "effect_size": "Not applicable"
+      }
+    ],
+    "tables": [],
+    "figures": []
+  }
+}

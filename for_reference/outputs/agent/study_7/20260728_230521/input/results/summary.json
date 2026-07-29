@@ -1,0 +1,24 @@
+{
+  "hypothesis": "Average working hours per worker in a state are positively associated with carbon emissions.",
+  "primary_model": {
+    "model": "Full period (2007-2016; single-state fallback)",
+    "observations": 10,
+    "states": 1,
+    "year_min": 7,
+    "year_max": 16,
+    "rho": null,
+    "estimation_method": "Unadjusted single-state log-log time-series OLS fallback (planned panel model infeasible)",
+    "wrkhrs_coefficient": 2.8536481791898325,
+    "standard_error_clustered_by_state": 2.081377455826652,
+    "p_value_two_sided": 0.20758902324293438,
+    "ci_95_lower": -1.2257766724640122,
+    "ci_95_upper": 6.933073030843677,
+    "positive_association": true,
+    "supports_hypothesis_at_0_05": false
+  },
+  "decision": "not_supported",
+  "planned_panel_model_feasible": false,
+  "data_limitation": "hhsize.dta supplies only one state (Kansas), leaving no cross-state panel after the required merge. The supplied state/year fixed-effects, clustered AR(1) model is therefore unidentified; results are unadjusted single-state associations only.",
+  "interpretation": "Under the planned model, the log-log coefficient is the estimated percent change in emissions associated with a 1% increase in average working hours conditional on the specified controls and fixed effects. The current fallback coefficient is unadjusted and is not a conditional estimate.",
+  "method_note": "When the merged data contain a usable multi-state panel, the script uses a Prais--Winsten-style common AR(1) transformation with state-clustered sandwich standard errors, approximating the supplied R panelAR PSAR1/PCSE specification. Otherwise it switches to the explicitly labelled fallback described in data_limitation."
+}

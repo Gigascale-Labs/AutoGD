@@ -1,0 +1,20 @@
+{
+  "plan_id": "study",
+  "steps": [
+    {
+      "name": "prepare-env",
+      "ok": true
+    },
+    {
+      "name": "run-analysis",
+      "ok": true,
+      "exit_code": 0,
+      "stdout": "Replication analysis completed successfully.\nComplete cases: 319,719; agency clusters: 41; JobSat coefficient: -0.3979; cluster-robust SE: 0.0159; two-sided p: 5.2e-139; hypothesis supported: True.\nOutputs written to replication_results/\n",
+      "stderr": "",
+      "artifacts": [],
+      "entry": "run_replication.py",
+      "resolved_path": "/workspace/run_replication.py"
+    }
+  ],
+  "ok": true
+}

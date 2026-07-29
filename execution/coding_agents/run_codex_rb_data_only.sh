@@ -7,6 +7,22 @@ PROMPT_FILE="$REPO_ROOT/execution/coding_agents/prompts/replicatorbench_data_onl
 RB_TEMPLATE="$RB_ROOT/templates/pre_registration_schema_python.json"
 RB_INPUT_BUILDER="$REPO_ROOT/execution/coding_agents/build_rb_input.py"
 RB_RUNNER="$REPO_ROOT/execution/scripts/run_study.sh"
+RB_EVALUATOR_PATCH="$REPO_ROOT/execution/coding_agents/benchmark_agent/rb_evaluator_action_parser.patch"
+RB_EXECUTE_TURN_LIMIT_PATCH="$REPO_ROOT/execution/coding_agents/benchmark_agent/rb_execute_turn_limit.patch"
+
+RB_EXECUTE_PATCH_APPLIED=false
+RB_EVALUATOR_PATCH_APPLIED=false
+
+cleanup_rb_patches() {
+  if [[ "$RB_EVALUATOR_PATCH_APPLIED" == true ]]; then
+    git -C "$REPO_ROOT/replicatoragent" apply --reverse "$RB_EVALUATOR_PATCH" >/dev/null 2>&1 || true
+  fi
+  if [[ "$RB_EXECUTE_PATCH_APPLIED" == true ]]; then
+    git -C "$REPO_ROOT/replicatoragent" apply --reverse "$RB_EXECUTE_TURN_LIMIT_PATCH" >/dev/null 2>&1 || true
+  fi
+}
+
+trap cleanup_rb_patches EXIT
 CODEX_HOME_DIR="${CODEX_HOME_DIR:-$HOME/.codex-api}"
 CODEX_MODEL="${CODEX_MODEL:-gpt-5.6-terra}"
 RB_EVAL_MODEL="${RB_EVAL_MODEL:-gpt-4o}"
@@ -55,7 +71,6 @@ RUN_DIR="$REPO_ROOT/for_reference/outputs/codex/study_$STUDY_ID/$RUN_ID"
 for required in \
   "$STUDY_INPUT/initial_details.txt" \
   "$STUDY_INPUT/original_paper.pdf" \
-  "$STUDY_INPUT/post_registration.json" \
   "$STUDY_INPUT/replication_data" \
   "$RB_TEMPLATE" \
   "$RB_INPUT_BUILDER" \
@@ -74,7 +89,9 @@ if [[ "$RB_ONLY" == false ]]; then
 
   cp "$STUDY_INPUT/initial_details.txt" "$TASK_INPUT/"
   cp "$STUDY_INPUT/original_paper.pdf" "$TASK_INPUT/"
-  cp "$STUDY_INPUT/post_registration.json" "$TASK_INPUT/"
+  if [[ -f "$STUDY_INPUT/post_registration.json" ]]; then
+    cp "$STUDY_INPUT/post_registration.json" "$TASK_INPUT/"
+  fi
   cp "$RB_TEMPLATE" "$TASK_INPUT/pre_registration_template.json"
 
   find "$STUDY_INPUT/replication_data" -maxdepth 1 -type f \
@@ -210,6 +227,19 @@ echo "Generated implementation: $WORKSPACE"
 echo "Prepared RB input: $RB_INPUT"
 
 RB_LOG="$RUN_DIR/rb_execute.log"
+
+if [[ -f "$RB_EXECUTE_TURN_LIMIT_PATCH" ]]; then
+  if git -C "$REPO_ROOT/replicatoragent" apply --check "$RB_EXECUTE_TURN_LIMIT_PATCH" >/dev/null 2>&1; then
+    git -C "$REPO_ROOT/replicatoragent" apply "$RB_EXECUTE_TURN_LIMIT_PATCH"
+    RB_EXECUTE_PATCH_APPLIED=true
+  elif git -C "$REPO_ROOT/replicatoragent" apply --reverse --check "$RB_EXECUTE_TURN_LIMIT_PATCH" >/dev/null 2>&1; then
+    echo "RB execution turn-limit patch already applied."
+  else
+    echo "RB execution turn-limit patch could not be applied cleanly." >&2
+    exit 1
+  fi
+fi
+
 RB_START_SECONDS="$(date +%s)"
 
 set +e
@@ -285,7 +315,23 @@ rm -rf "$GRADE_ROOT"
 mkdir -p "$GRADE_INPUT"
 cp -R "$RB_SNAPSHOT_PATH"/. "$GRADE_INPUT/"
 
+# Preserve the original study inputs for evaluator inspection.
+mkdir -p "$GRADE_INPUT/task_input"
+cp -R "$WORKSPACE/task_input"/. "$GRADE_INPUT/task_input/"
+
 GRADE_START_SECONDS="$(date +%s)"
+
+if [[ -f "$RB_EVALUATOR_PATCH" ]]; then
+  if git -C "$REPO_ROOT/replicatoragent" apply --check "$RB_EVALUATOR_PATCH" >/dev/null 2>&1; then
+    git -C "$REPO_ROOT/replicatoragent" apply "$RB_EVALUATOR_PATCH"
+    RB_EVALUATOR_PATCH_APPLIED=true
+  elif git -C "$REPO_ROOT/replicatoragent" apply --reverse --check "$RB_EVALUATOR_PATCH" >/dev/null 2>&1; then
+    echo "RB evaluator compatibility patch already applied."
+  else
+    echo "RB evaluator compatibility patch could not be applied cleanly." >&2
+    exit 1
+  fi
+fi
 
 set +e
 (

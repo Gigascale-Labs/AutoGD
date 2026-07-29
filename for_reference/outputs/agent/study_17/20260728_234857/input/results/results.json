@@ -1,0 +1,38 @@
+{
+  "analysis": "OLS long specification with HC1 heteroscedasticity-robust standard errors",
+  "dataset": "task_input/replication_data/data.csv",
+  "strong_democracy_threshold": 9,
+  "input_rows": 31,
+  "strong_democracy_rows": 31,
+  "primary_model": {
+    "model": "primary_drop_wave_7",
+    "n": 28,
+    "parameters": 15,
+    "df_resid": 13,
+    "dropped_for_missingness": 0,
+    "r_squared": 0.7894811829469438,
+    "focal_term": "sd_gov",
+    "focal_coefficient": -2.906833940617866,
+    "focal_robust_se_hc1": 3.4538938705548325,
+    "focal_t_value": -0.8416106717694001,
+    "focal_p_value": 0.41521984873391676
+  },
+  "sensitivity_model": {
+    "model": "sensitivity_keep_wave_7",
+    "n": 30,
+    "parameters": 15,
+    "df_resid": 15,
+    "dropped_for_missingness": 1,
+    "r_squared": 0.7972065567964516,
+    "focal_term": "sd_gov",
+    "focal_coefficient": -2.5675773916688347,
+    "focal_robust_se_hc1": 3.146884056137125,
+    "focal_t_value": -0.8159110236875383,
+    "focal_p_value": 0.4273182115722456
+  },
+  "hypothesis_test": {
+    "criterion": "support requires a negative sd_gov coefficient and two-sided HC1 p < 0.05",
+    "supported": false
+  },
+  "interpretive_note": "The supplied data already contain only Polity IV scores 9 or 10. The supplied R file runs both wave-7 exclusions; this analysis treats its first real-data run (excluding wave 7) as primary and reports the other as sensitivity."
+}

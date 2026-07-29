@@ -1,0 +1,69 @@
+{
+  "replication_study": {
+    "hypothesis": "Students classified as bilingual under the supplied replication-code operationalization have higher average English foreign-language achievement than monolingual students, conditional on gender, age, socioeconomic status, parental education, cultural capital, and country/school clustering.",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "Final replication dataset.rds",
+      "source_type": "Supplied R data frame containing student assessment and background data",
+      "wave_or_subset": "The complete supplied replication dataset; the script excludes respondents who report speaking English at home and observations with no positive domain weight, as specified in Replication attempt code (FINAL).R.",
+      "sample_size": "20,026 rows before analysis exclusions (derived from the RDS data-frame row names).",
+      "unit_of_analysis": "Student respondent",
+      "access_details": "Provided locally in task_input/replication_data/Final replication dataset.rds.",
+      "qualification": {
+        "explanation": "The supplied data and replication code are qualified because they provide the directly operationalized student-level variables, achievement plausible values, weights, country and school identifiers needed to rerun the specified model.",
+        "similarity_to_original": "The original paper is The effect of speaking a minority language at home on foreign language learning (original_paper.pdf), and the supplied replication dataset includes the corresponding foreign-language writing, reading, and listening plausible values plus bilingual/home-language and background measures. The supplied Replication attempt code (FINAL).R specifies the same outcome construction and covariates used here.",
+        "deviation_from_original": "The analysis uses the provided Final replication dataset.rds rather than the original paper's underlying data. This is a distinct supplied replication sample, but its documentation does not identify a separate survey wave or collection period; no such detail is inferred. The replication code itself is the source for the included subset and transformations."
+      },
+      "notes": "The RDS contains 47 columns and 20,026 rows. Missing values are handled by complete-case deletion in the fitted model."
+    },
+    "planned_method": {
+      "steps": "Read the supplied RDS data frame; apply the supplied home-language and weight filters; average 15 English plausible values; recode cultural capital; center age and HISEI; standardize parental education and cultural capital; fit the specified three-level random-intercept model; save coefficient and decision outputs.",
+      "models": "Linear mixed-effects model with random intercepts for country and school nested within country.",
+      "outcome_variable": "average_english, the row mean of five writing, five reading, and five listening plausible values.",
+      "independent_variables": "bilingual indicator derived from I03_ST_A_S26A using the supplied R expression.",
+      "control_variables": "Gender (SQt01i01), centered age (I08_ST_A_S02A), centered HISEI, standardized PARED, and standardized book-based cultural capital.",
+      "tools_software": "Python 3 with pandas, NumPy, statsmodels, SciPy, and matplotlib; the script includes a focused RDS reader because the supplied input is an RDS file.",
+      "planned_estimation_and_test": {
+        "estimation": "Conditional regression coefficient for bilingual group membership.",
+        "test": "Two-sided Wald z test of the mixed-model bilingual coefficient."
+      },
+      "missing_data_handling": "Listwise deletion for variables required by the fitted model; row means use available plausible values, matching rowMeans(..., na.rm=TRUE) in the supplied R code.",
+      "multiple_testing_policy": "No correction: one preregistered focal outcome and coefficient.",
+      "inference_criteria": "Support requires a positive bilingual coefficient with two-sided p < 0.05."
+    },
+    "codebase": {
+      "files": {
+        "replication_analysis.py": "Executable analysis script. It reads the supplied RDS using relative paths, applies the documented transformations and exclusions, fits the nested country/school mixed model, and writes CSV, JSON, and PNG results under results/."
+      },
+      "notes": "Run from the workspace with python replication_analysis.py. Results are regenerated on each successful run."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "numpy>=1.24,<3",
+          "pandas>=1.5,<3",
+          "scipy>=1.10,<2",
+          "statsmodels>=0.14,<1",
+          "matplotlib>=3.6,<4"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": false,
+        "min_gpu_memory_gb": 0,
+        "min_ram_gb": 4
+      },
+      "volumes": [
+        "./task_input:/app/task_input:ro",
+        "./results:/app/results"
+      ]
+    },
+    "analysis": {
+      "instructions": "Install requirements with pip install -r requirements.txt, then execute python replication_analysis.py from the workspace. Inspect results/analysis_results.json for the focal estimate and decision.",
+      "comparison_metrics": "Compare the bilingual coefficient's sign, estimate, standard error, p-value, and p<0.05 decision to the supplied claim (estimate 2.68; p<.01)."
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "plan_id": "study",
+  "steps": [
+    {
+      "name": "prepare-env",
+      "ok": true
+    },
+    {
+      "name": "run-analysis",
+      "ok": true,
+      "exit_code": 0,
+      "stdout": "Replication completed: N=453, clusters=29, beta_log_party_count=0.405, clustered_SE=0.118, 95%_CI=[0.163, 0.647], supports_hypothesis=True. Results: results\n",
+      "stderr": "",
+      "artifacts": [],
+      "entry": "replicate_analysis.py",
+      "resolved_path": "/workspace/replicate_analysis.py"
+    }
+  ],
+  "ok": true
+}

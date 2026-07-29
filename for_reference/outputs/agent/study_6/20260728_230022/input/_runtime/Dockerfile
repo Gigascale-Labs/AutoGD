@@ -1,0 +1,9 @@
+FROM python:3.11-slim
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git wget ca-certificates && rm -rf /var/lib/apt/lists/*
+# Removed erroneous placeholder for additional software installation
+RUN command -v python3 || (apt-get update && apt-get install -y python3 python3-pip)
+RUN pip install --no-cache-dir 'numpy>=1.26,<3' 'scipy>=1.11,<2' 'matplotlib>=3.8,<4'
+WORKDIR /workspace
+RUN useradd -m runner && mkdir -p /app/data /app/artifacts /app/tmp && chown -R runner:runner /workspace /app
+USER runner
+CMD ["bash"]

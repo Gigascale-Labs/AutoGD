@@ -1,0 +1,20 @@
+{
+  "plan_id": "study",
+  "steps": [
+    {
+      "name": "prepare-env",
+      "ok": true
+    },
+    {
+      "name": "run-analysis",
+      "ok": true,
+      "exit_code": 0,
+      "stdout": "Replication completed: 2269 complete cases from GSS 2012\u20132018.\nPost-secular evolution endorsement=0.038; traditional=0.408; difference=-0.370.\nPooled two-sided t(1436)=-16.570, p=1.45e-56; conclusion=supported.\nResults written to results\n",
+      "stderr": "",
+      "artifacts": [],
+      "entry": "run_replication.py",
+      "resolved_path": "/workspace/run_replication.py"
+    }
+  ],
+  "ok": true
+}

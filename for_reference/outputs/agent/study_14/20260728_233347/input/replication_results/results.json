@@ -1,0 +1,47 @@
+{
+  "hypothesis": "Higher overall job satisfaction (JobSat) is associated with lower odds of intending to leave one's agency.",
+  "model": {
+    "family": "binomial logistic regression",
+    "outcome": "LeavingAgency",
+    "predictors": [
+      "JobSat",
+      "Over40",
+      "NonMinority",
+      "SatPay",
+      "SatAdvan",
+      "PerfCul",
+      "Empowerment",
+      "RelSup",
+      "Relcow",
+      "Over40xSatAdvan"
+    ],
+    "cluster_variable": "Agency",
+    "covariance": "agency-clustered sandwich covariance with finite-sample correction",
+    "missing_data_rule": "complete-case analysis (matches na.omit in supplied R script)"
+  },
+  "sample": {
+    "source_rows": 407789,
+    "complete_case_rows": 319719,
+    "rows_excluded_for_missingness": 88070,
+    "agency_clusters": 41,
+    "leaving_agency_events": 58055,
+    "leaving_agency_rate": 0.1815813261019833
+  },
+  "job_satisfaction_test": {
+    "coefficient_log_odds": -0.3979268290453103,
+    "cluster_robust_se": 0.01585479611228321,
+    "z_value": -25.098199070313104,
+    "p_value_two_sided": 5.2036533231984466e-139,
+    "odds_ratio": 0.6717111756118819,
+    "alpha": 0.01,
+    "direction_is_negative": true,
+    "statistically_significant": true,
+    "supports_hypothesis": true
+  },
+  "original_claim_comparison": {
+    "reported_original_coefficient": -0.444,
+    "reported_original_se": 0.0163,
+    "replication_coefficient_difference": 0.04607317095468971,
+    "interpretation": "The replication supports the same negative, statistically significant association; its estimated magnitude is modestly smaller in absolute value."
+  }
+}

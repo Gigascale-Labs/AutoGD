@@ -1,0 +1,42 @@
+{
+  "dataset": "GSSreplication.dta",
+  "analysis_waves": [
+    2012,
+    2014,
+    2016,
+    2018
+  ],
+  "complete_case_n": 2269,
+  "complete_cases_by_year": {
+    "2012": 427,
+    "2014": 1088,
+    "2016": 394,
+    "2018": 360
+  },
+  "lca": {
+    "classes": 3,
+    "weighted_log_likelihood": -31797.314652996512,
+    "bic": 64328.70328204711,
+    "random_starts": 30,
+    "seed": 12345
+  },
+  "class_mapping": {
+    "post_secular": 1,
+    "traditional": 2,
+    "modern": 3
+  },
+  "hypothesis_test": {
+    "comparison": "post_secular_minus_traditional",
+    "post_secular_n": 528,
+    "traditional_n": 910,
+    "post_secular_evolution_rate": 0.03787878787878788,
+    "traditional_evolution_rate": 0.4076923076923077,
+    "difference_in_rates": -0.3698135198135198,
+    "t_statistic": -16.57027232608353,
+    "degrees_of_freedom": 1436,
+    "two_sided_p_value": 1.4454543195041441e-56,
+    "cohens_d": -0.9065075625167943
+  },
+  "conclusion": "supported",
+  "interpretive_note": "Classes were labeled from religious-profile and non-evolution science-item profiles before the focal evolution comparison; latent-class numeric identifiers themselves are arbitrary."
+}

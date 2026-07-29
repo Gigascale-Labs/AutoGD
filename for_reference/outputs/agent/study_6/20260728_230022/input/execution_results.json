@@ -1,0 +1,28 @@
+{
+  "execution_summary": "The replication study was executed successfully using a Python environment within a Docker container. The analysis was performed on 2269 complete cases from the GSS 2012\u20132018 dataset. The hypothesis regarding post-secular evolution endorsement versus traditional views was tested, and the results supported the hypothesis with a significant difference.",
+  "code_executed": [
+    {
+      "command": "run_replication.py",
+      "status": "Success",
+      "logs": "Replication completed: 2269 complete cases from GSS 2012\u20132018. Post-secular evolution endorsement=0.038; traditional=0.408; difference=-0.370. Pooled two-sided t(1436)=-16.570, p=1.45e-56; conclusion=supported.",
+      "environment": "Python 3.11 with numpy, scipy, matplotlib"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The hypothesis tested was the difference in endorsement between post-secular evolution and traditional views.",
+    "findings_summary": [
+      {
+        "outcome_name": "Difference in endorsement",
+        "value": "-0.370",
+        "standard_error": "Not provided",
+        "confidence_interval": "Not provided",
+        "p_value": "1.45e-56",
+        "statistical_significance": "p < 0.01",
+        "direction": "negative",
+        "effect_size": "Not provided"
+      }
+    ],
+    "tables": [],
+    "figures": []
+  }
+}

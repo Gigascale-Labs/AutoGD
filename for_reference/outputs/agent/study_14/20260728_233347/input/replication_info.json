@@ -1,0 +1,67 @@
+{
+  "replication_study": {
+    "hypothesis": "In a logistic regression of federal employees' intention to leave their agency (LeavingAgency), higher overall job satisfaction (JobSat) has a negative coefficient and is statistically significant in a two-sided test.",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "Estimation Data - Pitts (126zz).csv",
+      "source_type": "Employee-level survey estimation dataset supplied with the replication task.",
+      "wave_or_subset": "The supplied 126zz estimation-data subset; no wave identifier is provided in the CSV or supplied R script.",
+      "sample_size": "407,789 source rows; the analysis applies complete-case filtering to the model variables.",
+      "unit_of_analysis": "Individual employee survey record.",
+      "access_details": "Local file supplied in task_input/replication_data/ for this replication task.",
+      "qualification": {
+        "explanation": "The supplied data are qualified because they contain the outcome, focal predictor, all controls, and agency clustering variable named in the supplied analysis code, allowing the stated claim to be tested at the employee level with the specified model.",
+        "similarity_to_original": "The original paper supplied as original_paper.pdf is titled 'So Hard to Say Goodbye? Turnover Intention among U.S. Federal Employees.' The supplied CSV contains LeavingAgency and JobSat, and the supplied file replication_data/DAR Pitts (126zz).R specifies the same federal-employee turnover-intention model: LeavingAgency regressed on JobSat and the listed controls, clustered by Agency.",
+        "deviation_from_original": "The task materials do not provide a separate original-analysis dataset, sampling-wave documentation, or a date field with which to verify sample independence. The replication therefore uses the supplied 'Estimation Data - Pitts (126zz).csv' implementation dataset and treats it as the designated replication sample; this limitation is documented rather than inferring an unprovided difference. The supplied R script also refers to 'DAR data for 126zz.csv', whereas the available CSV has a different filename but the variables required by that script."
+      },
+      "notes": "Agency has 41 observed clusters. Missing-data filtering follows na.omit(FinDT) in the supplied R code, restricted to the variables used by its model."
+    },
+    "planned_method": {
+      "steps": "1. Read the supplied CSV using only the model columns. 2. Remove rows missing any model variable, matching na.omit in the supplied R script. 3. Fit a binomial logistic regression for LeavingAgency. 4. Compute agency-clustered sandwich standard errors with a finite-sample correction. 5. Test the JobSat coefficient with a two-sided robust Wald z test and save numerical outputs.",
+      "models": "Binomial logistic regression (GLM logit) with agency-clustered robust sandwich covariance, matching the formula in replication_data/DAR Pitts (126zz).R.",
+      "outcome_variable": "LeavingAgency (binary indicator).",
+      "independent_variables": "JobSat (overall job satisfaction), the focal predictor.",
+      "control_variables": "Over40, NonMinority, SatPay, SatAdvan, PerfCul, Empowerment, RelSup, Relcow, and Over40xSatAdvan.",
+      "tools_software": "Python 3 with pandas for CSV ingestion, statsmodels for the GLM and clustered covariance, NumPy, and SciPy for normal-distribution Wald p-values.",
+      "planned_estimation_and_test": {
+        "estimation": "The JobSat log-odds coefficient in the adjusted logistic regression, along with its agency-clustered robust standard error and odds ratio.",
+        "test": "Two-sided cluster-robust Wald z test of H0: beta_JobSat = 0."
+      },
+      "missing_data_handling": "Complete-case analysis: delete a record if any outcome, cluster, focal predictor, or listed control is missing, as done by na.omit in the supplied R script.",
+      "multiple_testing_policy": "No multiplicity correction; this replication has one preregistered focal hypothesis and treats other coefficients as adjustment variables.",
+      "inference_criteria": "The hypothesis is supported when the JobSat coefficient is negative and its two-sided cluster-robust Wald p-value is below 0.01, matching the supplied claim's reported p < .01 criterion."
+    },
+    "codebase": {
+      "files": {
+        "run_replication.py": "Executable analysis script. It reads the supplied CSV from a relative path in chunks, applies the supplied R model's complete-case rule, estimates the agency-clustered logistic regression, tests JobSat, and writes CSV and JSON result files under replication_results/."
+      },
+      "notes": "Run from the workspace root with python run_replication.py. The script is non-interactive and returns a nonzero exit status if data loading, validation, estimation, or output writing fails."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "numpy==2.1.3",
+          "pandas==2.2.3",
+          "scipy==1.15.3",
+          "statsmodels==0.14.4"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": false,
+        "min_gpu_memory_gb": 0,
+        "min_ram_gb": 2
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "Install requirements with pip install -r requirements.txt, then execute python run_replication.py from the workspace root. Inspect replication_results/results.json for the focal test and replication_results/model_coefficients.csv for the complete adjusted model table.",
+      "comparison_metrics": "Compare the JobSat coefficient sign, cluster-robust standard error, two-sided p-value/significance at alpha=0.01, and difference from the original claim's reported coefficient (-0.444; SE 0.0163)."
+    }
+  }
+}

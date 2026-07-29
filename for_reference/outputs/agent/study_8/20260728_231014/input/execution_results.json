@@ -1,0 +1,28 @@
+{
+  "execution_summary": "The replication analysis was executed successfully using Python within a Docker container. The analysis tested the hypothesis related to the ACT subsidy coefficient, and the results supported the hypothesis with a significant p-value.",
+  "code_executed": [
+    {
+      "command": "python replicate_analysis.py",
+      "status": "Success",
+      "logs": "Replication completed: N=493, ACT subsidy coefficient=0.526, SE=0.044, p=2.57e-29, hypothesis_supported=True",
+      "environment": "Python 3.11 with numpy, pandas, scipy, statsmodels"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The hypothesis tested was related to the ACT subsidy coefficient.",
+    "findings_summary": [
+      {
+        "outcome_name": "ACT subsidy coefficient",
+        "value": "0.526",
+        "standard_error": "0.044",
+        "confidence_interval": "Not provided",
+        "p_value": "2.57e-29",
+        "statistical_significance": "p < 0.01",
+        "direction": "positive",
+        "effect_size": "Not provided"
+      }
+    ],
+    "tables": [],
+    "figures": []
+  }
+}

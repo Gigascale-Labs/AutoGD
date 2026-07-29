@@ -1,0 +1,153 @@
+{
+  "generate-execute": {
+    "status": "Success",
+    "total_time_seconds": 109.77,
+    "total_tokens": 56868,
+    "prompt_tokens": 55758,
+    "completion_tokens": 1110,
+    "total_turns": 11,
+    "checkpoint_stats": {
+      "1. Generate Dockerfile": {
+        "time": 1.4453768730163574,
+        "tokens": 3754,
+        "prompt_tokens": 3707,
+        "completion_tokens": 47,
+        "turns": 1
+      },
+      "2. Build Image": {
+        "time": 33.79735493659973,
+        "tokens": 24210,
+        "prompt_tokens": 23678,
+        "completion_tokens": 532,
+        "turns": 5
+      },
+      "3. Start Container": {
+        "time": 1.705415964126587,
+        "tokens": 5496,
+        "prompt_tokens": 5451,
+        "completion_tokens": 45,
+        "turns": 1
+      },
+      "4. Plan & Preview": {
+        "time": 26.839772939682007,
+        "tokens": 5565,
+        "prompt_tokens": 5521,
+        "completion_tokens": 44,
+        "turns": 1
+      },
+      "6. Execute Code": {
+        "time": 39.671223163604736,
+        "tokens": 5683,
+        "prompt_tokens": 5638,
+        "completion_tokens": 45,
+        "turns": 1
+      },
+      "7. Stop Container": {
+        "time": 2.0066919326782227,
+        "tokens": 5896,
+        "prompt_tokens": 5851,
+        "completion_tokens": 45,
+        "turns": 1
+      },
+      "8. Final Output & Parsing": {
+        "time": 4.2992262840271,
+        "tokens": 6264,
+        "prompt_tokens": 5912,
+        "completion_tokens": 352,
+        "turns": 1
+      }
+    },
+    "turn_history": [
+      {
+        "turn": 1,
+        "action": "orchestrator_generate_dockerfile",
+        "checkpoint": "1. Generate Dockerfile",
+        "duration_seconds": 1.45,
+        "prompt_tokens": 3707,
+        "completion_tokens": 47,
+        "total_tokens": 3754
+      },
+      {
+        "turn": 2,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 1.27,
+        "prompt_tokens": 4013,
+        "completion_tokens": 45,
+        "total_tokens": 4058
+      },
+      {
+        "turn": 3,
+        "action": "edit_file",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 2.19,
+        "prompt_tokens": 4453,
+        "completion_tokens": 197,
+        "total_tokens": 4650
+      },
+      {
+        "turn": 4,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 1.5,
+        "prompt_tokens": 4697,
+        "completion_tokens": 45,
+        "total_tokens": 4742
+      },
+      {
+        "turn": 5,
+        "action": "edit_file",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 2.34,
+        "prompt_tokens": 5134,
+        "completion_tokens": 200,
+        "total_tokens": 5334
+      },
+      {
+        "turn": 6,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 26.5,
+        "prompt_tokens": 5381,
+        "completion_tokens": 45,
+        "total_tokens": 5426
+      },
+      {
+        "turn": 7,
+        "action": "orchestrator_run_container",
+        "checkpoint": "3. Start Container",
+        "duration_seconds": 1.71,
+        "prompt_tokens": 5451,
+        "completion_tokens": 45,
+        "total_tokens": 5496
+      },
+      {
+        "turn": 8,
+        "action": "orchestrator_plan",
+        "checkpoint": "4. Plan & Preview",
+        "duration_seconds": 26.84,
+        "prompt_tokens": 5521,
+        "completion_tokens": 44,
+        "total_tokens": 5565
+      },
+      {
+        "turn": 9,
+        "action": "orchestrator_execute_entry",
+        "checkpoint": "6. Execute Code",
+        "duration_seconds": 39.67,
+        "prompt_tokens": 5638,
+        "completion_tokens": 45,
+        "total_tokens": 5683
+      },
+      {
+        "turn": 10,
+        "action": "orchestrator_stop_container",
+        "checkpoint": "7. Stop Container",
+        "duration_seconds": 2.01,
+        "prompt_tokens": 5851,
+        "completion_tokens": 45,
+        "total_tokens": 5896
+      }
+    ]
+  }
+}

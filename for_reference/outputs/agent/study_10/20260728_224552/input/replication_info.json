@@ -1,0 +1,66 @@
+{
+  "replication_study": {
+    "hypothesis": "Holding the supplied controls, country indicators, and five-year time indicators constant, a one-calendar-year increase in Imports from the South (IMS) is positively associated with national affluence (NAff = GDP/population).",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "Supplied processed_data.csv and finaldata_noNA.csv; 32-country annual panel, 1965-2018",
+      "source_type": "Country-year observational panel assembled for the supplied replication materials",
+      "wave_or_subset": "The analysis uses processed_data.csv, the model-ready country-year subset in task_input/replication_data/. It spans 1965-2018; usable one-year-lag model observations span 1966-2018, subject to calendar-year gaps.",
+      "sample_size": "784 records in processed_data.csv before lagging; the executable analysis determines and records the final analytic N in results/replication_results.json.",
+      "unit_of_analysis": "Country-year",
+      "access_details": "Data are supplied locally in task_input/replication_data/ and require no external access.",
+      "qualification": {
+        "explanation": "This is a high-fidelity replication dataset because it includes the same operational variables and a supplied Stata script implementing the study model. It also constitutes a new temporal sample because the supplied script explicitly adds pre-1970 and post-2003 five-year indicators for observations beyond the original period.",
+        "similarity_to_original": "initial_details.txt identifies national affluence as the outcome and Imports from the South as the focal predictor. KMYR.do defines NAff as gdp/pop and IMS as totalimport/(gdp*10000), lags IMS, and estimates the panel model. processed_data.csv contains NAff, IMS, EXS, unemployment, country IDs, years, and the corresponding time indicators.",
+        "deviation_from_original": "The supplied KMYR.do states that new 1970-74 and 2005-18 time dummies are included to accommodate observations added before 1970 and after 2003. Inspection of processed_data.csv confirms years 1965-2018, so this extends beyond the original study period referenced by that script."
+      },
+      "notes": "processed_data.csv is used rather than recreating its preprocessing because it is the supplied model-ready counterpart to finaldata_noNA.csv and contains all variables constructed in KMYR.do. The source has four within-country calendar gaps; invalid one-year lags and AR transitions across those gaps are excluded."
+    },
+    "planned_method": {
+      "steps": "1. Load and validate processed_data.csv. 2. Sort country-years and construct IMS, EXS, and unemployment lags only when the immediately preceding calendar year is available. 3. Regress NAff on lagged IMS, lagged EXS, lagged unemployment, supplied five-year dummies, and country indicators. 4. Estimate iterated panel FGLS with country-specific AR(1) coefficients and panel-specific variances. 5. Save all coefficients and evaluate the sign and two-sided p value for lagged IMS.",
+      "models": "Iterated Prais-Winsten feasible generalized least squares, approximating the supplied Stata xtgls command with panels(hetero) corr(psar1) force.",
+      "outcome_variable": "NAff (national affluence), defined in KMYR.do as GDP divided by population.",
+      "independent_variables": "Primary: L_IMS, the one-calendar-year lag of IMS. Additional modeled predictors: L_EXS and L_unemp.",
+      "control_variables": "Lagged exports to the South, lagged unemployment, country fixed indicators, and supplied five-year time indicators.",
+      "tools_software": "Python 3 with NumPy, pandas, and SciPy.",
+      "planned_estimation_and_test": {
+        "estimation": "The FGLS coefficient on L_IMS and its conventional FGLS standard error.",
+        "test": "Two-sided normal/Wald z test of the L_IMS coefficient equal to zero."
+      },
+      "missing_data_handling": "The supplied processed data have no missing required model variables. Rows without an immediately prior calendar-year observation are omitted from the lagged model; year gaps also begin a new AR(1) segment.",
+      "multiple_testing_policy": "No multiplicity correction: one preregistered focal predictor and outcome.",
+      "inference_criteria": "Support requires a positive L_IMS coefficient and two-sided p < 0.05. The original claim reports b=.910, SE=.104, p<.001; due to supplied unstandardized variable units and expanded years, sign and significance are the primary comparison."
+    },
+    "codebase": {
+      "files": {
+        "replication_analysis.py": "Executable analysis script. It reads task_input/replication_data/processed_data.csv using a relative path, constructs valid lags, estimates the panel FGLS model, writes numerical results and a coefficient table under results/, prints a concise summary, and raises an error on failure."
+      },
+      "notes": "The script has no interactive prompts and uses only local supplied data. Results are generated at runtime rather than treated as executable code."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "numpy>=1.24,<3",
+          "pandas>=1.5,<3",
+          "scipy>=1.10,<2"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": false,
+        "min_gpu_memory_gb": 0,
+        "min_ram_gb": 1
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "From the workspace root, install requirements with pip install -r requirements.txt, then run python3 replication_analysis.py. Inspect results/replication_results.json for the machine-readable focal result and results/coefficient_table.csv for all model terms.",
+      "comparison_metrics": "Focal L_IMS coefficient sign, standard error, two-sided p value, 95% confidence interval, and the positive-and-significant decision versus the original reported positive b=.910 (SE=.104, p<.001)."
+    }
+  }
+}

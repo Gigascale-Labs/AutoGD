@@ -1,0 +1,28 @@
+{
+  "execution_summary": "The replication analysis was executed successfully using Python within a Docker container. The analysis involved reading 51,731 records and focused on a primary sample size of 673. The analysis tested the hypothesis related to education's average marginal effect (AME) on a certain outcome, which was found to be -0.00733 with a standard error of 0.00317 and a p-value of 0.02085, supporting the hypothesis.",
+  "code_executed": [
+    {
+      "command": "replication_analysis.py",
+      "status": "Success",
+      "logs": "Replication completed: 51731 records read; primary N=673; education AME=-0.00733, SE=0.00317, p=0.02085; hypothesis_supported=True.",
+      "environment": "Python 3.11 with numpy, pandas, statsmodels, matplotlib"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The hypothesis tested was related to the effect of education on a specific outcome, measured by the average marginal effect.",
+    "findings_summary": [
+      {
+        "outcome_name": "Average Marginal Effect of Education",
+        "value": "-0.00733",
+        "standard_error": "0.00317",
+        "confidence_interval": "Not provided",
+        "p_value": "0.02085",
+        "statistical_significance": "p < 0.05",
+        "direction": "Negative",
+        "effect_size": "Not provided"
+      }
+    ],
+    "tables": [],
+    "figures": []
+  }
+}

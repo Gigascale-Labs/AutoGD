@@ -1,0 +1,40 @@
+{
+  "execution_summary": "The replication study was executed successfully using a Python script within a Docker container. The analysis was performed on 10 observations from 1 state, testing the hypothesis related to working hours. The primary coefficient for log working hours was calculated, but the result was not statistically significant.",
+  "code_executed": [
+    {
+      "command": "python run_replication.py",
+      "status": "Success",
+      "logs": "Replication complete: 10 observations from 1 states. Primary coefficient (log working hours): 2.8536; p=0.2076; decision=not_supported.",
+      "environment": "Python 3.11 with numpy, pandas, statsmodels, matplotlib"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The hypothesis tested was related to the effect of working hours on a specific outcome.",
+    "findings_summary": [
+      {
+        "outcome_name": "Primary coefficient (log working hours)",
+        "value": "2.8536",
+        "standard_error": "Not provided",
+        "confidence_interval": "Not provided",
+        "p_value": "0.2076",
+        "statistical_significance": "Not significant",
+        "direction": "Positive",
+        "effect_size": "Not provided"
+      }
+    ],
+    "tables": [
+      {
+        "table_id": "Model Results",
+        "table_description": "Contains the results of the regression analysis.",
+        "table_file": "results/model_results.csv"
+      }
+    ],
+    "figures": [
+      {
+        "figure_id": "Working Hours Coefficients",
+        "figure_description": "Visual representation of the coefficients related to working hours.",
+        "figure_file": "results/working_hours_coefficients.png"
+      }
+    ]
+  }
+}

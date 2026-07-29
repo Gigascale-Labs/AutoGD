@@ -1,0 +1,28 @@
+{
+  "execution_summary": "The replication analysis was executed using Python on the provided dataset. The analysis focused on the median-age coefficient across 109 countries, resulting in a significant negative effect. No major deviations occurred from the preregistration.",
+  "code_executed": [
+    {
+      "command": "python replication_analysis.py",
+      "status": "Success",
+      "logs": "Replication completed: N=786, countries=109, median-age coefficient=-0.007657, clustered SE=0.001209, p(two-sided)=2.42e-10; estimated 3.5-year decrease effect=0.0268.",
+      "environment": "Python 3.11 with numpy, pandas, scipy, statsmodels"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The hypothesis tested was the effect of median age on a specific outcome across multiple countries.",
+    "findings_summary": [
+      {
+        "outcome_name": "Median-age coefficient",
+        "value": "-0.007657",
+        "standard_error": "0.001209",
+        "confidence_interval": "Not provided",
+        "p_value": "2.42e-10",
+        "statistical_significance": "p < 0.01",
+        "direction": "negative",
+        "effect_size": "Estimated 3.5-year decrease effect=0.0268"
+      }
+    ],
+    "tables": [],
+    "figures": []
+  }
+}

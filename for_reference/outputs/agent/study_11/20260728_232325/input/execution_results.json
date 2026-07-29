@@ -1,0 +1,28 @@
+{
+  "execution_summary": "The replication study was executed successfully using Python within a Docker container. The analysis focused on testing the hypothesis of a positive association with bilingual estimates. The process followed the planned steps without any major deviations.",
+  "code_executed": [
+    {
+      "command": "replication_analysis.py",
+      "status": "Success",
+      "logs": "Replication completed\nN=14968; bilingual estimate=0.351; p=1.456e-42\nDecision: supports positive association\n",
+      "environment": "Python 3.11 with numpy, pandas, scipy, statsmodels, matplotlib"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The hypothesis tested was the positive association with bilingual estimates.",
+    "findings_summary": [
+      {
+        "outcome_name": "Bilingual Estimate",
+        "value": "0.351",
+        "standard_error": "Not provided",
+        "confidence_interval": "Not provided",
+        "p_value": "1.456e-42",
+        "statistical_significance": "p < 0.01",
+        "direction": "positive",
+        "effect_size": "Not provided"
+      }
+    ],
+    "tables": [],
+    "figures": []
+  }
+}

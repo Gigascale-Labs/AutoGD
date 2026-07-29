@@ -1,0 +1,67 @@
+{
+  "replication_study": {
+    "hypothesis": "Among post-baseline illness episodes tested through a community health worker, receiving any ACT voucher subsidy increases the probability of taking ACT (drugs_taken_AL).",
+    "study_type": "Experimental",
+    "data_plan": {
+      "dataset_identifier": "ReplicationData_Cohen_AmEcoRev_2015_2lb5.dta",
+      "source_type": "Supplied Stata replication dataset from the randomized controlled trial analyzed by Cohen et al. (2015).",
+      "wave_or_subset": "Post-baseline waves (wave != 0), restricted to observations tested through a community health worker (maltest_where == 1).",
+      "sample_size": "7,416 rows in the supplied dataset; the supplied-model subset has 505 rows before listwise deletion, with the final number reported by the analysis script.",
+      "unit_of_analysis": "Illness episode observation; the supplied do-file treats each retained observation as a distinct household PSU for variance estimation.",
+      "access_details": "Data are supplied locally in task_input/replication_data and require no external access.",
+      "qualification": {
+        "explanation": "This is a computational reproduction using the supplied replication extract, not an independent-sample replication. It is qualified to test the stated hypothesis faithfully because it includes the outcome, voucher, survey weight, stratum, wave, and covariates used in the supplied analysis code.",
+        "similarity_to_original": "The supplied file is named ReplicationData_Cohen_AmEcoRev_2015_2lb5.dta and the supplied 'Cohen et al 2015 - Replication Analysis.do' explicitly identifies it as the data for replicating the AER claim. The do-file identifies drugs_taken_AL as the Table 2 ACT-access outcome and maltest_chw_voucher_given as the ACT-voucher measure, matching the claim in initial_details.txt and the original paper supplied as original_paper.pdf.",
+        "deviation_from_original": "No separate post-registration or newly collected dataset is supplied. The analysis therefore does not claim a new sample: it uses the local replication extract and translates the supplied Stata specification to Python. The do-file also documents an operational assumption that repeat households are expected to be rare and creates hh_id from row order; this is retained in the Python variance calculation."
+      },
+      "notes": "The treatment is recoded to missing when maltest_chw_voucher_given equals 98, as specified in the supplied do-file. Covariate transformations, including Stata strpos coding of asset strings, follow the supplied code."
+    },
+    "planned_method": {
+      "steps": "1. Load the supplied Stata file. 2. Construct took_ACT from drugs_taken_AL and any ACT subsidy from maltest_chw_voucher_given. 3. Restrict to CHW-tested, post-baseline observations. 4. Reproduce the specified household-asset, sanitation, wall-material, and sheep controls. 5. Omit stone_wall only if it is exactly collinear with vip_toilet in the final sample, as occurs in the supplied data and as Stata does for a collinear regressor. 6. Estimate the weighted linear probability model with cu_code strata fixed effects. 7. Calculate a stratum-centred linearized sandwich variance under the do-file's unique-household-PSU assumption. 8. Save coefficients, sample summaries, and a machine-readable hypothesis result.",
+      "models": "Weighted least squares linear probability model with cu_code fixed effects and a survey-style, stratum-centred linearized sandwich covariance estimator.",
+      "outcome_variable": "took_ACT, renamed from drugs_taken_AL.",
+      "independent_variables": "act_subsidy, equal to one when maltest_chw_voucher_given equals one and zero otherwise, except code 98 is missing.",
+      "control_variables": "cu_code fixed effects; refrigerator, mobile, vip_toilet, composting_toilet, other_toilet, stone_wall, cement_wall, and num_sheep, as in the supplied do-file. In the supplied estimation sample stone_wall is exactly collinear with vip_toilet, so the executable model omits stone_wall as Stata would.",
+      "tools_software": "Python 3 with pandas for Stata I/O and transformations, statsmodels for weighted least squares, and SciPy for t-distribution inference.",
+      "planned_estimation_and_test": {
+        "estimation": "The coefficient on act_subsidy in the weighted ACT-uptake linear probability model.",
+        "test": "Two-sided t test using the survey-style linearized standard error and design degrees of freedom; the directional hypothesis requires a positive coefficient and p < 0.01."
+      },
+      "missing_data_handling": "Code 98 for the voucher variable is set to missing; all model variables use listwise deletion, matching Stata regression behavior.",
+      "multiple_testing_policy": "One focal outcome and one focal treatment test; no multiple-testing adjustment is applied.",
+      "inference_criteria": "Support requires a positive act_subsidy coefficient with two-sided p < 0.01."
+    },
+    "codebase": {
+      "files": {
+        "replicate_analysis.py": "Executable Python analysis script. It loads the supplied Stata dataset via a relative path, reproduces the supplied Stata model and survey-style variance calculation, writes CSV/JSON result files under replication_results, prints a concise summary, and exits nonzero if it fails."
+      },
+      "notes": "Only replicate_analysis.py is executable analysis code. Outputs are generated at runtime and are not inputs to execution."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "numpy>=1.26,<3",
+          "pandas>=2.1,<3",
+          "scipy>=1.11,<2",
+          "statsmodels>=0.14,<1"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": false,
+        "min_gpu_memory_gb": 0,
+        "min_ram_gb": 2
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "From the workspace root, install requirements with pip install -r requirements.txt and run python replicate_analysis.py. Inspect replication_results/results.json for the focal numerical result and hypothesis decision; the two CSV files provide the full coefficient table and estimation-sample treatment-group summary.",
+      "comparison_metrics": "ACT-subsidy coefficient, survey-style standard error, t statistic, two-sided p value, 95% confidence interval, retained sample size, and whether the positive 1% criterion is met. The supplied claim's reported coefficient (0.187) and clustered standard error (0.038) are retained as external comparison benchmarks; any mismatch is reported rather than altered."
+    }
+  }
+}

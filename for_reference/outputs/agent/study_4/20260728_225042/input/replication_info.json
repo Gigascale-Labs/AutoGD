@@ -1,0 +1,65 @@
+{
+  "replication_study": {
+    "hypothesis": "Among eligible respondents, women (female = 1) have a higher mean mh_anxiety_1 COVID-19 concern score than men (female = 0).",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "data_gerhold.csv (provided replication data)",
+      "source_type": "Survey microdata of respondents living in Germany.",
+      "wave_or_subset": "The supplied file contains one Germany-only cross-sectional extract; gender code 3 is excluded to match the supplied R analysis.",
+      "sample_size": "10,192 rows supplied; 10,071 rows after excluding 121 rows with gender code 3.",
+      "unit_of_analysis": "Individual survey respondent.",
+      "access_details": "Provided locally in task_input/replication_data/data_gerhold.csv; no external access is required.",
+      "qualification": {
+        "explanation": "The supplied data directly contain the gender indicator and the mh_anxiety_1 focal response used by the included replication script, permitting a faithful reimplementation of its specified comparison. The materials do not document a separate collection or wave, so this replication is best characterized as a computational reproduction on the supplied extract rather than an independent new-sample replication.",
+        "similarity_to_original": "The original-paper file is original_paper.pdf, whose topic is COVID-19 risk perception in Germany; the supplied data file contains only CountryofLiving = Germany and COVID-related mh_anxiety measures. The included Gerhold_covid_Azg9_0948_final.R explicitly uses data_gerhold.csv, removes gender code 3, and sets mh_anxiety_1 as its focal claim outcome.",
+        "deviation_from_original": "No documentation in the supplied materials identifies a new fielding period, sampling frame, or independent sample relative to original_paper.pdf. The usable difference is analytical: this Python implementation creates transparent machine-readable outputs and separately checks the reported top-two-box percentages. Any claim of an independent sample would be unsupported by the supplied files."
+      },
+      "notes": "The data include weight_sample and weight_new, but the supplied R script performs unweighted analyses; this implementation follows that choice. The response-label direction is not included in the CSV, so the top-two-box check treats values 4 and 5 as agree/strongly agree because the supplied R script interprets higher mh_anxiety_1 means as greater concern."
+    },
+    "planned_method": {
+      "steps": "1. Read the supplied CSV using a relative path. 2. Exclude gender code 3. 3. Retain complete female and mh_anxiety_1 observations. 4. Compare women and men using the pooled-variance two-sided t-test specified in the supplied R script. 5. Report Cohen's d and a Fisher variance check. 6. Calculate the unweighted top-two-box percentages (codes 4 or 5) and a two-proportion z test to assess the textual percentage claim. 7. Save a CSV table and JSON results.",
+      "models": "Independent-samples pooled-variance t-test for the focal continuous/ordinal score; two-sample proportion z test for the supplementary top-two-box claim check.",
+      "outcome_variable": "mh_anxiety_1, the focal outcome named in Gerhold_covid_Azg9_0948_final.R.",
+      "independent_variables": "female (1 = women; 0 = men).",
+      "control_variables": "None; the supplied R script uses an unadjusted two-group comparison.",
+      "tools_software": "Python 3 with pandas and SciPy.",
+      "planned_estimation_and_test": {
+        "estimation": "Women-minus-men mean difference in mh_anxiety_1 and women/men top-two-box proportions.",
+        "test": "Two-sided pooled-variance t-test (focal) at alpha = 0.05; two-sided two-proportion z test for the supplementary claim check."
+      },
+      "missing_data_handling": "Exclude gender code 3 as specified by the included R script; listwise delete missing focal-outcome or female-indicator values.",
+      "multiple_testing_policy": "No multiplicity adjustment: one preregistered focal outcome is tested; the top-two-box calculation is a descriptive/claim-consistency check.",
+      "inference_criteria": "The directional hypothesis is supported when the unadjusted two-sided focal-test p value is below 0.05 and the women-minus-men mean difference is positive."
+    },
+    "codebase": {
+      "files": {
+        "run_replication.py": "Executable analysis script. It reads the supplied CSV via a relative path, applies the supplied R script's gender exclusion and pooled t-test, evaluates the top-two-box claim, writes replication_results/descriptive_statistics.csv and replication_results/focal_test_results.json, prints a concise summary, and exits nonzero if validation or analysis fails."
+      },
+      "notes": "Run from the workspace root with python3 run_replication.py. Generated result files are intentionally written beneath replication_results/."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "pandas==2.2.3",
+          "scipy==1.14.1"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": "false",
+        "min_gpu_memory_gb": "0",
+        "min_ram_gb": "1"
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "Install dependencies with pip install -r requirements.txt, then run python3 run_replication.py from the workspace root. Inspect the generated JSON for numerical tests and the CSV for the group table.",
+      "comparison_metrics": "Women and men group means, their difference, t statistic, degrees of freedom, two-sided p value, Cohen's d, overall and group top-two-box proportions, and the two-proportion z-test p value."
+    }
+  }
+}

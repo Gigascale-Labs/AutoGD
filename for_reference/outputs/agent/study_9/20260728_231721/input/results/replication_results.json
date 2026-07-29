@@ -1,0 +1,22 @@
+{
+  "hypothesis": "On the economic policy dimension, the number of parties in the party system is positively associated with policy dispersion.",
+  "outcome": "log dispersion between the most economically extreme parties in a country-election",
+  "focal_predictor": "log count of qualifying parties in the country-election party system",
+  "estimator": "OLS with country-clustered robust covariance; 95% intervals use t critical value with clusters - 1 degrees of freedom",
+  "focal_result": {
+    "estimate": 0.4049439674007502,
+    "cluster_robust_se": 0.11806374224632644,
+    "ci_95": [
+      0.1631013545963021,
+      0.6467865802051984
+    ],
+    "normal_approx_p_value": 0.0006038576799400253,
+    "supports_hypothesis": true
+  },
+  "sample": {
+    "observations": 453,
+    "country_clusters": 29,
+    "party_systems_before_model": 485
+  },
+  "interpretive_choice": "The supplied do-file says to use all available observations; this includes its post-1999 and additional-country records."
+}

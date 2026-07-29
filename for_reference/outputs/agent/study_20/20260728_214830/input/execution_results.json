@@ -1,0 +1,28 @@
+{
+  "execution_summary": "The replication study was executed using a Python environment within a Docker container. The analysis was performed on the dataset with n=258 observations. The focal hypothesis regarding the positive effect was tested, resulting in a coefficient (b_realistic) of 1.389 with a p-value of 0.1679, which does not support the positive hypothesis.",
+  "code_executed": [
+    {
+      "command": "run_replication.py",
+      "status": "Success",
+      "logs": "Replication completed: n=258, b_realistic=1.389, p=0.1679, supports_positive_hypothesis=False.",
+      "environment": "Python 3.11 with matplotlib, numpy, pandas, statsmodels"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The hypothesis tested was whether there is a positive effect as indicated by the coefficient b_realistic.",
+    "findings_summary": [
+      {
+        "outcome_name": "Coefficient b_realistic",
+        "value": "1.389",
+        "standard_error": "Not provided",
+        "confidence_interval": "Not provided",
+        "p_value": "0.1679",
+        "statistical_significance": "Not statistically significant",
+        "direction": "Positive",
+        "effect_size": "Not provided"
+      }
+    ],
+    "tables": [],
+    "figures": []
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "data_file": "task_input/replication_data/analysis_data.dta",
+  "input_rows": 2610,
+  "model_specification": "OLS with village-clustered robust standard errors; raw_inc_per_acre ~ literate_hh + land_owned + locaste_land_v + stcode + caste + stcode:caste.",
+  "interpretive_choice": "The supplied .do file writes stcode##caste without i. prefixes. This script treats both as continuous numeric variables, matching Stata factor-variable syntax.",
+  "confirmatory_hypothesis_test": {
+    "term": "locaste_land_v",
+    "null_hypothesis": "coefficient <= 0",
+    "alternative_hypothesis": "coefficient > 0",
+    "decision_rule": "Positive coefficient and two-sided cluster-robust p < 0.01, matching the stated original claim.",
+    "result": {
+      "analysis": "confirmatory_raw_income_all_states",
+      "outcome": "raw_inc_per_acre",
+      "term": "locaste_land_v",
+      "coefficient": 5.622487072502318,
+      "robust_se_clustered_by_village": 8.237092830338868,
+      "t_statistic": 0.6825814869772462,
+      "p_value": 0.4956061133859667,
+      "ci_95_lower": -10.613309890585567,
+      "ci_95_upper": 21.858284035590202,
+      "n_observations": 2537,
+      "n_village_clusters": 216
+    },
+    "conclusion": "not_supported"
+  },
+  "all_models": [
+    {
+      "analysis": "confirmatory_raw_income_all_states",
+      "outcome": "raw_inc_per_acre",
+      "n_observations": 2537,
+      "n_village_clusters": 216,
+      "r_squared": 0.003439755054253313,
+      "adjusted_r_squared": 0.0010763710741448218,
+      "aic": 33663.95076581171,
+      "bic": 33704.8219287289,
+      "log_likelihood": -16824.975382905854,
+      "focal_result": {
+        "analysis": "confirmatory_raw_income_all_states",
+        "outcome": "raw_inc_per_acre",
+        "term": "locaste_land_v",
+        "coefficient": 5.622487072502318,
+        "robust_se_clustered_by_village": 8.237092830338868,
+        "t_statistic": 0.6825814869772462,
+        "p_value": 0.4956061133859667,
+        "ci_95_lower": -10.613309890585567,
+        "ci_95_upper": 21.858284035590202,
+        "n_observations": 2537,
+        "n_village_clusters": 216
+      }
+    },
+    {
+      "analysis": "exploratory_net_income_all_states",
+      "outcome": "net_inc_per_acre",
+      "n_observations": 2537,
+      "n_village_clusters": 216,
+      "r_squared": 0.0018183091157020215,
+      "adjusted_r_squared": -0.0005489201907429297,
+      "aic": 32202.457188085944,
+      "bic": 32243.32835100314,
+      "log_likelihood": -16094.228594042972,
+      "focal_result": {
+        "analysis": "exploratory_net_income_all_states",
+        "outcome": "net_inc_per_acre",
+        "term": "locaste_land_v",
+        "coefficient": 5.939691407395575,
+        "robust_se_clustered_by_village": 5.442657862216067,
+        "t_statistic": 1.0913218427029938,
+        "p_value": 0.2763527615882015,
+        "ci_95_lower": -4.7881090205690935,
+        "ci_95_upper": 16.667491835360245,
+        "n_observations": 2537,
+        "n_village_clusters": 216
+      }
+    },
+    {
+      "analysis": "sensitivity_raw_income_states_2_15",
+      "outcome": "raw_inc_per_acre",
+      "n_observations": 496,
+      "n_village_clusters": 41,
+      "r_squared": 0.2376455092153047,
+      "adjusted_r_squared": 0.22829146638359066,
+      "aic": 5201.425322580488,
+      "bic": 5230.871354067563,
+      "log_likelihood": -2593.712661290244,
+      "focal_result": {
+        "analysis": "sensitivity_raw_income_states_2_15",
+        "outcome": "raw_inc_per_acre",
+        "term": "locaste_land_v",
+        "coefficient": -5.2866007092040865,
+        "robust_se_clustered_by_village": 8.415381636002392,
+        "t_statistic": -0.6282068880378682,
+        "p_value": 0.533439086840678,
+        "ci_95_lower": -22.294721433763865,
+        "ci_95_upper": 11.72152001535569,
+        "n_observations": 496,
+        "n_village_clusters": 41
+      }
+    }
+  ]
+}

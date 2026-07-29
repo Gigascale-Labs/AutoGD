@@ -1,0 +1,4 @@
+Replication focal test
+N=748; countries=32; years=[1966, 2018]
+L_IMS estimate=633.245, SE=82.3249, z=7.6920, p=1.448e-14
+Positive and p<.05: True
