@@ -1,4 +1,4 @@
-You are implementing a deterministic theoretical economic model.
+You are implementing a deterministic theoretical economic model from an academic paper.
 
 ## Workspace restriction
 
@@ -7,7 +7,6 @@ Work only inside the current workspace.
 You may read only:
 
 - task_input/initial_details.txt
-- task_input/model_specification.pdf
 - task_input/original_paper.pdf
 - files that you create during this task
 
@@ -16,7 +15,7 @@ Do not:
 - access parent directories;
 - inspect the surrounding repository;
 - search for existing implementations;
-- access hidden reference code or validators;
+- access hidden reference code, validators, or previous outputs;
 - use web search or any network resource.
 
 ## Task
@@ -24,14 +23,15 @@ Do not:
 First read:
 
 1. task_input/initial_details.txt
-2. task_input/model_specification.pdf
-3. task_input/original_paper.pdf only when needed to verify the specification
+2. task_input/original_paper.pdf
 
-Then implement only the static scarcity-of-labor model described in those files.
+Using only those files, identify and implement the static scarcity-of-labor model used to produce Figure 6 of the paper.
+
+Do not use or assume access to a separate model specification.
 
 Follow every requirement in task_input/initial_details.txt exactly.
 
-Do not implement any dynamic model, AGI scenario, capital accumulation process, empirical analysis, or other section of the paper.
+Do not implement any dynamic model, AGI scenario, capital accumulation process, empirical analysis, or unrelated section of the paper.
 
 ## Required file structure
 
@@ -57,37 +57,19 @@ Do not place generated implementation files inside task_input/.
 
 This file must:
 
-- contain the model equations and computational logic;
-- implement Region 1 and Region 2;
-- compute the automation threshold;
-- compute total output Y;
-- compute wage w;
-- compute return to capital R;
-- compute wage bill wL;
-- compute capital income RK;
-- verify numerically that Y = wL + RK;
+- contain the equations and computational logic extracted from the paper;
+- implement all regimes required by the Figure 6 model;
+- compute the relevant automation threshold;
+- compute total output;
+- compute payments to labor;
+- compute payments to capital;
+- expose a clear function that evaluates the model for one automation value and one parameter set;
 - not contain hard-coded expected output values;
-- not contain the baseline parameter values.
-
-Expose a clear function that evaluates the model for one Phi value and one parameter set.
+- not contain baseline parameter values.
 
 ### parameters.json
 
-This file must contain both Figure 6 parameter cases:
-
-Left case:
-
-- K = 1
-- L = 1
-- sigma = 0.5
-- A = 1
-
-Right case:
-
-- K = 10
-- L = 1
-- sigma = 0.2
-- A = 1
+This file must contain both Figure 6 parameter cases as extracted from the paper.
 
 All baseline parameter values must be stored here rather than embedded in model.py.
 
@@ -96,12 +78,12 @@ All baseline parameter values must be stored here rather than embedded in model.
 This file must:
 
 - load parameters.json;
-- evaluate both parameter cases over a Phi grid from 0 to 1;
+- evaluate both parameter cases over an automation grid covering the full Figure 6 range;
 - call the functions in model.py;
-- save complete numerical results for every Phi value;
+- save complete numerical results for every evaluated value;
 - generate the requested plot;
 - create the outputs directory when necessary;
-- exit with a nonzero status if the accounting identity Y = wL + RK fails.
+- exit with a nonzero status if any internal validation or accounting check fails.
 
 ### Numerical output contract
 
@@ -109,17 +91,12 @@ Both JSON result files must use this top-level structure:
 
 {
   "case": "left or right",
-  "parameters": {
-    "K": 0,
-    "L": 0,
-    "sigma": 0,
-    "A": 0
-  },
+  "parameters": {},
   "threshold": 0,
   "results": [
     {
       "phi": 0,
-      "region": 1,
+      "region": 0,
       "Y": 0,
       "w": 0,
       "R": 0,
@@ -137,7 +114,7 @@ Requirements:
 - Use the keys exactly as shown.
 - Do not omit intermediate values.
 - Do not replace numerical values with explanatory text.
-- The threshold must be calculated from the parameters, not hard-coded.
+- Calculate the threshold from the extracted equations and parameters.
 
 ### Plot contract
 
@@ -147,10 +124,10 @@ Save one image as:
 
 The plot must show, for both parameter cases:
 
-- total output Y;
-- wage bill wL;
-- capital income RK;
-- Phi on the horizontal axis.
+- total output;
+- payments to labor;
+- payments to capital;
+- the automation share on the horizontal axis.
 
 ### requirements.txt
 
@@ -165,17 +142,18 @@ Include:
 - dependency installation instructions;
 - the exact command to run the implementation;
 - the exact output paths;
-- a brief explanation of the file structure.
+- a brief explanation of the file structure;
+- the paper sections and equations used.
 
 ## Required process
 
 Before writing code:
 
 1. Read all task requirements.
-2. Extract the exact Region 1 and Region 2 equations.
-3. Write a concise implementation plan in your reasoning.
-4. Confirm that the plan includes every item in the execution gate from
-   task_input/initial_details.txt.
+2. Locate the relevant model in the paper.
+3. Identify the exact sections, equations, regime conditions, parameter values, and outputs needed for Figure 6.
+4. Write a concise implementation plan in your reasoning.
+5. If the requested model is ambiguous, stop and report the ambiguity instead of guessing.
 
 Then:
 
@@ -184,7 +162,7 @@ Then:
 3. Run the implementation.
 4. Inspect all generated JSON files.
 5. Verify that they conform exactly to the output contract.
-6. Verify numerically that Y = wage_bill + capital_income for every result.
+6. Verify all numerical accounting identities implied by the model.
 7. Fix all runtime, formatting, and validation errors.
 8. Confirm that outputs/figure6.png exists.
 
@@ -202,16 +180,17 @@ Do not:
 - use the plot as the only output;
 - change filenames from the required contract.
 
-If an equation or requirement cannot be determined from the supplied files, stop and clearly report the missing information instead of guessing.
+If an equation or requirement cannot be determined from the supplied paper, stop and clearly report the missing information instead of guessing.
 
 ## Completion response
 
 At the end, report:
 
+- paper sections and equations implemented;
 - files created;
 - command executed;
 - whether execution succeeded;
-- whether all accounting checks passed;
+- whether all validation checks passed;
 - exact output paths;
 - any unresolved issue.
 
