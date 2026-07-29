@@ -1,0 +1,29 @@
+{
+  "dataset": "task_input/replication_data/data_gerhold.csv",
+  "analysis_sample_n": 10071,
+  "exclusion": "Removed 121 rows with gender code 3, as in the supplied R script.",
+  "focal_outcome": "mh_anxiety_1",
+  "focal_test": {
+    "method": "Two-sided pooled-variance independent-samples t-test (women minus men)",
+    "women_mean": 3.0748023515102374,
+    "men_mean": 2.8896457765667574,
+    "mean_difference": 0.18515657494348003,
+    "t_statistic": 8.252666724456793,
+    "degrees_of_freedom": 10069,
+    "p_value_two_sided": 1.742986142639901e-16,
+    "cohens_d": 0.16450458132186,
+    "variance_ratio_women_over_men": 0.9448543039776334,
+    "f_test_p_value_two_sided": 0.044305159423708156,
+    "decision_alpha_0_05": "supported"
+  },
+  "textual_claim_top_two_box_check": {
+    "coding": "Responses 4 or 5, interpreting the upper end of the 1--5 scale as agree/strongly agree. This direction is consistent with the supplied R script's interpretation that a higher focal mean indicates more concern.",
+    "overall_proportion": 0.3268791579783537,
+    "women_proportion": 0.32556253800932494,
+    "men_proportion": 0.3281432463993772,
+    "women_minus_men": -0.0025807083900522554,
+    "two_proportion_z": -0.2760038303486665,
+    "p_value_two_sided": 0.7825451242733508,
+    "comparison_to_reported_claim": "The supplied data's unweighted top-two-box percentages do not reproduce the reported 62.1% overall, 68.2% women, and 55.7% men figures."
+  }
+}

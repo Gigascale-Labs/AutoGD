@@ -1,0 +1,20 @@
+{
+  "plan_id": "study",
+  "steps": [
+    {
+      "name": "prepare-env",
+      "ok": true
+    },
+    {
+      "name": "run-analysis",
+      "ok": true,
+      "exit_code": 0,
+      "stdout": "n=858, countries=14; imm_concern=0.1779, SE=0.0389, one-sided p=2.737e-06; supports hypothesis=True\n",
+      "stderr": "",
+      "artifacts": [],
+      "entry": "replication_analysis.py",
+      "resolved_path": "/workspace/replication_analysis.py"
+    }
+  ],
+  "ok": true
+}

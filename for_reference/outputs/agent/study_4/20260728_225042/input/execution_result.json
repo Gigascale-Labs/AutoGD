@@ -1,0 +1,20 @@
+{
+  "plan_id": "study",
+  "steps": [
+    {
+      "name": "prepare-env",
+      "ok": true
+    },
+    {
+      "name": "run-analysis",
+      "ok": true,
+      "exit_code": 0,
+      "stdout": "Replication completed: N=10071; women mean=3.075; men mean=2.890; t(10069)=8.253, p=1.74e-16; top-two-box women=32.6%, men=32.8%.\n",
+      "stderr": "",
+      "artifacts": [],
+      "entry": "run_replication.py",
+      "resolved_path": "/workspace/run_replication.py"
+    }
+  ],
+  "ok": true
+}

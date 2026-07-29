@@ -1,0 +1,70 @@
+{
+  "replication_study": {
+    "hypothesis": "Across countries, the interaction of cultural tightness and government efficiency is negative when predicting each country's early COVID-19 infection-growth rate, operationalized as the 30-day slope of log cumulative cases per million after cases exceed one per million.",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "gelfand_replication_data.csv (supplied replication dataset)",
+      "source_type": "Country-day COVID-19 surveillance data combined with country-level cultural tightness, government efficiency, and demographic/economic covariates.",
+      "wave_or_subset": "The analysis excludes Belgium, France, New Zealand, Norway, Pakistan, and Venezuela, then uses the first 30 country-days after cumulative cases exceed one per million.",
+      "sample_size": "63 countries in the supplied file; 57 after the documented six-country exclusion; 55 complete cases in the final OLS regression.",
+      "unit_of_analysis": "Country in the final regression; country-day observations are used only to estimate each country's growth slope.",
+      "access_details": "Provided locally in task_input/replication_data/gelfand_replication_data.csv; no external access is required.",
+      "qualification": {
+        "explanation": "This is a high-fidelity computational replication dataset because it contains the country-day cumulative cases-per-million outcome and every country-level measure used in the supplied analysis code. It is not an independent new-sample replication: it is supplied specifically to reproduce the reported analysis.",
+        "similarity_to_original": "The focal claim in task_input/initial_details.txt concerns the tightness-by-efficiency association with COVID-19 infection rate. The supplied Stata file task_input/replication_data/Analysis_script_v2.do operationalizes that claim using total_covid_per_million, tightness, efficiency, GDP, Gini, and median age, all of which are present in gelfand_replication_data.csv.",
+        "deviation_from_original": "The supplied replication code documents a 63-country CSV and excludes six countries (Belgium, France, New Zealand, Norway, Pakistan, and Venezuela) because their tightness data were collected at a different time; it therefore analyzes 57 countries (Analysis_script_v2.do comments). The supplied materials do not provide a separate preregistered independent dataset, so the study is described as a direct computational replication rather than claiming a novel population sample."
+      },
+      "notes": "The CSV encodes missing numeric values as NA. Following the supplied Stata script, gini_val is supplemented by alternative_gini and the final regression uses complete cases. Missing calendar days are inserted and cumulative cases are forward-filled before defining the 30-day window."
+    },
+    "planned_method": {
+      "steps": "1. Load the supplied CSV and remove the six countries documented in the supplied Stata code. 2. Insert missing daily dates within country and forward-fill cumulative cases per million and GDP. 3. Keep dates after cumulative cases per million exceed one, number days within country, and retain days 1-30. 4. Regress log cumulative cases per million on day separately for each country. 5. Regress the resulting country slopes on tightness, efficiency, their product, GDP, Gini, and median age. 6. Save numeric results, the country slope table, coefficient table, and an interaction figure.",
+      "models": "First-stage country-specific ordinary least squares regressions, followed by a country-level ordinary least squares regression with an intercept.",
+      "outcome_variable": "Country-specific 30-day OLS slope for log(total_covid_per_million).",
+      "independent_variables": "Cultural tightness, government efficiency, and their uncentered product (efficiency_x_tightness).",
+      "control_variables": "GDP, Gini coefficient (gini_val, replaced by alternative_gini where needed), and median age; the final model also includes both constituent main effects.",
+      "tools_software": "Python 3 with pandas, numpy, statsmodels, and matplotlib.",
+      "planned_estimation_and_test": {
+        "estimation": "The coefficient of the efficiency_x_tightness term in the final OLS regression.",
+        "test": "Two-sided t-test of the OLS coefficient against zero, while the preregistered directional expectation is negative."
+      },
+      "missing_data_handling": "Interpret NA as missing; use alternative_gini when gini_val is missing; otherwise apply listwise deletion in the final OLS model, matching ordinary least squares default handling in the supplied workflow.",
+      "multiple_testing_policy": "No multiple-testing correction: one preregistered focal interaction is tested.",
+      "inference_criteria": "The hypothesis is supported only if the focal interaction coefficient is negative and its two-sided p-value is below 0.05."
+    },
+    "codebase": {
+      "files": {
+        "run_replication_analysis.py": "Executable analysis script. It reads the supplied CSV using a path relative to itself, reproduces the Stata data preparation and two-stage OLS procedure, writes machine-readable tables/JSON and a PNG figure to replication_results/, prints a concise summary, and exits nonzero on failure."
+      },
+      "notes": "The script is self-contained apart from the local supplied dataset and packages listed below. Output files are created at runtime in replication_results/."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "matplotlib==3.5.1",
+          "numpy==1.23.5",
+          "pandas==1.5.3",
+          "statsmodels==0.13.5",
+          "scipy==1.9.3"
+        ],
+        "other": [
+          "git",
+          "make",
+          "wget"
+        ]
+      },
+      "hardware": {
+        "gpu_support": false,
+        "min_gpu_memory_gb": 0,
+        "min_ram_gb": 2
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "From the workspace root, install requirements with pip install -r requirements.txt and run ./run_replication_analysis.py. Inspect replication_results/results.json for the focal inference and the CSV/PNG files for supporting outputs.",
+      "comparison_metrics": "Compare the focal interaction's coefficient, standard error, t statistic, two-sided p-value, residual degrees of freedom, and sign with the claim in task_input/initial_details.txt."
+    }
+  }
+}

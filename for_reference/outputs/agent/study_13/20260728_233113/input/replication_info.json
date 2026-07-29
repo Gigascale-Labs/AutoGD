@@ -1,0 +1,68 @@
+{
+  "replication_study": {
+    "hypothesis": "Higher values of imm_concern are associated with higher reversed trust in parliament (trstprl_rev), conditional on the supplied individual- and country-level controls.",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "data_clean_5pct.rds",
+      "source_type": "European Social Survey survey microdata, supplied as an RDS analytical dataset.",
+      "wave_or_subset": "The supplied 5% complete-case subset; the supplied R analysis code labels it data_clean_5pct and the original paper describes European Social Survey data from 2002-2009.",
+      "sample_size": "1,279 rows in the supplied file; 858 complete observations in the Python country-adjusted model across 14 countries.",
+      "unit_of_analysis": "Individual survey respondent.",
+      "access_details": "Provided locally in task_input/replication_data; no external access is needed.",
+      "qualification": {
+        "explanation": "The file is an analysis-ready subset prepared specifically with the original-study variables and controls, enabling a high-fidelity test without re-coding survey source files.",
+        "similarity_to_original": "The original paper states that it uses the European Social Survey (2002-2009) (original_paper.pdf). The supplied analysis code identifies itself as a replication of McLaren's paper and specifies trstprl_rev, imm_concern, the same controls, survey weights, and a country random intercept (replication_data/data_analysis_code.R).",
+        "deviation_from_original": "The replication uses data_clean_5pct.rds rather than the paper's full analytical data. The supplied code explicitly calls this a 5% complete-case survey-data file and reports 858 fitted observations (replication_data/data_analysis_code.R), making it a smaller resampled analytical subset while retaining the original operationalization."
+      },
+      "notes": "The dataset contains 56 variables. The R code additionally supplies an imputed 5% dataset, but the primary preregistered replication uses the complete-case weighted dataset. Its printed lmer output reports 13 country groups; the supplied file has 14 country codes retained by the Python fixed-effect implementation."
+    },
+    "planned_method": {
+      "steps": "1. Read the supplied RDS complete-case file. 2. Verify the focal, outcome, country, and weight variables. 3. Fit the supplied covariate specification with survey weights and country adjustment. 4. Extract the imm_concern estimate, uncertainty, and one-sided directional test. 5. Save JSON, CSV, and a coefficient figure.",
+      "models": "Weighted linear regression with country fixed effects. This is a Python-compatible approximation to the supplied weighted lme4 random-intercept model; statsmodels MixedLM does not implement the required survey-weight interface.",
+      "outcome_variable": "trstprl_rev (reversed parliamentary trust; higher values denote distrust).",
+      "independent_variables": "imm_concern is the focal predictor; all remaining terms in replication_data/data_analysis_code.R are included as covariates.",
+      "control_variables": "happy_rev, stflife_rev, sclmeet_rev, distrust_soc, stfeco_rev, hincfel, stfhlth_rev, stfedu_rev, vote_gov, vote_frparty, lrscale, hhinc_std, agea, educ, female, vote_share_fr, socexp, lt_imm_cntry, wgi, gdppc, unemp, and country effects.",
+      "tools_software": "Python 3 with NumPy, pandas, SciPy, statsmodels, and matplotlib. The executable includes a small XDR RDS reader so an R installation is unnecessary.",
+      "planned_estimation_and_test": {
+        "estimation": "The conditional regression coefficient for imm_concern.",
+        "test": "One-sided t test of coefficient > 0, with a two-sided 95% confidence interval also reported."
+      },
+      "missing_data_handling": "Use the supplied complete-case dataset; statsmodels additionally omits rows missing any model field.",
+      "multiple_testing_policy": "No correction: one preregistered focal outcome and predictor.",
+      "inference_criteria": "Support requires a positive imm_concern coefficient and one-sided p < 0.05."
+    },
+    "codebase": {
+      "files": {
+        "replication_analysis.py": "Executable analysis script. It reads data_clean_5pct.rds using a built-in XDR RDS reader, fits the weighted country-adjusted model, writes machine-readable estimates and a coefficient table/figure, and exits nonzero if any stage fails."
+      },
+      "notes": "Run from the workspace with ./replication_analysis.py. Outputs are written to results/."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "numpy==1.26.4",
+          "pandas==2.2.3",
+          "scipy==1.13.1",
+          "statsmodels==0.14.4",
+          "matplotlib==3.9.2"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": false,
+        "min_gpu_memory_gb": 0,
+        "min_ram_gb": 2
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "Install requirements with pip install -r requirements.txt, then execute ./replication_analysis.py from the workspace. Inspect results/results.json for the hypothesis decision and numerical statistics.",
+      "comparison_metrics": "Focal coefficient direction, coefficient magnitude compared with the supplied R weighted mixed-model estimate (0.1797), standard error, and directional p-value."
+    }
+  }
+}

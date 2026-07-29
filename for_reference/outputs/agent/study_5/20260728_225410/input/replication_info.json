@@ -1,0 +1,67 @@
+{
+  "replication_study": {
+    "hypothesis": "Among respondents who report poor general health and are hypertensive at IFLS screening, each additional year of formal education decreases the probability of being previously undiagnosed for hypertension.",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "replication_data.dta (supplied IFLS respondent-level replication extract)",
+      "source_type": "Indonesian Family Life Survey (IFLS) survey and nurse screening data",
+      "wave_or_subset": "Supplied respondent-level extract; the included Stata do-file identifies it as the IFLS replication dataset.",
+      "sample_size": "51,731 rows before construction and complete-case restriction; final analytic N is written by the executable to results/model_summary.csv.",
+      "unit_of_analysis": "Individual respondent",
+      "access_details": "Data are supplied locally in task_input/replication_data/replication_data.dta.",
+      "qualification": {
+        "explanation": "The supplied data and accompanying replication do-file operationalize the same claim using the same survey variables, screening measurements, and health-status restriction as the original study, making the supplied extract suitable for a direct computational replication.",
+        "similarity_to_original": "The supplied do-file states that the dependent variable is hypertension found in IFLS screening but not previously diagnosed, and reconstructs education, preferences, access, expenditure, sex, and health status. The original paper supplied in task_input/original_paper.pdf is Kim & Radoias (2016), \u2018Education, individual time preferences, and asymptomatic disease detection\u2019; the do-file explicitly identifies this paper and reproduces its stated covariates and poor-health split.",
+        "deviation_from_original": "The task supplies a pre-assembled replication extract rather than the original authors\u2019 full raw survey release. No separate wave/version metadata or alternative sampling frame is supplied, so any further difference from the original analysis cannot be established from the provided files."
+      },
+      "notes": "The analysis uses listwise deletion within each specification. It follows the supplied do-file\u2019s education and preference mappings. Its source has a likely typo in a water-expenditure recode; the executable applies the documented intended item-specific missing-value rule and records this choice in code comments."
+    },
+    "planned_method": {
+      "steps": "Read the Stata extract; construct screening hypertension and under-diagnosis; reconstruct years of education, preference measures, controls, expenditure, and poor health; restrict to poor-health respondents; estimate two probit models; calculate education average marginal effects at covariate means; save numerical tables, JSON, and a figure.",
+      "models": "Maximum-likelihood probit regression, with and without distance to health center.",
+      "outcome_variable": "under_diag: one if screening hypertension is present and the respondent reports no prior physician diagnosis.",
+      "independent_variables": "Years of formal education (yrs_school); primary interpretation is its marginal effect.",
+      "control_variables": "Log per-capita household expenditure, risk preference, time preference, female, age, age squared, and (in the secondary specification) distance to health center.",
+      "tools_software": "Python with pandas, NumPy, statsmodels, and matplotlib.",
+      "planned_estimation_and_test": {
+        "estimation": "Average marginal effect of years of education on probability of under-diagnosis, evaluated at covariate means.",
+        "test": "Two-sided normal/Wald z test of the marginal effect."
+      },
+      "missing_data_handling": "Variables use the supplied do-file\u2019s item-specific missing/don\u2019t-know recodes, then each model uses complete cases.",
+      "multiple_testing_policy": "No adjustment: one prespecified focal education effect; the distance specification is reported as a sensitivity analysis.",
+      "inference_criteria": "The hypothesis is supported when the primary marginal effect is negative and two-sided p < 0.05."
+    },
+    "codebase": {
+      "files": {
+        "replication_analysis.py": "Executable Python analysis. It reads the supplied Stata data via a relative path, reconstructs analysis variables from the supplied do-file, fits the two probit models, and writes results."
+      },
+      "notes": "Run from the workspace with python replication_analysis.py. Output is generated in results/."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "numpy>=1.26,<3",
+          "pandas>=2.1,<3",
+          "statsmodels>=0.14,<1",
+          "matplotlib>=3.8,<4"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": false,
+        "min_gpu_memory_gb": 0,
+        "min_ram_gb": 2
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "Install requirements with pip install -r requirements.txt, then run python replication_analysis.py. Inspect results/results.json for the focal result, CSVs for machine-readable model output, and PNG for the confidence-interval plot.",
+      "comparison_metrics": "Education marginal effect, standard error, z statistic, p value, sample size, direction, and 5% significance relative to the stated original marginal effect of -0.00867 (SE 0.00420)."
+    }
+  }
+}

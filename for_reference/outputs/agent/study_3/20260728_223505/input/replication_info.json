@@ -1,0 +1,67 @@
+{
+  "replication_study": {
+    "hypothesis": "At the country level, the democracy index (Economist Intelligence Unit scale) is positively associated with confirmed COVID-19 infections per one million population as of 03 April 2020.",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "COVID replication.dta, supplied replication dataset",
+      "source_type": "Country-level merged observational data assembled for the replication",
+      "wave_or_subset": "The 12/31/2019\u201304/03/2020 confirmed-case period selected by the supplied Stata replication script (dataset = 1).",
+      "sample_size": "150 country rows in the supplied Stata file; the analysis script reports the final complete-case count.",
+      "unit_of_analysis": "Country",
+      "access_details": "Provided locally in task_input/replication_data; no external access is required.",
+      "qualification": {
+        "explanation": "This is a qualified high-fidelity replication dataset because it contains the outcome and covariates named in the supplied replication code and recreates the original cross-country design. It also includes later COVID periods, allowing the supplied replication materials to distinguish the original period from later observations.",
+        "similarity_to_original": "The original paper states that its outcome is confirmed infections per one million people on 03 April 2020 and that democracy, temperature, and trade openness are explanatory variables (original_paper.pdf, pp. 10\u201313). The supplied Stata script identifies the corresponding fields as COVID_12_31_04_03, Democracy, Annual_temp, and trade_2016 and fits the same reduced OLS model (Hossain 2020 - Replication Analysis.do).",
+        "deviation_from_original": "The supplied replication dataset contains additional outcome windows, COVID_04_04_08_11 and COVID_12_31_08_11, which extend beyond the original paper's 03 April 2020 endpoint (Hossain 2020 - Replication Analysis.do). This implementation uses the script's dataset=1 setting so that the tested analysis remains the original-period replication rather than a later-period extension."
+      },
+      "notes": "The supplied .dta is legacy Stata release 110. The executable includes a narrow reader for its simple fixed-width layout because modern pandas does not support this release. Democracy is divided by 10, as instructed by the supplied Stata script, to return the Gapminder 0\u2013100 stored value to the EIU 0\u201310 scale."
+    },
+    "planned_method": {
+      "steps": "1. Read the supplied legacy Stata data. 2. Compute confirmed cases per million as COVID_12_31_04_03 / popData2019 * 1,000,000. 3. Divide Democracy by 10. 4. Use complete cases for outcome, democracy, Annual_temp, and trade_2016. 5. Fit OLS with an intercept. 6. Save coefficient table, numerical result JSON, analysis data table, and a focal-coefficient figure.",
+      "models": "Ordinary least squares with intercept: cases_per_million ~ democracy_index + Annual_temp + trade_2016.",
+      "outcome_variable": "Confirmed COVID-19 cases per one million population, 12/31/2019\u201304/03/2020.",
+      "independent_variables": "Democracy index (Democracy / 10), yearly average temperature, and trade openness (trade_2016).",
+      "control_variables": "Annual_temp and trade_2016, following the reduced model in the supplied Stata script after precipitation and population density were omitted.",
+      "tools_software": "Python 3 with numpy, pandas, statsmodels, and matplotlib.",
+      "planned_estimation_and_test": {
+        "estimation": "The OLS coefficient on democracy_index.",
+        "test": "Two-sided t test of the coefficient equal to zero; the preregistered directional claim is supported when the coefficient is positive and p < 0.05."
+      },
+      "missing_data_handling": "Listwise deletion for variables in the planned model after treating non-finite computed outcomes as missing.",
+      "multiple_testing_policy": "No multiple-testing adjustment: one focal hypothesis and one focal coefficient.",
+      "inference_criteria": "Support requires a positive democracy coefficient and a two-sided p-value below 0.05."
+    },
+    "codebase": {
+      "files": {
+        "replication_analysis.py": "Executable Python analysis. It reads the supplied legacy Stata data from a relative path, constructs the specified outcome and democracy scale, fits the planned OLS model, and writes machine-readable results, a coefficient table, analysis data, and a figure."
+      },
+      "notes": "Run from the workspace root with python replication_analysis.py. Output is written to replication_results/."
+    },
+    "docker_specs": {
+      "base_image": "python:3.13-slim",
+      "packages": {
+        "python": [
+          "matplotlib==3.10.0",
+          "numpy==2.2.1",
+          "pandas==2.2.3",
+          "statsmodels==0.13.2"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": "false",
+        "min_gpu_memory_gb": "0",
+        "min_ram_gb": "1"
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "Install requirements, then execute python replication_analysis.py from the workspace root. Inspect replication_results/results.json for the focal numerical decision and replication_results/ols_coefficients.csv for all model estimates.",
+      "comparison_metrics": "Democracy coefficient sign, two-sided p-value, 95% confidence interval, complete-case N, and comparison of the focal estimate with the supplied claim (coefficient 86.76467; p = 0.0001)."
+    }
+  }
+}

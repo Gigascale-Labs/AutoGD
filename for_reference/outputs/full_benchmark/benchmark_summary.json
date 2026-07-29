@@ -1,0 +1,22 @@
+[
+  {
+    "study_id": "2",
+    "eligible": true,
+    "attempt": 2,
+    "command": "execution/coding_agents/run_codex_rb_data_only.sh --study 2",
+    "start_time_utc": "2026-07-28T19:02:59Z",
+    "end_time_utc": null,
+    "runtime_seconds": 720,
+    "codex_exit_code": 0,
+    "rb_exit_code": 0,
+    "status": "completed",
+    "failure_category": null,
+    "prompt_tokens": 526862,
+    "cached_input_tokens": 491030,
+    "completion_tokens": 10383,
+    "reasoning_tokens": 3368,
+    "estimated_cost_usd": null,
+    "run_directory": "for_reference/outputs/codex/study_2/20260728_190259",
+    "notes": "Codex generation, RB execution, and RB grading completed. Execution grading score: 8/10. Parser compatibility fix was required to accept GPT-4o function-call action syntax."
+  }
+]

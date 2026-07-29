@@ -1,0 +1,36 @@
+{
+  "focal_claim": "Imports from the South will be positively associated with national affluence.",
+  "estimator": "Iterated panel FGLS (Prais-Winsten), country-specific AR(1) and heteroskedastic panel variances",
+  "dependent_variable": "NAff (GDP / population)",
+  "focal_predictor": "L_IMS (one-calendar-year lag of Imports from the South)",
+  "n_observations": 748,
+  "n_countries": 32,
+  "year_range_model": [
+    1966,
+    2018
+  ],
+  "focal_estimate": 633.2452155345593,
+  "focal_standard_error": 82.32492572005664,
+  "focal_z": 7.692022920104296,
+  "focal_p_value_two_sided": 1.4482666491806065e-14,
+  "focal_ci_95": [
+    471.8883611232483,
+    794.6020699458703
+  ],
+  "hypothesis_supported": true,
+  "original_reported_coefficient": 0.91,
+  "original_reported_standard_error": 0.104,
+  "interpretive_note": "The supplied extension uses unstandardized NAff and IMS units, so coefficient magnitude is not directly comparable to the reported b=.910; direction and statistical significance are the focal comparison.",
+  "implementation_note": "processed_data.csv is used because it supplies the variables and time indicators prepared by the supplied KMYR.do. Calendar-year gaps are treated as missing lags/AR breaks.",
+  "fgls_iterations": 52,
+  "panel_ar1_rho_summary": {
+    "min": -0.024085861000076234,
+    "mean": 0.78138811484352,
+    "max": 0.98
+  },
+  "panel_scale_summary": {
+    "min": 497.6089182878955,
+    "mean": 1080.970021065957,
+    "max": 3676.8504160417338
+  }
+}

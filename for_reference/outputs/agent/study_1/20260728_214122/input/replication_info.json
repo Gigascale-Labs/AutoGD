@@ -1,0 +1,68 @@
+{
+  "replication_study": {
+    "hypothesis": "Among sampled U.S. counties, a higher 2016 Trump vote share is associated with a smaller percentage-point increase in the proportion of residents staying home, conditional on socioeconomic, demographic, employment, rurality, age, and state fixed effects.",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "Supplied county_variables.csv and transportation.csv replication dataset",
+      "source_type": "County-level election, socioeconomic, demographic, industry, rurality, and anonymized mobility data",
+      "wave_or_subset": "A deterministic 5% county sample (seed 2982); reference dates February 16\u201329, 2020; primary March dates March 19\u2013April 1, 2020; later comparison August 16\u201329, 2020.",
+      "sample_size": "5% of 3,142 counties selected before listwise deletion; the final analytic N is saved in results/results.json.",
+      "unit_of_analysis": "County",
+      "access_details": "Input CSV files are supplied in task_input/replication_data.",
+      "qualification": {
+        "explanation": "The supplied data allow the same county-level observational estimand and the same stay-at-home construction as the supplied replication code, while its later August outcome provides a temporally distinct replication comparison.",
+        "similarity_to_original": "The original study used county-level Unacast mobility, American Community Survey characteristics, and MIT Election Data and Science Lab election data (post_registration.json, original_study.data and original_study.method). The supplied files contain county FIPS, state, daily pop_home/pop_not_home, Trump vote share, income, demographics, industry, and rurality fields (task_input/replication_data/transportation.csv and county_variables.csv).",
+        "deviation_from_original": "The original-study summary specifies March 19\u201328, 2020 relative to a pre-COVID reference week (post_registration.json, original_study.data). The supplied analysis code uses March 19\u2013April 1 and also August 16\u201329, with a seeded 5% county sample (task_input/replication_data/kavanagh_analysis.R)."
+      },
+      "notes": "The supplied code refers to several county-variable names not present in the delivered CSV. The executable maps them to the available percent_male and percent_rural fields and uses the available non-overlapping Census age bands; this is an explicitly documented fidelity limitation."
+    },
+    "planned_method": {
+      "steps": "Read transportation data in chunks; compute daily prop_home = pop_home/(pop_home + pop_not_home); average it within county and each specified period; calculate percentage change from the reference period; merge with the seeded county sample; apply listwise deletion; fit separate March and August OLS models with state fixed effects; calculate the Trump-share coefficient and its interquartile-range effect.",
+      "models": "Ordinary least squares with an intercept and state dummy fixed effects.",
+      "outcome_variable": "Percentage-point change in the proportion staying home from the February 16\u201329 reference period, separately for March and August.",
+      "independent_variables": "2016 county Trump vote share (trump_share).",
+      "control_variables": "Per-capita income, sex, race/ethnicity, college attainment, retail/transportation/health-education-social-services employment, rurality, available age-band percentages, and state fixed effects.",
+      "tools_software": "Python 3.11 with pandas, NumPy, SciPy, statsmodels, and matplotlib.",
+      "planned_estimation_and_test": {
+        "estimation": "OLS coefficient for Trump vote share and the corresponding effect of a sample interquartile-range increase.",
+        "test": "Two-sided OLS t-test of the Trump-share coefficient, with 95% confidence intervals."
+      },
+      "missing_data_handling": "Listwise deletion after merging, for all outcome, predictor, control, and state fields required by both models.",
+      "multiple_testing_policy": "No multiplicity correction; March is the focal comparison and August is a pre-specified secondary period in the supplied replication code.",
+      "inference_criteria": "The focal hypothesis is supported when the Trump-share coefficient is negative and its two-sided p-value is below 0.05."
+    },
+    "codebase": {
+      "files": {
+        "replication_analysis.py": "Executable end-to-end analysis. It reads the supplied CSV inputs using relative paths, constructs period-specific stay-at-home changes in chunks, fits state-fixed-effect OLS models, writes machine-readable results/tables/figure, and prints a concise summary."
+      },
+      "notes": "Run from the workspace root with python replication_analysis.py. Results are written to results/."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "matplotlib==3.9.2",
+          "numpy==2.1.1",
+          "pandas==2.2.3",
+          "scipy==1.14.1",
+          "statsmodels==0.14.4"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": false,
+        "min_gpu_memory_gb": 0,
+        "min_ram_gb": 2
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "Install requirements, then execute python replication_analysis.py from the workspace root. Inspect results/results.json for numerical outputs and results/model_results.csv, results/ols_march_summary.txt, results/ols_august_summary.txt, and results/trump_share_coefficients.png for supporting outputs.",
+      "comparison_metrics": "Compare the sign, p-value, 95% confidence interval, and interquartile-range effect of Trump vote share in the March model with the original claim of a -4.1 percentage-point effect (95% CI -5.2 to -3.0)."
+    }
+  }
+}

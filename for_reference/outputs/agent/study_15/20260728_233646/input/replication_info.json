@@ -1,0 +1,68 @@
+{
+  "replication_study": {
+    "hypothesis": "In the supplied Afghanistan district-election data, the coefficient on the squared five-day election-window violence rate (sigact_5r squared) is negative in a logit model of the binary fraud indicator, conditional on the original workflow's controls.",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "Afghanistan_Election_Violence_2014 (supplied Stata/CSV data)",
+      "source_type": "Supplied district-by-election observational replication dataset.",
+      "wave_or_subset": "All 800 supplied district-election rows; the focal model uses 724 complete cases after the controls in the supplied Stata workflow are applied.",
+      "sample_size": "800 input rows; 724 complete-case estimation rows.",
+      "unit_of_analysis": "District-election observation.",
+      "access_details": "Local file supplied at task_input/replication_data/Afghanistan_Election_Violence_2014.dta; no external access is needed.",
+      "qualification": {
+        "explanation": "The supplied data are qualified because they contain the focal outcome, five-day and 60-day violence measures, controls, and regional-command clusters required by the supplied replication workflow.",
+        "similarity_to_original": "The supplied workflow, task_input/replication_data/Weidmann_Data_Analysis_Final.do, explicitly relabels fraud, sigact_5r, pcx, electric, pcexpend, dist, and elevation to match the original study and estimates the focal quadratic logit. The original paper is supplied as task_input/original_paper.pdf.",
+        "deviation_from_original": "This is a supplied 2014 replication dataset (Afghanistan_Election_Violence_2014.dta), rather than an original-study data file. The 2014 identifier and the workflow header's description of a replication are the available documentation; no separate original microdata are supplied for a row-level comparison."
+      },
+      "notes": "electric and pcexpend each have 76 missing values; complete-case estimation follows Stata logit's default behavior in the supplied .do file."
+    },
+    "planned_method": {
+      "steps": "Read the supplied .dta file; retain complete cases for the focal variables; construct sigact_5r squared; fit the supplied logit specification; calculate regional-command clustered standard errors; evaluate the quadratic coefficient; export tables and average marginal predictions.",
+      "models": "Binary logistic regression with a quadratic five-day violence term and one-way cluster-robust covariance by regcom.",
+      "outcome_variable": "fraud, the binary fraud indicator (labelled 'Fraud, last digit test' in the supplied Stata workflow).",
+      "independent_variables": "sigact_5r (five-day election-window violence rate) and sigact_5r squared.",
+      "control_variables": "pcx, electric, pcexpend, dist, and elevation, exactly as in the focal supplied Stata model.",
+      "tools_software": "Python 3 with pandas, statsmodels, scipy, numpy, and matplotlib.",
+      "planned_estimation_and_test": {
+        "estimation": "The logit coefficient on sigact_5r squared, with a regional-command cluster-robust standard error.",
+        "test": "Wald t test using number of clusters minus one degrees of freedom; the preregistered directional hypothesis is assessed with a one-sided negative-direction p-value."
+      },
+      "missing_data_handling": "Listwise deletion over outcome, violence, controls, and cluster variable.",
+      "multiple_testing_policy": "No adjustment: one preregistered focal coefficient is tested.",
+      "inference_criteria": "Directional support requires a negative quadratic coefficient and one-sided p < 0.05. The two-sided cluster-reference p-value is also reported because the claim states a conventional p-value."
+    },
+    "codebase": {
+      "files": {
+        "run_replication.py": "Executable analysis script. It reads the supplied Stata data using a relative path, reproduces the focal clustered logit model, and writes machine-readable estimates, descriptive statistics, marginal predictions, and a figure to results/."
+      },
+      "notes": "The supplied .do file is used as the specification source; only run_replication.py is executed for this replication."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "numpy==2.2.2",
+          "pandas==2.2.3",
+          "scipy==1.15.1",
+          "statsmodels==0.14.4",
+          "matplotlib==3.10.0"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": false,
+        "min_gpu_memory_gb": 0,
+        "min_ram_gb": 2
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "From the workspace root, install requirements with pip install -r requirements.txt and run python run_replication.py. Inspect results/replication_results.json for the focal test and the accompanying CSV/PNG files for detailed output.",
+      "comparison_metrics": "Sign, coefficient, cluster-robust standard error, Wald statistic, cluster-reference p-values, estimation N, and the turning point are compared with the supplied claim (original coefficient -13.748, clustered SE 4.720, p < 0.01)."
+    }
+  }
+}

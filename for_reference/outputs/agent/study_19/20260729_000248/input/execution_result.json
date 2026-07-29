@@ -1,0 +1,20 @@
+{
+  "plan_id": "study",
+  "steps": [
+    {
+      "name": "prepare-env",
+      "ok": true
+    },
+    {
+      "name": "run-analysis",
+      "ok": true,
+      "exit_code": 0,
+      "stdout": "Replication analysis completed successfully.\nCountries: 55 of 57 eligible\nInteraction (efficiency \u00d7 tightness): b=-0.025865, SE=0.016862, t(48)=-1.534, p=0.1316\nDirectional hypothesis supported at alpha=.05: False\nResults written to: replication_results\n",
+      "stderr": "",
+      "artifacts": [],
+      "entry": "run_replication_analysis.py",
+      "resolved_path": "/workspace/run_replication_analysis.py"
+    }
+  ],
+  "ok": true
+}

@@ -1,0 +1,65 @@
+{
+  "replication_study": {
+    "hypothesis": "Among country observations with a Polity IV democracy score of at least 9, the standard deviation of private-ownership responses (sd_gov) is negatively associated with government consumption (gov_consumption), conditional on the supplied long-model covariates.",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "Supplied replication_data/data.csv (2010 country cross-section; 31 rows)",
+      "source_type": "Country-level merged replication dataset; the supplied analysis code describes it as output from a data-build process.",
+      "wave_or_subset": "2010 observations labelled waves 5, 6, and 7; the primary specification excludes wave 7 and a sensitivity specification retains it.",
+      "sample_size": "31 supplied country observations, all with democ equal to 9 or 10; listwise-complete analytic sample sizes are reported by the executable analysis.",
+      "unit_of_analysis": "Country-year (one 2010 observation per country in the supplied data).",
+      "access_details": "Data are supplied locally in task_input/replication_data/data.csv; no external access is required.",
+      "qualification": {
+        "explanation": "The data are qualified because they operationalize the claim with the same country-level outcome, polarization measure, democracy restriction, and long-model controls used by the supplied replication code, while supplying a distinct 2010 cross-section for an out-of-sample test.",
+        "similarity_to_original": "The supplied original-paper file is Political Polarization and the Size of Government, and the task claim identifies its focal long-model estimate for the Private polarization measure. The supplied replication data contain gov_consumption, sd_gov, mean_gov, democ, and every covariate named in task_input/replication_data/analyze.R, which specifies the matching long regression.",
+        "deviation_from_original": "The supplied replication dataset is explicitly a 2010 country cross-section (year equals 2010 for all 31 rows in task_input/replication_data/data.csv) and contains observations labelled waves 5--7. This is a new sample relative to the original-paper estimate described in the task claim; the supplied materials do not provide the original analytic data or a full original sample roster, so no more specific difference can be verified."
+      },
+      "notes": "One supplied country row has missing values in several covariates and is removed through listwise deletion. The data already meet the preregistered strong-democracy restriction: all democ values are 9 or 10."
+    },
+    "planned_method": {
+      "steps": "Read the supplied CSV; retain countries with democ >= 9; for the primary analysis exclude wave 7 as in the first real-data run in analyze.R; apply listwise deletion to the outcome and model variables; estimate the supplied long OLS model; calculate HC1 robust inference; save coefficients and a machine-readable hypothesis decision. Re-estimate retaining wave 7 as a sensitivity analysis.",
+      "models": "Ordinary least squares with HC1 heteroscedasticity-robust covariance, matching sandwich::vcovHC(type='HC1') used in task_input/replication_data/analyze.R.",
+      "outcome_variable": "gov_consumption (government consumption).",
+      "independent_variables": "Primary independent variable: sd_gov, the standard deviation of private-ownership responses. mean_gov is also included as specified by the supplied long model.",
+      "control_variables": "africa, laam, asiae, col_uka, col_espa, col_otha, federal, oecd, log_gdp_per_capita, trade_share, age_15_64, and age_65_plus.",
+      "tools_software": "Python 3 with NumPy and SciPy.",
+      "planned_estimation_and_test": {
+        "estimation": "The conditional OLS coefficient on sd_gov in the long model.",
+        "test": "Two-sided t test using an HC1 robust standard error and residual degrees of freedom."
+      },
+      "missing_data_handling": "Listwise deletion for missing or non-finite values in the outcome or any specified predictor.",
+      "multiple_testing_policy": "No multiplicity correction: one preregistered focal coefficient is tested; the wave-7 result is labelled sensitivity analysis.",
+      "inference_criteria": "The hypothesis is supported if the primary sd_gov coefficient is negative and its two-sided HC1 p-value is below 0.05."
+    },
+    "codebase": {
+      "files": {
+        "replication_analysis.py": "Executable Python analysis. It reads the supplied CSV using a relative path, implements the strong-democracy long model and HC1 covariance, writes results/results.json and results/regression_coefficients.csv, prints a concise summary, and exits nonzero on error."
+      },
+      "notes": "The implementation reproduces the real-data model formula and HC1 choice in the supplied analyze.R. Its documented primary/sensitivity ordering resolves the supplied R file's two wave-7 runs without altering the data."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "numpy>=1.26,<3",
+          "scipy>=1.11,<2"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": "false",
+        "min_gpu_memory_gb": 0,
+        "min_ram_gb": 1
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "From the workspace root, install dependencies with pip install -r requirements.txt and run python replication_analysis.py. Inspect the machine-readable results/results.json and tabular results/regression_coefficients.csv.",
+      "comparison_metrics": "Compare the sign, HC1 robust standard error, two-sided p-value, and statistical-significance decision for sd_gov against the task claim's original long-model coefficient (-18.73), robust SE (4.79), and p-value (.01)."
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "dataset_rows": 51731,
+  "primary_specification": {
+    "specification": "without_distance",
+    "n": 673,
+    "events": 89,
+    "pseudo_r2": 0.1036093897370759,
+    "education_marginal_effect": -0.007327152076042904,
+    "education_se": 0.0031709087226845932,
+    "education_z": -2.310742035437558,
+    "education_p_value": 0.020847107908834935,
+    "hypothesis_supported": true
+  },
+  "all_specifications": [
+    {
+      "specification": "without_distance",
+      "n": 673,
+      "events": 89,
+      "pseudo_r2": 0.1036093897370759,
+      "education_marginal_effect": -0.007327152076042904,
+      "education_se": 0.0031709087226845932,
+      "education_z": -2.310742035437558,
+      "education_p_value": 0.020847107908834935,
+      "hypothesis_supported": true
+    },
+    {
+      "specification": "with_distance",
+      "n": 164,
+      "events": 19,
+      "pseudo_r2": 0.20833623279733104,
+      "education_marginal_effect": -0.017829926162808332,
+      "education_se": 0.005634357905642821,
+      "education_z": -3.164500101236314,
+      "education_p_value": 0.0015534960809360076
+    }
+  ],
+  "interpretation": "Primary specification excludes distance, because the supplied do-file presents it as the less selected alternative; effects are average marginal effects at covariate means (Stata mfx convention)."
+}

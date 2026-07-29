@@ -1,0 +1,28 @@
+{
+  "execution_summary": "The replication study was executed successfully using a Python environment within a Docker container. The analysis was performed on a dataset with 724 observations and 6 clusters. The focal hypothesis regarding the quadratic coefficient was tested, yielding a coefficient of -92.437 with a cluster standard error of 37.332 and a one-sided p-value of 0.0281. The process adhered to the preregistration plan without major deviations.",
+  "code_executed": [
+    {
+      "command": "run_replication.py",
+      "status": "Success",
+      "logs": "Replication completed: N=724, clusters=6, quadratic coefficient=-92.437, cluster SE=37.332, one-sided p=0.0281.",
+      "environment": "Python 3.11 with numpy, pandas, scipy, statsmodels, matplotlib"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The hypothesis tested was related to the quadratic effect in the dataset, specifically examining the significance and direction of the quadratic coefficient.",
+    "findings_summary": [
+      {
+        "outcome_name": "Quadratic coefficient",
+        "value": "-92.437",
+        "standard_error": "37.332",
+        "confidence_interval": "Not provided",
+        "p_value": "0.0281",
+        "statistical_significance": "p < 0.05",
+        "direction": "negative",
+        "effect_size": "Not provided"
+      }
+    ],
+    "tables": [],
+    "figures": []
+  }
+}

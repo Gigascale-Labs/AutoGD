@@ -1,0 +1,223 @@
+{
+  "generate-execute": {
+    "status": "Success",
+    "total_time_seconds": 172.17,
+    "total_tokens": 117472,
+    "prompt_tokens": 115536,
+    "completion_tokens": 1936,
+    "total_turns": 18,
+    "checkpoint_stats": {
+      "1. Generate Dockerfile": {
+        "time": 1.6057841777801514,
+        "tokens": 3754,
+        "prompt_tokens": 3707,
+        "completion_tokens": 47,
+        "turns": 1
+      },
+      "2. Build Image": {
+        "time": 109.88869500160217,
+        "tokens": 65610,
+        "prompt_tokens": 64223,
+        "completion_tokens": 1387,
+        "turns": 11
+      },
+      "3. Start Container": {
+        "time": 26.568655967712402,
+        "tokens": 7754,
+        "prompt_tokens": 7709,
+        "completion_tokens": 45,
+        "turns": 1
+      },
+      "4. Plan & Preview": {
+        "time": 1.0522897243499756,
+        "tokens": 7823,
+        "prompt_tokens": 7779,
+        "completion_tokens": 44,
+        "turns": 1
+      },
+      "5. Human Approval": {
+        "time": 0.9237949848175049,
+        "tokens": 7928,
+        "prompt_tokens": 7896,
+        "completion_tokens": 32,
+        "turns": 1
+      },
+      "6. Execute Code": {
+        "time": 2.4584267139434814,
+        "tokens": 7984,
+        "prompt_tokens": 7939,
+        "completion_tokens": 45,
+        "turns": 1
+      },
+      "7. Stop Container": {
+        "time": 26.310967922210693,
+        "tokens": 8156,
+        "prompt_tokens": 8111,
+        "completion_tokens": 45,
+        "turns": 1
+      },
+      "8. Final Output & Parsing": {
+        "time": 3.362391233444214,
+        "tokens": 8463,
+        "prompt_tokens": 8172,
+        "completion_tokens": 291,
+        "turns": 1
+      }
+    },
+    "turn_history": [
+      {
+        "turn": 1,
+        "action": "orchestrator_generate_dockerfile",
+        "checkpoint": "1. Generate Dockerfile",
+        "duration_seconds": 1.61,
+        "prompt_tokens": 3707,
+        "completion_tokens": 47,
+        "total_tokens": 3754
+      },
+      {
+        "turn": 2,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 1.53,
+        "prompt_tokens": 4021,
+        "completion_tokens": 45,
+        "total_tokens": 4066
+      },
+      {
+        "turn": 3,
+        "action": "edit_file",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 18.8,
+        "prompt_tokens": 4460,
+        "completion_tokens": 173,
+        "total_tokens": 4633
+      },
+      {
+        "turn": 4,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 2.22,
+        "prompt_tokens": 4680,
+        "completion_tokens": 45,
+        "total_tokens": 4725
+      },
+      {
+        "turn": 5,
+        "action": "edit_file",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 2.55,
+        "prompt_tokens": 5152,
+        "completion_tokens": 197,
+        "total_tokens": 5349
+      },
+      {
+        "turn": 6,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 1.38,
+        "prompt_tokens": 5396,
+        "completion_tokens": 45,
+        "total_tokens": 5441
+      },
+      {
+        "turn": 7,
+        "action": "edit_file",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 3.0,
+        "prompt_tokens": 5854,
+        "completion_tokens": 236,
+        "total_tokens": 6090
+      },
+      {
+        "turn": 8,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 26.77,
+        "prompt_tokens": 6137,
+        "completion_tokens": 45,
+        "total_tokens": 6182
+      },
+      {
+        "turn": 9,
+        "action": "edit_file",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 3.64,
+        "prompt_tokens": 6620,
+        "completion_tokens": 258,
+        "total_tokens": 6878
+      },
+      {
+        "turn": 10,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 1.38,
+        "prompt_tokens": 6925,
+        "completion_tokens": 45,
+        "total_tokens": 6970
+      },
+      {
+        "turn": 11,
+        "action": "edit_file",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 3.12,
+        "prompt_tokens": 7339,
+        "completion_tokens": 253,
+        "total_tokens": 7592
+      },
+      {
+        "turn": 12,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 45.49,
+        "prompt_tokens": 7639,
+        "completion_tokens": 45,
+        "total_tokens": 7684
+      },
+      {
+        "turn": 13,
+        "action": "orchestrator_run_container",
+        "checkpoint": "3. Start Container",
+        "duration_seconds": 26.57,
+        "prompt_tokens": 7709,
+        "completion_tokens": 45,
+        "total_tokens": 7754
+      },
+      {
+        "turn": 14,
+        "action": "orchestrator_plan",
+        "checkpoint": "4. Plan & Preview",
+        "duration_seconds": 1.05,
+        "prompt_tokens": 7779,
+        "completion_tokens": 44,
+        "total_tokens": 7823
+      },
+      {
+        "turn": 15,
+        "action": "ask_human_input",
+        "checkpoint": "5. Human Approval",
+        "duration_seconds": 0.92,
+        "prompt_tokens": 7896,
+        "completion_tokens": 32,
+        "total_tokens": 7928
+      },
+      {
+        "turn": 16,
+        "action": "orchestrator_execute_entry",
+        "checkpoint": "6. Execute Code",
+        "duration_seconds": 2.46,
+        "prompt_tokens": 7939,
+        "completion_tokens": 45,
+        "total_tokens": 7984
+      },
+      {
+        "turn": 17,
+        "action": "orchestrator_stop_container",
+        "checkpoint": "7. Stop Container",
+        "duration_seconds": 26.31,
+        "prompt_tokens": 8111,
+        "completion_tokens": 45,
+        "total_tokens": 8156
+      }
+    ]
+  }
+}

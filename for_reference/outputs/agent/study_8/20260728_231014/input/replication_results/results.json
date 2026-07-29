@@ -1,0 +1,24 @@
+{
+  "analysis": "Weighted linear probability model translated from supplied Stata do-file",
+  "dataset": "task_input/replication_data/ReplicationData_Cohen_AmEcoRev_2015_2lb5.dta",
+  "input_rows": 7416,
+  "chw_postbaseline_rows_before_listwise_deletion": 505,
+  "estimation_rows": 493,
+  "strata_with_at_least_two_psus": 17,
+  "design_degrees_of_freedom": 476,
+  "outcome": "took_ACT (drugs_taken_AL)",
+  "treatment": "act_subsidy (maltest_chw_voucher_given == 1; 98 set missing)",
+  "omitted_collinear_control": "stone_wall; it is identical to vip_toilet in the listwise-complete estimation sample and is omitted, as Stata would omit a collinear regressor.",
+  "estimate": 0.5263243168826895,
+  "standard_error": 0.04372632640296409,
+  "t_statistic": 12.036783333507099,
+  "p_value": 2.569836847652357e-29,
+  "confidence_interval_95": [
+    0.4404038245606756,
+    0.6122448092047035
+  ],
+  "alpha": 0.01,
+  "hypothesis_supported": true,
+  "interpretation": "The ACT-subsidy coefficient is positive and statistically significant at the 1% level.",
+  "note": "The supplied Stata script's operationalization produces an estimate that should be compared with its stated model, not assumed to equal the paper claim's reported 0.187 without further reconciliation of samples/specifications."
+}

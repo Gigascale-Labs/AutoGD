@@ -1,0 +1,29 @@
+{
+  "analysis": "Country-level OLS replication of supplied Analysis_script_v2.do",
+  "input_dataset": "task_input/replication_data/gelfand_replication_data.csv",
+  "countries_in_file": 63,
+  "countries_after_prespecified_exclusion": 57,
+  "countries_in_regression": 55,
+  "excluded_countries": [
+    "Belgium",
+    "France",
+    "New Zealand",
+    "Norway",
+    "Pakistan",
+    "Venezuela"
+  ],
+  "outcome": "30-day log cumulative COVID-19 cases-per-million growth slope",
+  "focal_term": "efficiency_x_tightness",
+  "estimate": -0.025864642160825714,
+  "standard_error": 0.016862474431479785,
+  "t_statistic": -1.5338580506630861,
+  "degrees_of_freedom": 48.0,
+  "p_value_two_sided": 0.1316300657097483,
+  "confidence_interval_95": [
+    -0.05976891930293916,
+    0.008039634981287729
+  ],
+  "r_squared": 0.5277981459145282,
+  "supports_directional_hypothesis_at_0_05": false,
+  "missing_data_rule": "Listwise deletion in the final regression; two countries lack efficiency."
+}

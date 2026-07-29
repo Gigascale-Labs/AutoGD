@@ -1,0 +1,2 @@
+comparison,post_secular_n,traditional_n,post_secular_evolution_rate,traditional_evolution_rate,difference_in_rates,t_statistic,degrees_of_freedom,two_sided_p_value,cohens_d
+post_secular_minus_traditional,528,910,0.03787878787878788,0.4076923076923077,-0.3698135198135198,-16.57027232608353,1436,1.4454543195041441e-56,-0.9065075625167943

@@ -1,0 +1,28 @@
+{
+  "execution_summary": "The replication analysis was executed successfully using Python within a Docker container. The analysis involved running a script named 'replication_analysis.py' which completed without errors. The hypothesis was supported with significant results.",
+  "code_executed": [
+    {
+      "command": "python replication_analysis.py",
+      "status": "Success",
+      "logs": "Replication complete: N=748, countries=32; L_IMS=633.245, SE=82.3249, p=1.448e-14; hypothesis_supported=True",
+      "environment": "Python 3.11 with numpy, pandas, scipy"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The hypothesis tested was whether the specified model parameters support the original study's claims.",
+    "findings_summary": [
+      {
+        "outcome_name": "L_IMS",
+        "value": "633.245",
+        "standard_error": "82.3249",
+        "confidence_interval": "Not provided",
+        "p_value": "1.448e-14",
+        "statistical_significance": "p < 0.01",
+        "direction": "positive",
+        "effect_size": "Not provided"
+      }
+    ],
+    "tables": [],
+    "figures": []
+  }
+}

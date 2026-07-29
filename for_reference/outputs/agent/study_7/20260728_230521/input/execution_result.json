@@ -1,0 +1,20 @@
+{
+  "plan_id": "study",
+  "steps": [
+    {
+      "name": "prepare-env",
+      "ok": true
+    },
+    {
+      "name": "run-analysis",
+      "ok": true,
+      "exit_code": 0,
+      "stdout": "Replication complete: 10 observations from 1 states.\nPrimary coefficient (log working hours): 2.8536; p=0.2076; decision=not_supported.\nWrote results/model_results.csv, results/summary.json, and results/working_hours_coefficients.png\n",
+      "stderr": "",
+      "artifacts": [],
+      "entry": "run_replication.py",
+      "resolved_path": "/workspace/run_replication.py"
+    }
+  ],
+  "ok": true
+}

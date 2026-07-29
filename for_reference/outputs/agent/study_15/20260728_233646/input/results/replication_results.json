@@ -1,0 +1,19 @@
+{
+  "analysis": "Logit fraud ~ violence_5_day + violence_5_day_squared + pcx + electric + pcexpend + dist + elevation",
+  "input_file": "task_input/replication_data/Afghanistan_Election_Violence_2014.dta",
+  "n_input_rows": 800,
+  "n_estimation_rows": 724,
+  "n_clusters_regional_command": 6,
+  "cluster_reference_degrees_of_freedom": 5,
+  "focal_term": "violence_squared",
+  "coefficient": -92.43749730260461,
+  "cluster_robust_se": 37.331784627874654,
+  "wald_t": -2.4761071088357234,
+  "p_value_two_sided_t_df_clusters_minus_1": 0.056108266903313955,
+  "p_value_one_sided_negative_t_df_clusters_minus_1": 0.028054133451656978,
+  "linear_violence_coefficient": 21.221779159903175,
+  "turning_point_violence": 0.11478988386299165,
+  "directional_hypothesis_supported_at_one_sided_0_05": true,
+  "two_sided_significance_at_0_05": false,
+  "interpretation": "The quadratic coefficient is negative. It meets a directional one-sided 0.05 test, but not a two-sided 0.05 test when inference uses five cluster degrees of freedom."
+}

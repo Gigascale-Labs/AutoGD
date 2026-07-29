@@ -1,0 +1,25 @@
+{
+  "analysis": "Weighted linear regression with country fixed effects; a Python-compatible approximation to the supplied weighted random-intercept lmer model.",
+  "dataset": "task_input/replication_data/data_clean_5pct.rds",
+  "n_observations": 858,
+  "n_countries": 14,
+  "formula": "trstprl_rev ~ imm_concern + happy_rev + stflife_rev + sclmeet_rev + distrust_soc + stfeco_rev + hincfel + stfhlth_rev + stfedu_rev + vote_gov + vote_frparty + lrscale + hhinc_std + agea + educ + female + vote_share_fr + socexp + lt_imm_cntry + wgi + gdppc + unemp + C(cntry)",
+  "focal_term": {
+    "term": "imm_concern",
+    "estimate": 0.17792856072761387,
+    "standard_error": 0.038886263062630745,
+    "t_statistic": 4.575614798496829,
+    "p_value_two_sided": 5.474099258981536e-06,
+    "p_value_one_sided_positive": 2.737049629490768e-06,
+    "ci_95": [
+      0.10160144859409811,
+      0.2542556728611296
+    ],
+    "supports_hypothesis": true
+  },
+  "model_fit": {
+    "r_squared": 0.42383117842879403,
+    "adjusted_r_squared": 0.4043707115964734,
+    "residual_df": 829.0
+  }
+}

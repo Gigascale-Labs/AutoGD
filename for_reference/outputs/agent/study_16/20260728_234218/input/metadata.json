@@ -1,0 +1,204 @@
+{
+  "generate-execute": {
+    "status": "Failed - Max Turns Reached",
+    "total_time_seconds": 225.82,
+    "total_tokens": 133429,
+    "prompt_tokens": 131411,
+    "completion_tokens": 2018,
+    "total_turns": 18,
+    "checkpoint_stats": {
+      "1. Generate Dockerfile": {
+        "time": 10.998700618743896,
+        "tokens": 20795,
+        "prompt_tokens": 20654,
+        "completion_tokens": 141,
+        "turns": 3
+      },
+      "2. Build Image": {
+        "time": 177.88539242744446,
+        "tokens": 78953,
+        "prompt_tokens": 77730,
+        "completion_tokens": 1223,
+        "turns": 10
+      },
+      "3. Start Container": {
+        "time": 3.022696018218994,
+        "tokens": 15661,
+        "prompt_tokens": 15571,
+        "completion_tokens": 90,
+        "turns": 2
+      },
+      "4. Plan & Preview": {
+        "time": 33.90851306915283,
+        "tokens": 18020,
+        "prompt_tokens": 17456,
+        "completion_tokens": 564,
+        "turns": 3
+      }
+    },
+    "turn_history": [
+      {
+        "turn": 1,
+        "action": "orchestrator_generate_dockerfile",
+        "checkpoint": "1. Generate Dockerfile",
+        "duration_seconds": 1.49,
+        "prompt_tokens": 3707,
+        "completion_tokens": 47,
+        "total_tokens": 3754
+      },
+      {
+        "turn": 2,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 1.41,
+        "prompt_tokens": 4021,
+        "completion_tokens": 45,
+        "total_tokens": 4066
+      },
+      {
+        "turn": 3,
+        "action": "edit_file",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 2.77,
+        "prompt_tokens": 4476,
+        "completion_tokens": 279,
+        "total_tokens": 4755
+      },
+      {
+        "turn": 4,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 37.66,
+        "prompt_tokens": 4802,
+        "completion_tokens": 45,
+        "total_tokens": 4847
+      },
+      {
+        "turn": 5,
+        "action": "orchestrator_run_container",
+        "checkpoint": "3. Start Container",
+        "duration_seconds": 1.36,
+        "prompt_tokens": 4872,
+        "completion_tokens": 45,
+        "total_tokens": 4917
+      },
+      {
+        "turn": 6,
+        "action": "orchestrator_plan",
+        "checkpoint": "4. Plan & Preview",
+        "duration_seconds": 3.1,
+        "prompt_tokens": 4942,
+        "completion_tokens": 105,
+        "total_tokens": 5047
+      },
+      {
+        "turn": 7,
+        "action": "read_json",
+        "checkpoint": "4. Plan & Preview",
+        "duration_seconds": 2.52,
+        "prompt_tokens": 5455,
+        "completion_tokens": 201,
+        "total_tokens": 5656
+      },
+      {
+        "turn": 8,
+        "action": "edit_file",
+        "checkpoint": "4. Plan & Preview",
+        "duration_seconds": 28.28,
+        "prompt_tokens": 7059,
+        "completion_tokens": 258,
+        "total_tokens": 7317
+      },
+      {
+        "turn": 9,
+        "action": "orchestrator_generate_dockerfile",
+        "checkpoint": "1. Generate Dockerfile",
+        "duration_seconds": 1.31,
+        "prompt_tokens": 7364,
+        "completion_tokens": 47,
+        "total_tokens": 7411
+      },
+      {
+        "turn": 10,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 1.42,
+        "prompt_tokens": 7685,
+        "completion_tokens": 45,
+        "total_tokens": 7730
+      },
+      {
+        "turn": 11,
+        "action": "edit_file",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 2.57,
+        "prompt_tokens": 8126,
+        "completion_tokens": 235,
+        "total_tokens": 8361
+      },
+      {
+        "turn": 12,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 33.61,
+        "prompt_tokens": 8408,
+        "completion_tokens": 45,
+        "total_tokens": 8453
+      },
+      {
+        "turn": 13,
+        "action": "edit_file",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 3.66,
+        "prompt_tokens": 9332,
+        "completion_tokens": 204,
+        "total_tokens": 9536
+      },
+      {
+        "turn": 14,
+        "action": "orchestrator_generate_dockerfile",
+        "checkpoint": "1. Generate Dockerfile",
+        "duration_seconds": 8.19,
+        "prompt_tokens": 9583,
+        "completion_tokens": 47,
+        "total_tokens": 9630
+      },
+      {
+        "turn": 15,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 20.12,
+        "prompt_tokens": 9904,
+        "completion_tokens": 45,
+        "total_tokens": 9949
+      },
+      {
+        "turn": 16,
+        "action": "edit_file",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 28.21,
+        "prompt_tokens": 10347,
+        "completion_tokens": 235,
+        "total_tokens": 10582
+      },
+      {
+        "turn": 17,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 46.45,
+        "prompt_tokens": 10629,
+        "completion_tokens": 45,
+        "total_tokens": 10674
+      },
+      {
+        "turn": 18,
+        "action": "orchestrator_run_container",
+        "checkpoint": "3. Start Container",
+        "duration_seconds": 1.66,
+        "prompt_tokens": 10699,
+        "completion_tokens": 45,
+        "total_tokens": 10744
+      }
+    ]
+  }
+}

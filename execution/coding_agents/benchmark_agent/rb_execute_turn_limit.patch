@@ -1,0 +1,14 @@
+diff --git a/replicatorbench/generator/execute_agent.py b/replicatorbench/generator/execute_agent.py
+index c21bf2e..bfa30ec 100644
+--- a/replicatorbench/generator/execute_agent.py
++++ b/replicatorbench/generator/execute_agent.py
+@@ -179,7 +179,8 @@ Answer: [Execute necessary next action to help you solve the task]
+                 filename="execution_results.json",
+                 stage_name="execute"
+             ),
+-            model_name=model_name
++            model_name=model_name,
++            max_turns=18
+         )
+     finally:
+         GENERATE_EXECUTE_REACT_CONSTANTS["files"] = prev_files

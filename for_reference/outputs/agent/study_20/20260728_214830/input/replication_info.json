@@ -1,0 +1,67 @@
+{
+  "replication_study": {
+    "hypothesis": "Participants with higher realistic COVID-19 threat at their first survey (mean of covid_real1--covid_real5) will report higher negative affect one week later (sum of negative1--negative10), controlling for first-survey symbolic COVID-19 threat.",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "Kachanoff_Survey_deidentify.csv",
+      "source_type": "Two-wave online survey data supplied with the replication materials.",
+      "wave_or_subset": "Responses after 2021-01-18 15:39:38, after the five documented duplicate-session exclusions, ID corrections/removal of unmatched blank IDs, and the documented attention screen; analysis uses participants with two retained responses.",
+      "sample_size": "The executable script calculates and records the final complete-case longitudinal-pair count in replication_results.json rather than hard-coding it.",
+      "unit_of_analysis": "Individual participant, represented once in the paired longitudinal regression.",
+      "access_details": "Data are supplied locally in task_input/replication_data/.",
+      "qualification": {
+        "explanation": "This is a qualified replication dataset because it contains the same two-wave survey measures and a supplied analysis notebook that operationalizes the focal longitudinal model, while the retained observations form an independently analyzed sample from the original-paper sample described in post_registration.json.",
+        "similarity_to_original": "The original study used longitudinal survey analyses of realistic COVID-19 threat and affect-related outcomes (post_registration.json). The supplied dataset contains five covid_real items, five covid_symbolic items, ten negative-affect items, participant IDs, and timestamps; Analysis_updated.Rmd explicitly specifies Negative.y ~ Realistic.x + Symbolic.x.",
+        "deviation_from_original": "The original-paper summary describes March 2020 MTurk data and a longitudinal subset with earlier October 2019 data (post_registration.json). The supplied replication file has retained survey timestamps in January--February 2021 and its own documented cleaning rules (replication_data/Analysis_updated.Rmd), yielding a later, distinct sample."
+      },
+      "notes": "The deidentified file includes a SHA-256 value for blank participant IDs. The supplied notebook identifies it and directs its removal, along with explicit session and attention-check exclusions."
+    },
+    "planned_method": {
+      "steps": "Read the supplied CSV; apply the documented date, duplicate-session, participant-ID, and attention-check exclusions; score realistic and symbolic threat as five-item means and negative affect as a ten-item sum; order each participant's two retained responses by timestamp; regress T2 negative affect on T1 realistic and symbolic threat; save numerical and graphical outputs.",
+      "models": "Ordinary least squares regression, equivalent to the focal observed-variable path in the supplied SEM specification.",
+      "outcome_variable": "T2 negative affect (sum of negative1 through negative10).",
+      "independent_variables": "T1 realistic threat (mean of covid_real1 through covid_real5) and T1 symbolic threat (mean of covid_symbolic1 through covid_symbolic5).",
+      "control_variables": "T1 symbolic threat is included as the concurrent threat predictor, matching the supplied model. No additional controls are added because the focal supplied path specifies only these predictors.",
+      "tools_software": "Python 3 with pandas, NumPy, statsmodels, and matplotlib.",
+      "planned_estimation_and_test": {
+        "estimation": "Unstandardized OLS coefficient for T1 realistic threat, with standard error and 95% confidence interval.",
+        "test": "Two-sided t test of the realistic-threat coefficient within the OLS model."
+      },
+      "missing_data_handling": "Scale scores use available-item means/sums as in Analysis_updated.Rmd. The focal model then uses listwise deletion for missing T1 threat or T2 negative-affect composites.",
+      "multiple_testing_policy": "No multiplicity correction: this replication evaluates one preregistered focal hypothesis.",
+      "inference_criteria": "Support requires a positive realistic-threat coefficient and two-sided p < 0.05."
+    },
+    "codebase": {
+      "files": {
+        "run_replication.py": "Executable analysis script. It reads the local deidentified survey CSV, applies the cleaning and scoring rules documented in Analysis_updated.Rmd, constructs chronological T1/T2 pairs, fits the focal OLS model, and writes JSON, CSV, and PNG results."
+      },
+      "notes": "Run from the workspace root with python run_replication.py. Input paths are relative; the script exits nonzero when required data, variables, or valid paired data are unavailable."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "matplotlib==3.10.8",
+          "numpy==2.2.6",
+          "pandas==2.3.3",
+          "statsmodels==0.14.5"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": "false",
+        "min_gpu_memory_gb": "0",
+        "min_ram_gb": "2"
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "Install requirements with pip install -r requirements.txt, then run python run_replication.py from the workspace root. Inspect replication_results.json for the focal coefficient and decision, regression_table.csv for all fitted coefficients, and coefficient_plot.png for the coefficient plot.",
+      "comparison_metrics": "Compare the sign, unstandardized coefficient, p value, and 95% confidence interval of realistic threat predicting subsequent negative affect with the claimed original estimate (b = 4.02, p = 0.000)."
+    }
+  }
+}

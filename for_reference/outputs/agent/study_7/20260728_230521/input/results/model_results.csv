@@ -1,0 +1,4 @@
+model,observations,states,year_min,year_max,rho,estimation_method,wrkhrs_coefficient,standard_error_clustered_by_state,p_value_two_sided,ci_95_lower,ci_95_upper,positive_association,supports_hypothesis_at_0_05
+Full period (2007-2016; single-state fallback),10,1,7,16,,Unadjusted single-state log-log time-series OLS fallback (planned panel model infeasible),2.8536481791898325,2.081377455826652,0.20758902324293438,-1.2257766724640122,6.933073030843677,True,False
+Original period (2007-2013; single-state fallback),7,1,7,13,,Unadjusted single-state log-log time-series OLS fallback (planned panel model infeasible),-1.1273406678281361,2.6107148415398345,0.6838638365252563,-6.244247731150406,3.9895663954941334,False,False
+Added period (2014-2016; single-state fallback),3,1,14,16,,Unadjusted single-state log-log time-series OLS fallback (planned panel model infeasible),4.642001871308565,1.9441563821595749,0.2524982063299492,0.8315253819621091,8.452478360655022,True,False

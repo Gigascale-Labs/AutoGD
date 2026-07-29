@@ -1,0 +1,20 @@
+{
+  "plan_id": "study",
+  "steps": [
+    {
+      "name": "prepare-env",
+      "ok": true
+    },
+    {
+      "name": "run-analysis",
+      "ok": true,
+      "exit_code": 0,
+      "stdout": "Replication completed: N=786, countries=109, median-age coefficient=-0.007657, clustered SE=0.001209, p(two-sided)=2.42e-10; estimated 3.5-year decrease effect=0.0268.\n",
+      "stderr": "",
+      "artifacts": [],
+      "entry": "replication_analysis.py",
+      "resolved_path": "/workspace/replication_analysis.py"
+    }
+  ],
+  "ok": true
+}

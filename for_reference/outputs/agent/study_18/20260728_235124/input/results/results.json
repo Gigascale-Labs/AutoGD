@@ -1,0 +1,54 @@
+{
+  "analysis": {
+    "dataset": "task_input/replication_data/replication_data_mkk9.csv",
+    "model": "Weighted least squares: entrepreneurship ~ median_age + year fixed effects",
+    "weights": "cy_cell analytic weights",
+    "inference": "Country-clustered robust covariance, small-sample correction",
+    "missing_data_rule": "Listwise deletion for model variables; three rows missing median_age were excluded",
+    "observations_input": 789,
+    "observations_analyzed": 786,
+    "countries_analyzed": 109,
+    "years_analyzed": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016
+    ]
+  },
+  "median_age_association": {
+    "coefficient": -0.007656853582063255,
+    "clustered_standard_error": 0.0012092143489205963,
+    "z_statistic": -6.332089582709745,
+    "p_value_two_sided": 2.4186298243426275e-10,
+    "p_value_one_sided_negative": 1.2093149121713137e-10,
+    "ci_95": [
+      -0.010026870155536674,
+      -0.005286837008589836
+    ],
+    "supports_negative_association_at_alpha_0_05": true
+  },
+  "claim_scale_effect": {
+    "age_decrease_years": 3.5,
+    "estimated_entrepreneurship_rate_increase": 0.026798987537221392,
+    "ci_95": [
+      0.018503929530064425,
+      0.03509404554437836
+    ],
+    "original_claim_benchmark_effect": 0.025,
+    "difference_from_benchmark": 0.0017989875372213908,
+    "mean_entrepreneurship_rate_2010_in_replication": 0.06007341597397568,
+    "percent_of_replication_2010_mean": 44.610393969989886
+  }
+}

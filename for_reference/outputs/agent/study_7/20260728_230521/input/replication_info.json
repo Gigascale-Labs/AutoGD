@@ -1,0 +1,67 @@
+{
+  "replication_study": {
+    "hypothesis": "At the state-year level, logged average working hours per worker are positively associated with logged carbon emissions, conditional on the specified economic, demographic, political-proxy, state, and year controls.",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "Supplied Fitzgerald 2018 replication data: compiled.dta, hhsize.dta, and epa.dta.",
+      "source_type": "State-year administrative and economic panel assembled for the original/replication analysis.",
+      "wave_or_subset": "Annual observations coded 7 through 16 (2007-2016); analyses separately report the original-period subset (2007-2013) and added-period subset (2014-2016), as indicated by the supplied R script.",
+      "sample_size": "The supplied compiled.dta and epa.dta each contain 50 states across 10 years, but hhsize.dta contains only one row (Kansas). The required merge therefore yields 10 Kansas state-year observations; the executable verifies and records this in results/summary.json.",
+      "unit_of_analysis": "US state-year.",
+      "access_details": "Data are supplied locally in task_input/replication_data and require no external access.",
+      "qualification": {
+        "explanation": "The supplied files directly document the intended computational replication, but their actual contents do not support a full high-fidelity panel replication because household size is supplied for only Kansas. The analysis consequently preserves the intended model where feasible and otherwise reports a clearly labelled single-state association rather than inventing the missing state records.",
+        "similarity_to_original": "The supplied R script (task_input/replication_data/Fitzgerald 2018 Script_clean v2.R) loads these same three files, merges them by State and year, logs the same variables, and estimates carbon emissions on working hours and the listed controls with state and year effects. The claim in task_input/initial_details.txt specifies the same working-hours/carbon-emissions relationship and reported 0.668 elasticity.",
+        "deviation_from_original": "The supplied R script explicitly distinguishes year < 14 as the original-years model and year > 13 as the new-years model. Accordingly, this replication reports both the 2007-2013 original-period estimate and an independent 2014-2016 extension from the supplied data; the latter is a new temporal sample relative to the original-period restriction."
+      },
+      "notes": "compiled.csv is empty and is not used. The Stata files are the authoritative inputs. Year codes 7-16 are interpreted as 2007-2016 based on hhsize07-hhsize16 names in hhsize.dta and the supplied script. Critically, hhsize.dta has one Kansas record rather than the 50-state layout assumed by the R script."
+    },
+    "planned_method": {
+      "steps": "Read the three supplied Stata files; reshape household size from wide to state-year long form; merge by State and year; derive employed-population percent and manufacturing GDP percent; log-transform the script's continuous variables; drop rows missing any modeled value; assess whether the merged data identify the planned panel model; estimate it for all years and each specified time subset when possible, otherwise estimate and label an unadjusted log-log single-state association; save numerical results and a coefficient figure.",
+      "models": "Planned: OLS state and year fixed-effects regression after a Prais--Winsten-style common AR(1) transformation within state, with state-clustered sandwich standard errors. This is a Python approximation to the supplied R panelAR PSAR1/PCSE model. Actual fallback: unadjusted log-log OLS within Kansas when the required merge leaves one state, as it does for the supplied files.",
+      "outcome_variable": "Natural log of EPA state carbon emissions (ln_epa).",
+      "independent_variables": "Natural log of average working hours per worker (ln_wrkhrs).",
+      "control_variables": "Planned model: natural logs of employed-population percent, labor productivity, population, manufacturing GDP percent, energy, household size, and working-age population; plus state and year fixed effects. The fallback cannot identify these controls with ten observations and reports no adjusted causal/conditional estimate.",
+      "tools_software": "Python 3.10+ with pandas, numpy, statsmodels, and matplotlib.",
+      "planned_estimation_and_test": {
+        "estimation": "Coefficient (elasticity) on ln_wrkhrs in the log-log fixed-effects model.",
+        "test": "Two-sided clustered Wald t/z test of whether the ln_wrkhrs coefficient is zero, evaluated at alpha=0.05; the replication criterion additionally requires a positive coefficient."
+      },
+      "missing_data_handling": "Listwise deletion after construction and log transformation of all variables required by the planned model; this does not replace missing state records in source files.",
+      "multiple_testing_policy": "No multiple-testing adjustment: one preregistered focal predictor is tested; period-specific estimates are reported as robustness/extension analyses.",
+      "inference_criteria": "For an identifiable primary full-panel analysis, the hypothesis is supported if the working-hours coefficient is positive and its two-sided state-clustered p-value is below 0.05. If only the supplied one-state merge is available, the script reports the unadjusted association and its conventional OLS p-value as limited evidence, not as a replication of the conditional panel claim."
+    },
+    "codebase": {
+      "files": {
+        "run_replication.py": "Executable analysis script. It loads the supplied local Stata datasets, reconstructs and transforms the panel as in the supplied R script, fits the AR(1)-corrected state/year fixed-effects models, and writes CSV, JSON, and PNG outputs to results/."
+      },
+      "notes": "Run from the workspace root with python run_replication.py. No network access or interactive input is needed. requirements.txt supplies all Python dependencies."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "numpy>=1.26,<3",
+          "pandas>=2.1,<3",
+          "statsmodels>=0.14,<0.15",
+          "matplotlib>=3.8,<4"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": false,
+        "min_gpu_memory_gb": 0,
+        "min_ram_gb": 2
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "Install dependencies with pip install -r requirements.txt, then run python run_replication.py from the workspace root. Inspect results/summary.json for the primary decision and results/model_results.csv for all estimates.",
+      "comparison_metrics": "Sign and statistical significance of the working-hours elasticity, its 95% confidence interval, and its proximity to the claim's reported original estimate of 0.668."
+    }
+  }
+}

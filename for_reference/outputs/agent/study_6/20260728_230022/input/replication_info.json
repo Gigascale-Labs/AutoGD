@@ -1,0 +1,66 @@
+{
+  "replication_study": {
+    "hypothesis": "Among complete-case General Social Survey respondents in 2012\u20132018, respondents assigned to the post-secular latent class have a lower probability of endorsing the statement that humans developed from earlier animal species than respondents assigned to the traditional latent class.",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "GSSreplication.dta (supplied O'Brien and Noy replication dataset)",
+      "source_type": "General Social Survey cross-sectional survey data prepared for the supplied replication",
+      "wave_or_subset": "Independent replication subset: 2012, 2014, 2016, and 2018; the supplied do-file identifies 2006, 2008, and 2010 as the original-study years.",
+      "sample_size": "2,269 complete cases after the supplied do-file's item recodes and listwise deletion in the 2012\u20132018 subset (produced by run_replication.py).",
+      "unit_of_analysis": "Individual survey respondent",
+      "access_details": "Data are supplied locally in task_input/replication_data/GSSreplication.dta; no external access is needed.",
+      "qualification": {
+        "explanation": "The dataset is qualified because it preserves the original GSS-based measurement design and supplied replication workflow while allowing the focal test on later, non-overlapping survey waves.",
+        "similarity_to_original": "The supplied OBrienReplication_OSF_Axxe_20201012.do states that it recreates O'Brien and Noy's 2015 ASR findings with GSS variables, uses the same 20 latent-class indicators, and identifies 2006, 2008, and 2010 as the original-study years. GSSreplication.dta contains those variables and years.",
+        "deviation_from_original": "The supplied do-file explicitly defines the replication analysis as years greater than 2010 and identifies the newer GSS waves as 2012, 2014, 2016, and 2018. These records in GSSreplication.dta are therefore a different respondent sample from the 2006\u20132010 original-study subset."
+      },
+      "notes": "The supplied Stata file is legacy Stata 110 layout written by R. The executable includes a narrowly scoped reader for this supplied fixed-schema file, avoiding a Stata dependency. Complete-case analysis follows the supplied do-file."
+    },
+    "planned_method": {
+      "steps": "1. Read the supplied data. 2. Apply the supplied do-file's recodes. 3. Restrict to 2012\u20132018 and listwise-delete cases missing on any of the 20 latent-class indicators. 4. Fit a weighted three-class categorical latent-class model with 30 deterministic random starts. 5. Assign respondents to their highest posterior-probability class. 6. Label profiles using religious indicators and non-evolution science items, then perform the focal pooled two-sided t test on binary evolution endorsement.",
+      "models": "Weighted, locally independent categorical latent-class analysis estimated by EM; pooled-variance independent-samples t test after modal class assignment.",
+      "outcome_variable": "EVOLVED_clean: binary indicator that the respondent gives the correct/endorsing response to 'human beings developed from earlier species of animals.'",
+      "independent_variables": "Post-secular versus traditional latent-class membership derived from HOTCORE, RADIOACT, BOYORGRL, LASERS, ELECTRON, VIRUSES, EARTHSUN, CONDRIFT, BIGBANG, EVOLVED, EXPDESGN, ODDS1, ODDS2, SCISTUDY, NEXTGEN, TOOFAST, ADVFRONT, SCIBNFTS, BIBLE, and RELITEN.",
+      "control_variables": "None; this follows the supplied workflow's unadjusted t test.",
+      "tools_software": "Python 3 with NumPy, SciPy, and Matplotlib.",
+      "planned_estimation_and_test": {
+        "estimation": "Difference in unweighted evolution-endorsement proportions, post-secular minus traditional, after modal latent-class assignment.",
+        "test": "Two-sided pooled independent-samples t test, matching the supplied Stata ttest command."
+      },
+      "missing_data_handling": "Recode the supplied missing/no-answer/not-applicable codes as missing, then listwise delete records missing on any latent-class indicator.",
+      "multiple_testing_policy": "No multiple-testing correction: one preregistered focal comparison and one outcome.",
+      "inference_criteria": "Support the hypothesis when the post-secular minus traditional difference is negative and the two-sided p value is below 0.05."
+    },
+    "codebase": {
+      "files": {
+        "run_replication.py": "Executable end-to-end replication analysis. It reads the supplied legacy Stata data using a fixed-schema reader, applies the supplied Stata recodes, fits the weighted three-class LCA, performs the focal test, and writes JSON, CSV, and PNG outputs under results/."
+      },
+      "notes": "Run from the workspace with python run_replication.py. The script uses relative paths and has no interactive or network steps."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "numpy>=1.26,<3",
+          "scipy>=1.11,<2",
+          "matplotlib>=3.8,<4"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": false,
+        "min_gpu_memory_gb": 0,
+        "min_ram_gb": 2
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "Install requirements with pip install -r requirements.txt, then run python run_replication.py. Inspect results/replication_results.json for the machine-readable focal result and the CSV/PNG files for supporting output.",
+      "comparison_metrics": "Post-secular and traditional evolution-endorsement rates, their difference, pooled t statistic, degrees of freedom, two-sided p value, Cohen's d, latent-class log likelihood, and BIC."
+    }
+  }
+}
