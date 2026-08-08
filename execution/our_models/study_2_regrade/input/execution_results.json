@@ -1,0 +1,28 @@
+{
+  "execution_summary": "The replication analysis was executed using Python on the provided dataset. The analysis involved testing a pooled interaction effect across multiple schools and countries. The execution was successful with no major deviations from the preregistration.",
+  "code_executed": [
+    {
+      "command": "python replication_analysis.py",
+      "status": "Success",
+      "logs": "Replication completed\nN=68,088; schools=5,298; countries=59\nPooled interaction=-0.018258, SE=0.010018, p=0.0683923; decision=not_supported\n",
+      "environment": "Python 3.11 with numpy, pandas, scipy, statsmodels"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "The hypothesis tested was the pooled interaction effect across schools and countries.",
+    "findings_summary": [
+      {
+        "outcome_name": "Pooled interaction effect",
+        "value": "-0.018258",
+        "standard_error": "0.010018",
+        "confidence_interval": "Not provided",
+        "p_value": "0.0683923",
+        "statistical_significance": "Not significant at p < 0.05",
+        "direction": "Negative",
+        "effect_size": "Not provided"
+      }
+    ],
+    "tables": [],
+    "figures": []
+  }
+}

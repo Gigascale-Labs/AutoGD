@@ -1,0 +1,27 @@
+{
+  "interpretation_summary": "The replication analysis was executed using Python on the provided dataset, testing a pooled interaction effect across multiple schools and countries. The execution was successful with no major deviations from the preregistration. However, the replication did not support the hypothesis as the pooled interaction coefficient was not statistically significant.",
+  "execute_status": "Success",
+  "fidelity_assessment": {
+    "method_alignment": "Full alignment: The replication used weighted least squares with country fixed effects and school-clustered sandwich standard errors, as planned. The analysis followed the preregistered steps closely.",
+    "deviations": [
+      {
+        "issue_description": "None detected.",
+        "impact": "None."
+      }
+    ]
+  },
+  "results_comparison": {
+    "hypothesis_tested": "The hypothesis tested was the pooled interaction effect across schools and countries.",
+    "original_results": "Coefficient: -0.520, indicating a negative effect of high-ability school attendance on academic self-concept.",
+    "replication_results": "Pooled interaction coefficient: -0.018258, SE: 0.010018, p=0.0683923, not statistically significant.",
+    "overall_answer": "No, the replication results did not satisfy the preregistered comparison criteria for the focal claim."
+  },
+  "replication_report": "Replication unsuccessful: The pooled interaction effect was negative but not statistically significant, failing to support the hypothesis.",
+  "failure_handling": [
+    {
+      "failure_type": "Results/Output Failures",
+      "suggestions": "Consider alternative data sources or additional covariates to improve model fit and significance."
+    }
+  ],
+  "notes": "The results were sensitive to the sample size and the specific dataset used. Future replications might explore different cohorts or additional moderating variables."
+}

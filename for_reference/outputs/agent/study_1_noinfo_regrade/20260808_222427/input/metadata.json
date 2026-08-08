@@ -1,0 +1,151 @@
+{
+  "generate-execute": {
+    "status": "Success",
+    "total_time_seconds": 46.46,
+    "total_tokens": 47640,
+    "prompt_tokens": 46799,
+    "completion_tokens": 841,
+    "total_turns": 10,
+    "checkpoint_stats": {
+      "1. Generate Dockerfile": {
+        "time": 2.5965309143066406,
+        "tokens": 3748,
+        "prompt_tokens": 3704,
+        "completion_tokens": 44,
+        "turns": 1
+      },
+      "2. Build Image": {
+        "time": 5.922557353973389,
+        "tokens": 13449,
+        "prompt_tokens": 13175,
+        "completion_tokens": 274,
+        "turns": 3
+      },
+      "3. Start Container": {
+        "time": 1.7735881805419922,
+        "tokens": 4804,
+        "prompt_tokens": 4762,
+        "completion_tokens": 42,
+        "turns": 1
+      },
+      "4. Plan & Preview": {
+        "time": 0.9911718368530273,
+        "tokens": 4870,
+        "prompt_tokens": 4829,
+        "completion_tokens": 41,
+        "turns": 1
+      },
+      "5. Human Approval": {
+        "time": 0.9205811023712158,
+        "tokens": 4975,
+        "prompt_tokens": 4943,
+        "completion_tokens": 32,
+        "turns": 1
+      },
+      "6. Execute Code": {
+        "time": 30.548949003219604,
+        "tokens": 5028,
+        "prompt_tokens": 4986,
+        "completion_tokens": 42,
+        "turns": 1
+      },
+      "7. Stop Container": {
+        "time": 1.1389000415802002,
+        "tokens": 5213,
+        "prompt_tokens": 5171,
+        "completion_tokens": 42,
+        "turns": 1
+      },
+      "8. Final Output & Parsing": {
+        "time": 2.5708179473876953,
+        "tokens": 5553,
+        "prompt_tokens": 5229,
+        "completion_tokens": 324,
+        "turns": 1
+      }
+    },
+    "turn_history": [
+      {
+        "turn": 1,
+        "action": "orchestrator_generate_dockerfile",
+        "checkpoint": "1. Generate Dockerfile",
+        "duration_seconds": 2.6,
+        "prompt_tokens": 3704,
+        "completion_tokens": 44,
+        "total_tokens": 3748
+      },
+      {
+        "turn": 2,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 1.71,
+        "prompt_tokens": 4019,
+        "completion_tokens": 42,
+        "total_tokens": 4061
+      },
+      {
+        "turn": 3,
+        "action": "edit_file",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 2.78,
+        "prompt_tokens": 4461,
+        "completion_tokens": 190,
+        "total_tokens": 4651
+      },
+      {
+        "turn": 4,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 1.43,
+        "prompt_tokens": 4695,
+        "completion_tokens": 42,
+        "total_tokens": 4737
+      },
+      {
+        "turn": 5,
+        "action": "orchestrator_run_container",
+        "checkpoint": "3. Start Container",
+        "duration_seconds": 1.77,
+        "prompt_tokens": 4762,
+        "completion_tokens": 42,
+        "total_tokens": 4804
+      },
+      {
+        "turn": 6,
+        "action": "orchestrator_plan",
+        "checkpoint": "4. Plan & Preview",
+        "duration_seconds": 0.99,
+        "prompt_tokens": 4829,
+        "completion_tokens": 41,
+        "total_tokens": 4870
+      },
+      {
+        "turn": 7,
+        "action": "ask_human_input",
+        "checkpoint": "5. Human Approval",
+        "duration_seconds": 0.92,
+        "prompt_tokens": 4943,
+        "completion_tokens": 32,
+        "total_tokens": 4975
+      },
+      {
+        "turn": 8,
+        "action": "orchestrator_execute_entry",
+        "checkpoint": "6. Execute Code",
+        "duration_seconds": 30.55,
+        "prompt_tokens": 4986,
+        "completion_tokens": 42,
+        "total_tokens": 5028
+      },
+      {
+        "turn": 9,
+        "action": "orchestrator_stop_container",
+        "checkpoint": "7. Stop Container",
+        "duration_seconds": 1.14,
+        "prompt_tokens": 5171,
+        "completion_tokens": 42,
+        "total_tokens": 5213
+      }
+    ]
+  }
+}
