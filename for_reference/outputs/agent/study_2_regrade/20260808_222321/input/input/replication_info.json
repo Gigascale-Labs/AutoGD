@@ -1,0 +1,67 @@
+{
+  "replication_study": {
+    "hypothesis": "After the supplied exclusions and standardisation, the interaction between student memorization (MEMOR) and school-average mathematical ability is negative in weighted models of mathematical self-concept (SCMAT).",
+    "study_type": "Observational",
+    "data_plan": {
+      "dataset_identifier": "PISA2012.replication.RDS",
+      "source_type": "PISA student survey replication dataset supplied with this task",
+      "wave_or_subset": "PISA 2012 replication dataset",
+      "sample_size": "Determined by the executable analysis after the supplied R-script exclusions.",
+      "unit_of_analysis": "Student, nested within schools and countries",
+      "access_details": "Local task_input/replication_data/PISA2012.replication.RDS file",
+      "qualification": {
+        "explanation": "The supplied data use the same PISA-style student, school, and country structure and the same operational variables and five mathematics plausible values as the analysis code, while providing a later survey cohort.",
+        "similarity_to_original": "The original study used the 2003 PISA database (post_registration.json); the supplied R script uses mathematical self-concept (SCMAT), memorization (MEMOR), five mathematics plausible values, student weights, schools, and countries in the supplied PISA2012.replication.RDS file.",
+        "deviation_from_original": "The original data source is identified as PISA 2003 in post_registration.json, whereas the supplied file is named PISA2012.replication.RDS and the supplied replication R script explicitly loads that 2012 file. This is therefore a distinct later PISA sample."
+      },
+      "notes": "The analysis applies listwise deletion for SCMAT, MEMOR, and all five plausible values using the <=997 rule in the supplied R script, then removes schools with 10 or fewer retained students."
+    },
+    "planned_method": {
+      "steps": "Load the local compressed RDS; apply the supplied exclusions; standardize outcome, moderator, and each plausible value; calculate school-average standardized ability and its interaction with memorization; estimate one weighted model per plausible value; pool coefficients and uncertainty using the formulas in the supplied R script.",
+      "models": "Weighted least squares with country fixed effects and school-clustered sandwich standard errors, estimated separately for five plausible values.",
+      "outcome_variable": "Standardized mathematical self-concept (SCMAT_z)",
+      "independent_variables": "Standardized individual mathematical ability, its quadratic term, school-average ability, standardized memorization, and the memorization by school-average-ability interaction.",
+      "control_variables": "Country fixed effects; individual ability and quadratic individual ability; student final weight (W_FSTUWT).",
+      "tools_software": "Python 3 with NumPy, pandas, SciPy, and statsmodels.",
+      "planned_estimation_and_test": {
+        "estimation": "Mean interaction coefficient across the five plausible-value models and pooled standard error.",
+        "test": "Two-sided normal-approximation test of the pooled interaction coefficient; Fisher combined p-value is also reported."
+      },
+      "missing_data_handling": "Listwise deletion before standardization, following the supplied R script.",
+      "multiple_testing_policy": "The five plausible-value estimates are pooled as alternative imputations, not treated as five separate hypothesis tests; a Fisher combined p-value is additionally reported for comparability with the supplied R code.",
+      "inference_criteria": "The hypothesis is supported if the pooled interaction coefficient is negative and its two-sided pooled p-value is below 0.05."
+    },
+    "codebase": {
+      "files": {
+        "replication_analysis.py": "Executable analysis script. It reads the supplied compressed RDS using an embedded base-R serialization reader, performs the specified exclusions and modeling, and writes results/replication_results.json and results/plausible_value_interactions.csv."
+      },
+      "notes": "No R installation is required. The supplied R code specifies a very large random-slope model; the executable uses a documented weighted, school-clustered approximation in Python."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [
+          "numpy==1.26.4",
+          "pandas==2.2.3",
+          "scipy==1.15.3",
+          "statsmodels==0.14.4"
+        ],
+        "other": [
+          "Other necessary software (e.g., git, make, wget)"
+        ]
+      },
+      "hardware": {
+        "gpu_support": false,
+        "min_gpu_memory_gb": 0,
+        "min_ram_gb": 4
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "From the workspace root, install requirements with pip and run python replication_analysis.py. The script writes machine-readable numerical results to results/.",
+      "comparison_metrics": "Sign and magnitude of the pooled interaction coefficient, pooled standard error and p-value, Fisher combined p-value, and comparison with the original reported coefficient of -0.089."
+    }
+  }
+}

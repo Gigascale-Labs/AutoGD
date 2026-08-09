@@ -1,0 +1,49 @@
+{
+  "hypothesis": "County Trump vote share is negatively associated with the percentage-point increase in staying home.",
+  "design": {
+    "county_sample_fraction": 0.05,
+    "random_seed": 2982,
+    "state_fixed_effects": true
+  },
+  "interpretive_note": "March is the primary comparison to the original claim; August is the supplied code's later-period replication outcome.",
+  "models": [
+    {
+      "outcome": "march",
+      "n": 155,
+      "r_squared": 0.8818997383574781,
+      "trump_share_coefficient_per_unit": -20.31370568485951,
+      "trump_share_standard_error_per_unit": 8.730363453324346,
+      "trump_share_p_value": 0.02210138164094331,
+      "trump_share_95ci_per_unit": [
+        -37.64566849157161,
+        -2.9817428781474042
+      ],
+      "trump_share_iqr": 0.174082788820362,
+      "effect_of_iqr_percentage_points": -3.536266536896385,
+      "effect_of_iqr_95ci_percentage_points": [
+        -6.553462958019616,
+        -0.5190701157731529
+      ],
+      "supports_negative_association_at_0_05": true
+    },
+    {
+      "outcome": "august",
+      "n": 155,
+      "r_squared": 0.8078849770494703,
+      "trump_share_coefficient_per_unit": -15.267644113412887,
+      "trump_share_standard_error_per_unit": 9.95611291293339,
+      "trump_share_p_value": 0.12847770902828537,
+      "trump_share_95ci_per_unit": [
+        -35.03302726486469,
+        4.497739038038921
+      ],
+      "trump_share_iqr": 0.174082788820362,
+      "effect_of_iqr_percentage_points": -2.6578340659796984,
+      "effect_of_iqr_95ci_percentage_points": [
+        -6.098647087087424,
+        0.7829789551280275
+      ],
+      "supports_negative_association_at_0_05": false
+    }
+  ]
+}

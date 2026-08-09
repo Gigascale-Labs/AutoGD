@@ -1,0 +1,20 @@
+{
+  "plan_id": "study",
+  "steps": [
+    {
+      "name": "prepare-env",
+      "ok": true
+    },
+    {
+      "name": "run-analysis",
+      "ok": true,
+      "exit_code": 0,
+      "stdout": "Replication completed\nN=68,088; schools=5,298; countries=59\nPooled interaction=-0.018258, SE=0.010018, p=0.0683923; decision=not_supported\n",
+      "stderr": "",
+      "artifacts": [],
+      "entry": "replication_analysis.py",
+      "resolved_path": "/workspace/replication_analysis.py"
+    }
+  ],
+  "ok": true
+}

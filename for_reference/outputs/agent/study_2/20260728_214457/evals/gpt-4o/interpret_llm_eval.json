@@ -1,0 +1,58 @@
+{
+  "interpretation_summary": {
+    "score": "NA",
+    "explanation": "The JSON to be evaluated was not provided, so a score cannot be determined."
+  },
+  "execute_status": {
+    "score": "NA",
+    "explanation": "The JSON to be evaluated was not provided, so a score cannot be determined."
+  },
+  "fidelity_assessment.method_alignment": {
+    "score": "NA",
+    "explanation": "The JSON to be evaluated was not provided, so a score cannot be determined."
+  },
+  "fidelity_assessment.deviations": [
+    {
+      "score": "NA",
+      "explanation": "The JSON to be evaluated was not provided, so a score cannot be determined."
+    },
+    {
+      "score": "NA",
+      "explanation": "The JSON to be evaluated was not provided, so a score cannot be determined."
+    }
+  ],
+  "results_comparison.hypothesis_tested": {
+    "score": "NA",
+    "explanation": "The JSON to be evaluated was not provided, so a score cannot be determined."
+  },
+  "results_comparison.original_results": {
+    "score": "NA",
+    "explanation": "The JSON to be evaluated was not provided, so a score cannot be determined."
+  },
+  "results_comparison.replication_results": {
+    "score": "NA",
+    "explanation": "The JSON to be evaluated was not provided, so a score cannot be determined."
+  },
+  "results_comparison.overall_answer": {
+    "score": "NA",
+    "explanation": "The JSON to be evaluated was not provided, so a score cannot be determined."
+  },
+  "replication_report": {
+    "score": "NA",
+    "explanation": "The JSON to be evaluated was not provided, so a score cannot be determined."
+  },
+  "failure_handling": [
+    {
+      "score": "NA",
+      "explanation": "The JSON to be evaluated was not provided, so a score cannot be determined."
+    },
+    {
+      "score": "NA",
+      "explanation": "The JSON to be evaluated was not provided, so a score cannot be determined."
+    }
+  ],
+  "notes": {
+    "score": "NA",
+    "explanation": "The JSON to be evaluated was not provided, so a score cannot be determined."
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "model_params": {
+    "sigma": 0.2,
+    "A": 1.0,
+    "phi_grid_size": 1001,
+    "phi_min": 0.0,
+    "phi_max": 1.0
+  },
+  "cases": [
+    {
+      "name": "equal_endowments",
+      "K": 1.0,
+      "L": 1.0
+    },
+    {
+      "name": "abundant_capital",
+      "K": 10.0,
+      "L": 1.0
+    }
+  ]
+}

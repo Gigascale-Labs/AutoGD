@@ -1,0 +1,63 @@
+{
+  "hypothesis": "The memorization by school-average mathematical ability interaction is negative.",
+  "decision_rule": "Support requires a negative pooled coefficient and two-sided pooled p < 0.05.",
+  "decision": "not_supported",
+  "pooled_interaction_coefficient": -0.018257646603465953,
+  "pooled_standard_error": 0.010018390338628547,
+  "pooled_z_statistic": -1.8224131807950006,
+  "pooled_two_sided_p_value": 0.06839231611255452,
+  "fisher_combined_p_value": 0.0018632362079872282,
+  "original_claim_coefficient": -0.089,
+  "original_claim_effect_size": -0.157,
+  "sample_size": 68088,
+  "school_count": 5298,
+  "country_count": 59,
+  "estimation_note": "Weighted least squares with country fixed effects and school-clustered sandwich SEs; this is a computationally feasible Python approximation to the supplied R random-slope multilevel models.",
+  "plausible_value_results": [
+    {
+      "plausible_value": "PV1MATH",
+      "coefficient": -0.015689550576247824,
+      "standard_error": 0.009733954836987826,
+      "z_statistic": -1.6118372068698603,
+      "p_value": 0.10699736934292235,
+      "n": 68088,
+      "n_schools": 5298
+    },
+    {
+      "plausible_value": "PV2MATH",
+      "coefficient": -0.017069215414579616,
+      "standard_error": 0.009760522992931944,
+      "z_statistic": -1.7488013118703005,
+      "p_value": 0.08032536996940445,
+      "n": 68088,
+      "n_schools": 5298
+    },
+    {
+      "plausible_value": "PV3MATH",
+      "coefficient": -0.01816441156410293,
+      "standard_error": 0.009744670861483912,
+      "z_statistic": -1.8640354120012694,
+      "p_value": 0.062316731560461566,
+      "n": 68088,
+      "n_schools": 5298
+    },
+    {
+      "plausible_value": "PV4MATH",
+      "coefficient": -0.020042593563675975,
+      "standard_error": 0.009754317054733692,
+      "z_statistic": -2.0547408343621005,
+      "p_value": 0.039904043592403876,
+      "n": 68088,
+      "n_schools": 5298
+    },
+    {
+      "plausible_value": "PV5MATH",
+      "coefficient": -0.020322461898723415,
+      "standard_error": 0.00992568450207603,
+      "z_statistic": -2.0474620057158597,
+      "p_value": 0.04061274368562463,
+      "n": 68088,
+      "n_schools": 5298
+    }
+  ]
+}

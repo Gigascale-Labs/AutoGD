@@ -1,0 +1,103 @@
+{
+  "generate-execute": {
+    "status": "Success",
+    "total_time_seconds": 57.96,
+    "total_tokens": 32775,
+    "prompt_tokens": 31912,
+    "completion_tokens": 863,
+    "total_turns": 7,
+    "checkpoint_stats": {
+      "1. Generate Dockerfile": {
+        "time": 1.6873960494995117,
+        "tokens": 3754,
+        "prompt_tokens": 3707,
+        "completion_tokens": 47,
+        "turns": 1
+      },
+      "2. Build Image": {
+        "time": 40.83193778991699,
+        "tokens": 13596,
+        "prompt_tokens": 13248,
+        "completion_tokens": 348,
+        "turns": 3
+      },
+      "3. Start Container": {
+        "time": 1.5022988319396973,
+        "tokens": 4881,
+        "prompt_tokens": 4836,
+        "completion_tokens": 45,
+        "turns": 1
+      },
+      "4. Plan & Preview": {
+        "time": 10.680457353591919,
+        "tokens": 5011,
+        "prompt_tokens": 4906,
+        "completion_tokens": 105,
+        "turns": 1
+      },
+      "8. Final Output & Parsing": {
+        "time": 3.260251045227051,
+        "tokens": 5533,
+        "prompt_tokens": 5215,
+        "completion_tokens": 318,
+        "turns": 1
+      }
+    },
+    "turn_history": [
+      {
+        "turn": 1,
+        "action": "orchestrator_generate_dockerfile",
+        "checkpoint": "1. Generate Dockerfile",
+        "duration_seconds": 1.69,
+        "prompt_tokens": 3707,
+        "completion_tokens": 47,
+        "total_tokens": 3754
+      },
+      {
+        "turn": 2,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 1.51,
+        "prompt_tokens": 4021,
+        "completion_tokens": 45,
+        "total_tokens": 4066
+      },
+      {
+        "turn": 3,
+        "action": "edit_file",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 2.56,
+        "prompt_tokens": 4461,
+        "completion_tokens": 258,
+        "total_tokens": 4719
+      },
+      {
+        "turn": 4,
+        "action": "orchestrator_build_image",
+        "checkpoint": "2. Build Image",
+        "duration_seconds": 36.76,
+        "prompt_tokens": 4766,
+        "completion_tokens": 45,
+        "total_tokens": 4811
+      },
+      {
+        "turn": 5,
+        "action": "orchestrator_run_container",
+        "checkpoint": "3. Start Container",
+        "duration_seconds": 1.5,
+        "prompt_tokens": 4836,
+        "completion_tokens": 45,
+        "total_tokens": 4881
+      },
+      {
+        "turn": 6,
+        "action": "orchestrator_plan",
+        "checkpoint": "4. Plan & Preview",
+        "duration_seconds": 10.68,
+        "prompt_tokens": 4906,
+        "completion_tokens": 105,
+        "total_tokens": 5011
+      }
+    ]
+  }
+}
