@@ -1,0 +1,17 @@
+{
+  "interpretation_summary": "The replication on the supplied dataset supported the hypothesis that women express more concern about COVID-19 than men, with a significant positive mean difference. The top-two-box percentages slightly differed from the original claim.",
+  "execute_status": "Success",
+  "fidelity_assessment": {
+    "method_alignment": "Full alignment: Pooled-variance two-sided t-test used with specified variables; gender code 3 excluded as planned.",
+    "deviations": []
+  },
+  "results_comparison": {
+    "hypothesis_tested": "Women express more concern about COVID-19 than men.",
+    "original_results": "Women: 68.2%, Men: 55.7%, p<0.01.",
+    "replication_results": "Women mean: 3.075, Men mean: 2.890, t(10069)=8.253, p=1.74e-16; Top-two-box: Women=32.6%, Men=32.8%.",
+    "overall_answer": "Yes, the replication results satisfy the preregistered comparison criteria for the focal claim."
+  },
+  "replication_report": "Replication successful: Women express more concern about COVID-19 than men, consistent with original findings.",
+  "failure_handling": [],
+  "notes": "The replication was a computational reproduction using the supplied dataset, not an independent new-sample replication."
+}

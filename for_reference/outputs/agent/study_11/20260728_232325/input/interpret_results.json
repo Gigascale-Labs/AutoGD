@@ -1,0 +1,22 @@
+{
+  "interpretation_summary": "The replication study was executed successfully using Python within a Docker container. The analysis focused on testing the hypothesis of a positive association with bilingual estimates. The replication followed the planned steps without any major deviations. The replication on the extended dataset supported the hypothesis with a positive coefficient, but the effect size was smaller than the original estimate.",
+  "execute_status": "Success",
+  "fidelity_assessment": {
+    "method_alignment": "Full alignment: The replication used a linear mixed-effects model with random intercepts for country and school nested within country, as planned. The specified variables and transformations were applied as documented.",
+    "deviations": [
+      {
+        "issue_description": "The replication used a distinct supplied replication sample rather than the original paper's underlying data.",
+        "impact": "Low: The replication dataset was qualified and included the necessary variables and measures."
+      }
+    ]
+  },
+  "results_comparison": {
+    "hypothesis_tested": "Bilingual group membership will be positively associated with foreign language achievement when controlling for background variables.",
+    "original_results": "Estimate: 2.68; p < .01",
+    "replication_results": "Estimate: 0.351; p = 1.456e-42",
+    "overall_answer": "Yes, the replication results satisfy the preregistered comparison criteria for the focal claim."
+  },
+  "replication_report": "Replication successful: Bilingual group membership associated with +0.351 English foreign language achievement (p < 0.01), consistent with original but attenuated effect.",
+  "failure_handling": [],
+  "notes": "The replication used a distinct dataset, which may account for the smaller effect size. Future replications could explore different datasets or methods to verify the robustness of the findings."
+}

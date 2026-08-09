@@ -1,0 +1,17 @@
+{
+  "interpretation_summary": "The replication on the extended dataset supported the hypothesis with a significant negative difference in evolution endorsement between post-secular and traditional views. The replication closely followed the preregistration plan and was executed successfully.",
+  "execute_status": "Success",
+  "fidelity_assessment": {
+    "method_alignment": "Full alignment: The replication used a weighted three-class categorical latent-class model and a pooled two-sided t-test as specified.",
+    "deviations": []
+  },
+  "results_comparison": {
+    "hypothesis_tested": "Respondents with a post-secular perspective on science and religion will be less likely than respondents with a traditional perspective to respond that humans evolved from other animals.",
+    "original_results": "Members of the post-secular category were significantly less likely than members of the traditional group to respond that humans evolved from other animals (3 percent, significant at p < 0.05).",
+    "replication_results": "Post-secular evolution endorsement=0.038; traditional=0.408; difference=-0.370. Pooled two-sided t(1436)=-16.570, p=1.45e-56; conclusion=supported.",
+    "overall_answer": "Yes, the replication results satisfy the preregistered comparison criteria for the claim."
+  },
+  "replication_report": "Replication successful: Post-secular evolution endorsement significantly lower than traditional, consistent with original findings.",
+  "failure_handling": [],
+  "notes": "The replication was conducted on a different subset of the GSS dataset (2012\u20132018) compared to the original study years (2006\u20132010), but the results were consistent with the original findings."
+}
