@@ -3,9 +3,9 @@
 `scarcity_of_labor` is a custom, hand-authored model-spec task (theoretical, dataless), not one of
 ReplicatorBench's native SCORE studies. Its `replication_info.json` was hand-authored to skip
 `extract-stage1`/`design-easy`, and its execution was produced by Codex standalone rather than by
-RB's own `execute-easy`. Both grading stages (`interpret-easy`, `evaluate-execute`) ran successfully
-against it, but several rubric fields either don't apply or are checked more loosely than they would
-be for a native study.
+RB's own `execute-easy`. Both stages (`interpret-easy`'s self-report, `evaluate-execute`'s grading)
+ran successfully against it, but several rubric fields either don't apply or are checked more loosely
+than they would be for a native study.
 
 ## Missing inputs native SCORE studies normally have
 
