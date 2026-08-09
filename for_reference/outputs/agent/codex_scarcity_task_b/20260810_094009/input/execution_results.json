@@ -1,0 +1,50 @@
+{
+  "execution_summary": "The replication study was successfully executed inside a Docker container using Python 3.11. I first repaired the malformed replication metadata so the environment could be generated correctly, then rebuilt the Docker image, started the container, obtained human approval, and ran the approved entrypoint `python reproduce_figure6.py`. The script completed without errors and produced the expected results files for Figure 6. The run aligned with the preregistered plan: a deterministic reproduction of the paper\u2019s static scarcity-of-labor model over a 1,001-point automation grid, with validation checks confirming factor-income accounting, threshold continuity, and monotonic output.",
+  "code_executed": [
+    {
+      "command": "python reproduce_figure6.py",
+      "status": "Success",
+      "logs": "Completed successfully with exit code 0. Reported thresholds Phi=0.5 for equal endowments and Phi=0.909090909 for abundant capital. Accounting errors were near machine precision (4.441e-16 and 7.105e-15). Output monotonicity passed. Wrote results/figure6_results.csv, results/figure6_parameters.json, and results/figure6_reproduction.svg.",
+      "environment": "Python 3.11 slim container; standard library only"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "In the paper's static scarcity-of-labor model, increasing the automated-task fraction Phi(I) raises output until the labor-scarcity threshold and changes its division between the wage bill and capital returns; the threshold is Phi-hat = (K/L)/(1 + K/L).",
+    "findings_summary": [
+      {
+        "outcome_name": "Threshold Phi for equal endowments",
+        "value": "0.5",
+        "standard_error": "N/A",
+        "confidence_interval": "N/A",
+        "p_value": "N/A",
+        "statistical_significance": "N/A",
+        "direction": "positive threshold location",
+        "effect_size": "N/A"
+      },
+      {
+        "outcome_name": "Threshold Phi for abundant capital",
+        "value": "0.909090909",
+        "standard_error": "N/A",
+        "confidence_interval": "N/A",
+        "p_value": "N/A",
+        "statistical_significance": "N/A",
+        "direction": "positive threshold location",
+        "effect_size": "N/A"
+      }
+    ],
+    "tables": [
+      {
+        "table_id": "Figure 6 numerical replication table",
+        "table_description": "CSV output containing output, wage bill, capital returns, and regime classification over the automation grid for both parameter cases.",
+        "table_file": "/Users/juanlopez/sysrisk/agent_workspace/codex_scarcity_task_b/rb_input/results/figure6_results.csv"
+      }
+    ],
+    "figures": [
+      {
+        "figure_id": "Figure 6",
+        "figure_description": "SVG reproduction of the paper\u2019s Figure 6 showing total output, wage bill, and capital returns across automation levels for the two parameter cases.",
+        "figure_file": "/Users/juanlopez/sysrisk/agent_workspace/codex_scarcity_task_b/rb_input/results/figure6_reproduction.svg"
+      }
+    ]
+  }
+}
