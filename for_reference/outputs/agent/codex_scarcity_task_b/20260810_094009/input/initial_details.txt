@@ -1,0 +1,84 @@
+Focal task
+
+Using only the supplied original paper, identify and implement the static
+“scarcity of labor” model used to produce Figure 6.
+
+Focal claim
+
+Figure 6 (Section 2.5) shows total output and its split into the wage bill and
+capital's returns as the fraction of automated tasks Φ rises from 0 to 1, for
+two parameter cases. In the equal-endowments case (K=L=1), output rises
+monotonically while in the labor-scarce region, then plateaus; the wage bill
+rises with output at first, then reaches a ceiling and declines as capital's
+returns grow faster than output. In the abundant-capital case (K=10, L=1),
+wages appear to grow strongly until Φ≈0.80, then fall sharply, by roughly 85%,
+starting around Φ≈0.83, accompanied by a sharp rise in capital's returns.
+
+Primary implementation source
+
+Use original_paper.pdf as the sole scientific and mathematical source.
+
+Do not use any model specification, existing implementation, reference code,
+expected-output file, or external source.
+
+Required implementation
+
+1. Locate the static scarcity-of-labor model in the paper.
+2. Identify the equations, regimes, threshold condition, and parameter values
+   required to reproduce both cases in Figure 6.
+3. Implement the model faithfully.
+4. Compute total output and its division between payments to labor and capital.
+5. Evaluate the model over the automation range shown in Figure 6.
+6. Produce complete numerical outputs as well as a reproduction plot.
+7. Store parameters separately from model logic so they can later be replaced
+   without rewriting the implementation.
+8. Execute and validate the implementation.
+
+Out of scope
+
+Do not implement:
+
+- dynamic capital accumulation;
+- the later AGI scenarios;
+- empirical analysis;
+- web retrieval;
+- external datasets;
+- unrelated models or extensions from the paper.
+
+Important constraints
+
+There is no input dataset.
+
+Do not search for or invent an external dataset.
+
+Do not inspect parent directories, surrounding repository files, existing
+implementations, hidden reference code, validators, or previous outputs.
+
+Do not use web search or any network resource.
+
+Do not hard-code expected numerical outputs.
+
+Success is not based only on visual similarity. Save detailed numerical results
+that can later be compared against an independent reference implementation.
+
+Before writing code
+
+1. Read the relevant sections of original_paper.pdf.
+2. State which sections, equations, and figure you identified as defining the
+   requested model.
+3. Write a concise implementation plan containing the extracted equations,
+   regime logic, parameters, outputs, and validation checks.
+4. If the requested model cannot be identified unambiguously from the paper,
+   stop and report the ambiguity rather than guessing.
+
+Completion requirements
+
+Report:
+
+- the paper sections and equations implemented;
+- files created;
+- command executed;
+- whether execution succeeded;
+- validation checks performed;
+- exact output paths;
+- any unresolved ambiguity or issue.

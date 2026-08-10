@@ -1,0 +1,64 @@
+{
+  "replication_study": {
+    "hypothesis": "In the paper's static scarcity-of-labor model, increasing the automated-task fraction Phi(I) raises output until the labor-scarcity threshold and changes its division between the wage bill and capital returns; the threshold is Phi-hat = (K/L)/(1 + K/L).",
+    "study_type": "Other",
+    "data_plan": {
+      "dataset_identifier": "No input dataset: deterministic analytical model evaluated over Phi(I) in [0,1].",
+      "source_type": "Model-derived numerical grid from the supplied original paper.",
+      "wave_or_subset": "Not applicable.",
+      "sample_size": "1,001 equally spaced automation values for each of two Figure 6 parameter cases.",
+      "unit_of_analysis": "Static model equilibrium at a given fraction of automated tasks.",
+      "access_details": "No external data are required or used.",
+      "qualification": {
+        "explanation": "The replication is a deterministic reproduction of the paper's theoretical Figure 6 rather than a new-sample empirical study.",
+        "similarity_to_original": "Parameters and equations are taken from Section 2.2, Section 2.3 (Lemma 1 and equations (3)-(8)), and Section 2.5/Figure 6 of task_input/original_paper.pdf.",
+        "deviation_from_original": "No dataset is substituted. The automation range is evaluated numerically on a 1,001-point grid, whereas the paper presents the results graphically."
+      },
+      "notes": "A is set to 1 as the Figure 6 normalization implied by the paper's stated output levels: full automation doubles output in the K=L=1 case and increases it eleven-fold in the K=10, L=1 case."
+    },
+    "planned_method": {
+      "steps": "Evaluate equations (4), (6), and (7) when Phi < K/(K+L); evaluate equation (5), with w=R=A, when Phi is at or above that threshold; calculate wage bill as wL and capital returns as RK; write a numerical table and plot the three quantities for each case.",
+      "models": "Static CES task-aggregation model with task-level capital/labor substitution as specified in equations (1)-(2), and the two equilibrium regions in Lemma 1.",
+      "outcome_variable": "Total output, wage bill, and total returns to capital.",
+      "independent_variables": "Fraction of automated tasks Phi(I), capital K, labor L, and elasticity of substitution sigma.",
+      "control_variables": "No empirical controls; productivity is normalized to A=1 for Figure 6.",
+      "tools_software": "Python 3 standard library only.",
+      "planned_estimation_and_test": {
+        "estimation": "Deterministic equilibrium quantities at each automation-grid value.",
+        "test": "Analytical identity checks: factor-income accounting, threshold continuity, endpoint values, and weakly monotonic output."
+      },
+      "missing_data_handling": "Not applicable: no input data.",
+      "multiple_testing_policy": "Not applicable: no statistical tests.",
+      "inference_criteria": "The implementation passes when model identities hold within numerical tolerance and stated Figure 6 thresholds are obtained (1/2 and 10/11)."
+    },
+    "codebase": {
+      "files": {
+        "reproduce_figure6.py": "Executable, self-contained analysis script. It defines Figure 6 parameters separately from the equilibrium logic, evaluates both static-model regimes over Phi(I), validates analytical identities, and writes the CSV, JSON parameter/validation record, and PNG figure."
+      },
+      "notes": "Run from the workspace root. Generated files are placed under results/ and are not executable source files. The script uses relative paths and no external data."
+    },
+    "docker_specs": {
+      "base_image": "python:3.11-slim",
+      "packages": {
+        "python": [],
+        "other": [
+          "git",
+          "wget",
+          "ca-certificates"
+        ]
+      },
+      "hardware": {
+        "gpu_support": false,
+        "min_gpu_memory_gb": 0,
+        "min_ram_gb": 1
+      },
+      "volumes": [
+        ".:/app"
+      ]
+    },
+    "analysis": {
+      "instructions": "Install requirements with pip install -r requirements.txt, then run python reproduce_figure6.py from the workspace root.",
+      "comparison_metrics": "Compare output, wage bill, capital returns, and threshold locations to Figure 6 and its Section 2.5 description; verify output equals wage bill plus capital returns."
+    }
+  }
+}

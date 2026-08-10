@@ -134,11 +134,6 @@ def build_rb_input(
     require_file(template_path)
     require_file(generated_metadata_path)
 
-    if not replication_data.is_dir():
-        raise FileNotFoundError(
-            f"Replication data directory does not exist: {replication_data}"
-        )
-
     generated_metadata = read_json(generated_metadata_path)
     template = read_json(template_path)
     normalized_metadata = normalize_metadata(generated_metadata, template)
@@ -161,10 +156,12 @@ def build_rb_input(
 
     # RB execution scripts may retain the original task_input-relative path,
     # while the execution evaluator expects replication_data at the input root.
-    root_data = output / "replication_data"
-    task_data = output / "task_input" / "replication_data"
-    shutil.copytree(replication_data, root_data)
-    shutil.copytree(replication_data, task_data)
+    # Data-free analytical studies may legitimately have no replication_data.
+    if replication_data.is_dir():
+        root_data = output / "replication_data"
+        task_data = output / "task_input" / "replication_data"
+        shutil.copytree(replication_data, root_data)
+        shutil.copytree(replication_data, task_data)
 
     for filename in executables:
         copy_file(workspace / filename, output / filename)
