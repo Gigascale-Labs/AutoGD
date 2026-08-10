@@ -1,0 +1,16 @@
+diff --git a/replicatorbench/core/agent.py b/replicatorbench/core/agent.py
+index 9a67f2f..a4d3169 100644
+--- a/replicatorbench/core/agent.py
++++ b/replicatorbench/core/agent.py
+@@ -400,6 +400,11 @@ def run_react_loop(system_prompt: str, known_actions: dict, tool_definitions: li
+             elif content_text.strip().startswith("{") and content_text.strip().endswith("}"):
+                  json_answer_str = content_text.strip()
+
++            # 4. JSON object after leading text such as "Thought: ..."
++            elif "{" in content_text and content_text.rstrip().endswith("}"):
++                json_start = content_text.find("{")
++                json_answer_str = content_text[json_start:].strip()
++
+             if json_answer_str:
+                 is_final = True
+                 current_checkpoint = "8. Final Output & Parsing"

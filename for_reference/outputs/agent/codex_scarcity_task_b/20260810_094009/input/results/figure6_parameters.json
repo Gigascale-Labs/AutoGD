@@ -1,0 +1,37 @@
+{
+  "parameters": {
+    "equal_endowments": {
+      "K": 1.0,
+      "L": 1.0,
+      "sigma": 0.5,
+      "A": 1.0
+    },
+    "abundant_capital": {
+      "K": 10.0,
+      "L": 1.0,
+      "sigma": 0.2,
+      "A": 1.0
+    }
+  },
+  "automation_grid_points": 1001,
+  "validations": [
+    {
+      "case": "equal_endowments",
+      "threshold_phi": 0.5,
+      "max_accounting_error": 4.440892098500626e-16,
+      "threshold_continuity_error": 2.220446049250313e-16,
+      "initial_output": 1.0,
+      "full_automation_output": 2.0,
+      "output_monotonic": "passed"
+    },
+    {
+      "case": "abundant_capital",
+      "threshold_phi": 0.9090909090909091,
+      "max_accounting_error": 7.105427357601002e-15,
+      "threshold_continuity_error": 7.771561172376096e-15,
+      "initial_output": 1.0,
+      "full_automation_output": 11.0,
+      "output_monotonic": "passed"
+    }
+  ]
+}
