@@ -1,0 +1,14 @@
+{
+  "case": {
+    "name": "abundant_capital",
+    "K": 10.0,
+    "L": 1.0
+  },
+  "phi_star": 0.9090909090909091,
+  "output_min": 10.002199252466951,
+  "output_max": 3982.071705534028,
+  "wage_bill_min": 0.0,
+  "wage_bill_max": 1.0,
+  "capital_income_min": 10.0,
+  "capital_income_max": 3981.071705534178
+}

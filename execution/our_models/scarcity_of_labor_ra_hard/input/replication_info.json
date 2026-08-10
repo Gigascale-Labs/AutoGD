@@ -1,0 +1,63 @@
+{
+  "replication_study": {
+    "hypothesis": "In the static scarcity-of-labor model for Figure 6, increasing the fraction of automated tasks \u03a6 raises total output and the wage bill in the labor-scarce region, but once the economy crosses the threshold \u03a6* = K/(K+L), wages stop rising and capital income grows faster; with K=10 and L=1, the wage bill peaks and then falls sharply as \u03a6 approaches the threshold.",
+    "study_type": "Other",
+    "data_plan": {
+      "dataset_identifier": "No external dataset; model-only replication using original_paper.pdf",
+      "source_type": "Theoretical model / analytical simulation",
+      "wave_or_subset": "Section 2.5 static scarcity-of-labor model; Figure 6 cases only",
+      "sample_size": "Not applicable",
+      "unit_of_analysis": "Economy-level static equilibrium at each \u03a6 grid point",
+      "access_details": "No data access restrictions; all inputs are from the paper and the replication script uses /app/data only.",
+      "qualification": {
+        "explanation": "This replication is qualified because the target claim is a theoretical static result, not an empirical estimate. The paper\u2019s Figure 6 is generated from the model itself, so the correct replication object is the model equations and parameterization rather than a dataset. The implementation reproduces the two parameter cases described in the paper summary: equal endowments (K=L=1) and abundant capital (K=10, L=1).",
+        "similarity_to_original": "The replication uses the same static scarcity-of-labor framework described in original_paper.pdf, specifically the Section 2.5 model summarized around Figure 6. The paper summary identifies two regimes: Region 1 with a CES production structure and a factor-price frontier, and Region 2 where labor and capital are perfect substitutes at the margin with w=R=A. The script implements these regime rules and evaluates output, wage bill, and capital income over \u03a6\u2208[0,1] for the two cases highlighted in Figure 6.",
+        "deviation_from_original": "The original paper\u2019s Figure 6 is a stylized analytical figure, while this replication computes the same model numerically on a dense \u03a6 grid and saves machine-readable outputs. The paper summary indicates the threshold depends on K/L and that Figure 6 uses K=L=1 and K=10, L=1; the replication preserves those cases but produces a discrete numerical approximation rather than the paper\u2019s plotted curves. Because no external dataset exists, the replication is a pure model simulation rather than a sample-based re-estimation."
+      },
+      "notes": "There is no input dataset. The replication script is self-contained and writes outputs to /app/data/scarcity_of_labor_replication_outputs. The implementation stores parameters separately from model logic and produces both .npz numerical results and a PNG plot. The paper summary available through the provided PDF extraction is sufficient to identify the relevant static model, but the exact algebraic form is implemented from the described factor-price frontier and regime logic."
+    },
+    "planned_method": {
+      "steps": "1) Read the static scarcity-of-labor model from Section 2.5 / Figure 6. 2) Set parameter values used in the figure cases: sigma=0.2, A=1, (K,L)=(1,1) and (10,1). 3) Construct a dense grid for \u03a6 from 0 to 1. 4) Compute the threshold \u03a6*=K/(K+L). 5) For \u03a6<\u03a6*, evaluate Region 1 using the CES/factor-price-frontier logic to obtain wages, capital returns, output, wage bill, and capital income. 6) For \u03a6\u2265\u03a6*, evaluate Region 2 with w=R=A and linear output. 7) Save numerical outputs and a reproduction plot. 8) Validate by checking continuity at the threshold and confirming the expected qualitative patterns: monotone output in the equal-endowment case and a wage peak followed by decline in the abundant-capital case.",
+      "models": "Static two-regime equilibrium model with CES production in Region 1 and linear perfect-substitute pricing in Region 2; numerical evaluation over \u03a6.",
+      "outcome_variable": "Total output Y, wage bill w\u00b7L, and capital income R\u00b7K as functions of \u03a6.",
+      "independent_variables": "Fraction of automated tasks \u03a6; endowment configuration K and L; substitution parameter sigma.",
+      "control_variables": "Technology level A and the regime threshold \u03a6* implied by K/L.",
+      "tools_software": "Python 3.10 with numpy and matplotlib; script executed from replication_data as a standalone Python program.",
+      "planned_estimation_and_test": {
+        "estimation": "Numerical equilibrium levels of output, wage rate, capital return, wage bill, and capital income across \u03a6.",
+        "test": "No formal hypothesis test; validation by threshold consistency and qualitative curve-shape checks."
+      },
+      "missing_data_handling": "Not applicable because there is no dataset; the model is fully deterministic.",
+      "multiple_testing_policy": "Not applicable; the replication focuses on one figure and one theoretical claim.",
+      "inference_criteria": "Replication is successful if the computed curves reproduce the paper\u2019s qualitative regime behavior: output rises then plateaus in the equal-endowment case, and the wage bill in the abundant-capital case rises then falls sharply near the threshold while capital income rises."
+    },
+    "codebase": {
+      "files": {
+        "scarcity_of_labor_replication__py.py": "Standalone Python implementation of the static scarcity-of-labor model. It computes the two Figure 6 cases over a \u03a6 grid, saves numerical outputs (.npz and JSON summaries), and generates a reproduction plot."
+      },
+      "notes": "The code is designed to be executed directly with Python and uses only /app/data for outputs. No external data or non-Python scripts are required. The script keeps parameters in dataclasses so they can be modified without changing the model logic."
+    },
+    "docker_specs": {
+      "base_image": "python:3.10-slim",
+      "packages": {
+        "python": [
+          "numpy>=1.23",
+          "matplotlib>=3.7"
+        ],
+        "other": []
+      },
+      "hardware": {
+        "gpu_support": "false",
+        "min_gpu_memory_gb": "0",
+        "min_ram_gb": "2"
+      },
+      "volumes": [
+        "./data:/app/data"
+      ]
+    },
+    "analysis": {
+      "instructions": "Run the Python script scarcity_of_labor_replication__py.py from the replication_data folder. It will compute the model on a dense \u03a6 grid, save .npz and JSON summaries, and write a PNG plot to /app/data/scarcity_of_labor_replication_outputs.",
+      "comparison_metrics": "Compare the replicated curves against the paper\u2019s Figure 6 qualitatively and numerically using threshold location \u03a6*, monotonicity of output in the equal-endowment case, the wage-bill peak and decline in the abundant-capital case, and the relative rise in capital income."
+    }
+  }
+}

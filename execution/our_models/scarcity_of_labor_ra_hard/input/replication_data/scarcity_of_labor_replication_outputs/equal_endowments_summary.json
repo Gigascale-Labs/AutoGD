@@ -1,0 +1,14 @@
+{
+  "case": {
+    "name": "equal_endowments",
+    "K": 1.0,
+    "L": 1.0
+  },
+  "phi_star": 0.5,
+  "output_min": 1.0016075804515896,
+  "output_max": 252.18864315080387,
+  "wage_bill_min": 0.0008072592987163666,
+  "wage_bill_max": 1.0,
+  "capital_income_min": 1.0,
+  "capital_income_max": 251.18864315090784
+}
