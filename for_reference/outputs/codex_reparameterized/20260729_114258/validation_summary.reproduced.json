@@ -1,0 +1,29 @@
+{
+  "task": "scarcity_of_labor_reparameterization",
+  "status": "passed",
+  "parameters": {
+    "A": 1.2,
+    "K": 4.0,
+    "L": 2.0,
+    "sigma": 0.35
+  },
+  "automation_grid_points": 1001,
+  "threshold": 0.6666666666666666,
+  "threshold_matches": true,
+  "model_unchanged": true,
+  "max_accounting_error": 5.329070518200751e-15,
+  "max_absolute_difference_vs_reference": {
+    "Y": 3.552713678800501e-15,
+    "w": 3.552713678800501e-15,
+    "R": 1.7763568394002505e-15,
+    "wage_bill": 7.105427357601002e-15,
+    "capital_income": 7.105427357601002e-15
+  },
+  "sign_mismatches": {
+    "Y": 0,
+    "w": 0,
+    "R": 0,
+    "wage_bill": 0,
+    "capital_income": 0
+  }
+}
