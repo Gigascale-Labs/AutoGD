@@ -1,0 +1,22 @@
+{
+  "interpretation_summary": "The replication on the extended dataset supported the hypothesis with a similar negative coefficient for education, though with a slightly different magnitude and standard error due to sample differences.",
+  "execute_status": "Success",
+  "fidelity_assessment": {
+    "method_alignment": "Full alignment: Probit regression model used with specified variables; minor deviation in data subset due to use of pre-assembled replication extract.",
+    "deviations": [
+      {
+        "issue_description": "Use of pre-assembled replication extract instead of original raw survey data.",
+        "impact": "Low: Did not alter significance"
+      }
+    ]
+  },
+  "results_comparison": {
+    "hypothesis_tested": "Among respondents who report poor general health and are hypertensive at IFLS screening, each additional year of formal education decreases the probability of being previously undiagnosed for hypertension.",
+    "original_results": "Coefficient: -0.00867, SE: 0.00420, p<0.05",
+    "replication_results": "Coefficient: -0.00733, SE: 0.00317, p=0.02085",
+    "overall_answer": "Yes, the replication results satisfy the preregistered comparison criteria for the focal claim."
+  },
+  "replication_report": "Replication successful: Education associated with -0.00733 probability of being undiagnosed (p<0.05), consistent with original but slightly attenuated effect.",
+  "failure_handling": [],
+  "notes": "Results sensitive to sample size; Recommend sensitivity analysis in future."
+}

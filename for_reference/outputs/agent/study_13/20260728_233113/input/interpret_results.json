@@ -1,0 +1,17 @@
+{
+  "interpretation_summary": "The replication on the 5% complete-case subset of the European Social Survey data supported the hypothesis with a similar positive coefficient for immigration concern, closely matching the original study's findings. The execution was successful, with strong alignment to the preregistration plan.",
+  "execute_status": "Success",
+  "fidelity_assessment": {
+    "method_alignment": "Full alignment: Weighted linear regression with country fixed effects was used, matching the preregistered plan.",
+    "deviations": []
+  },
+  "results_comparison": {
+    "hypothesis_tested": "Higher values of immigration concern are associated with higher reversed trust in parliament, conditional on individual- and country-level controls.",
+    "original_results": "Coefficient: 0.1797 (as per replication plan).",
+    "replication_results": "Coefficient: 0.1779, SE: 0.0389, p < 0.01.",
+    "overall_answer": "Yes, the replication results satisfy the preregistered comparison criteria for the focal claim."
+  },
+  "replication_report": "Replication successful: Immigration concern associated with +0.1779 increase in reversed trust in parliament (p < 0.01), consistent with original findings.",
+  "failure_handling": [],
+  "notes": "The replication used a smaller subset of the data, which may affect generalizability. Future replications could use the full dataset for a more comprehensive analysis."
+}

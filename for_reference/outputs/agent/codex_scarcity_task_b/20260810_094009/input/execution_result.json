@@ -1,0 +1,20 @@
+{
+  "plan_id": "study",
+  "steps": [
+    {
+      "name": "prepare-env",
+      "ok": true
+    },
+    {
+      "name": "run-analysis",
+      "ok": true,
+      "exit_code": 0,
+      "stdout": "Figure 6 static scarcity-of-labor replication completed.\nequal_endowments: threshold Phi=0.5; accounting error=4.441e-16; monotonic output=passed\nabundant_capital: threshold Phi=0.909090909; accounting error=7.105e-15; monotonic output=passed\nWrote results/figure6_results.csv, results/figure6_parameters.json, and results/figure6_reproduction.svg\n",
+      "stderr": "",
+      "artifacts": [],
+      "entry": "reproduce_figure6.py",
+      "resolved_path": "/workspace/reproduce_figure6.py"
+    }
+  ],
+  "ok": true
+}
