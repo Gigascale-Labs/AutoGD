@@ -1,120 +1,73 @@
 Focal task
 
-Implement only the static “scarcity of labor” model from Korinek and Suh,
-corresponding to Section 2.3 and Figure 6 in Section 2.5.
+Using only the supplied original paper, identify and implement the static
+“scarcity of labor” model used to produce Figure 6.
 
 Primary implementation source
 
-Use model_specification.pdf as the primary implementation specification.
-Use original_paper.pdf only to verify the equations and intended outputs.
+Use original_paper.pdf as the sole scientific and mathematical source.
+
+Do not use any model specification, existing implementation, reference code,
+expected-output file, or external source.
 
 Required implementation
 
-1. Implement the Region 1 and Region 2 equations.
-2. Compute the automation threshold.
-3. Compute total output Y.
-4. Compute wage w.
-5. Compute return to capital R.
-6. Compute wage bill wL.
-7. Compute capital income RK.
-8. Evaluate these values over a grid of Phi values from 0 to 1.
-9. Reproduce both Figure 6 parameter cases from the specification.
-10. Produce numerical outputs as well as plots.
-11. Store model parameters separately from the model logic so they can later
-    be replaced without rewriting the implementation.
+1. Locate the static scarcity-of-labor model in the paper.
+2. Identify the equations, regimes, threshold condition, and parameter values
+   required to reproduce both cases in Figure 6.
+3. Implement the model faithfully.
+4. Compute total output and its division between payments to labor and capital.
+5. Evaluate the model over the automation range shown in Figure 6.
+6. Produce complete numerical outputs as well as a reproduction plot.
+7. Store parameters separately from model logic so they can later be replaced
+   without rewriting the implementation.
+8. Execute and validate the implementation.
 
 Out of scope
 
 Do not implement:
-- the dynamic model;
-- capital accumulation;
-- the AGI scenarios;
-- Sections 3 or 4 of the paper;
-- Figure 8;
-- web data retrieval;
-- empirical datasets;
-- any other model from the paper.
+
+- dynamic capital accumulation;
+- the later AGI scenarios;
+- empirical analysis;
+- web retrieval;
+- external datasets;
+- unrelated models or extensions from the paper.
 
 Important constraints
 
-There is no input dataset for this model.
+There is no input dataset.
 
-Do not use or search for an external dataset.
+Do not search for or invent an external dataset.
 
-Success is not based only on visual similarity. The implementation must produce
-numerical values for Y, wL, and RK that can be compared against an independent
-reference implementation.
+Do not inspect parent directories, surrounding repository files, existing
+implementations, hidden reference code, validators, or previous outputs.
 
-Do not hard-code expected outputs.
+Do not use web search or any network resource.
 
-Keep all baseline parameter values in a separate configuration file or clearly
-separated parameter block.
+Do not hard-code expected numerical outputs.
 
-Mandatory implementation validation
+Success is not based only on visual similarity. Save detailed numerical results
+that can later be compared against an independent reference implementation.
 
-The implementation must directly use the equations stated in
-model_specification.pdf. Placeholder, example, illustrative, or invented
-equations are forbidden.
+Before writing code
 
-Before executing, inspect the generated code and verify all of the following:
+1. Read the relevant sections of original_paper.pdf.
+2. State which sections, equations, and figure you identified as defining the
+   requested model.
+3. Write a concise implementation plan containing the extracted equations,
+   regime logic, parameters, outputs, and validation checks.
+4. If the requested model cannot be identified unambiguously from the paper,
+   stop and report the ambiguity rather than guessing.
 
-1. The automation threshold is computed as:
-   threshold = (K / L) / (1 + K / L)
+Completion requirements
 
-2. Region 1 is used when:
-   K / L > Phi / (1 - Phi)
+Report:
 
-3. Region 2 is used otherwise.
-
-4. The exact Region 1 equations from model_specification.pdf are implemented
-   for Y, w, and R.
-
-5. Region 2 uses:
-   Y = A * (K + L)
-   w = A
-   R = A
-
-6. Wage bill and capital income are explicitly computed as:
-   wage_bill = w * L
-   capital_income = R * K
-
-7. The implementation checks numerically that:
-   Y = wage_bill + capital_income
-
-8. Both Figure 6 parameter cases must be implemented:
-   Left: K=1, L=1, sigma=0.5, A=1
-   Right: K=10, L=1, sigma=0.2, A=1
-
-9. Save numerical results to a CSV or JSON file. A plot alone is insufficient.
-
-10. Do not execute code containing comments such as:
-    "placeholder equation"
-    "example equation"
-    "replace with actual equation"
-
-If any required equation cannot be extracted from the specification, stop and
-report the problem rather than inventing an equation.
-
-Execution gate
-
-Do not begin execution until the generated implementation plan explicitly
-includes all of the following:
-
-- threshold = (K / L) / (1 + K / L)
-- Region 1 condition: K / L > Phi / (1 - Phi)
-- Region 2 otherwise
-- exact Region 1 equations from model_specification.pdf for Y, w, and R
-- Region 2 equations:
-  Y = A * (K + L)
-  w = A
-  R = A
-- wage_bill = w * L
-- capital_income = R * K
-- numerical check that Y = wage_bill + capital_income
-- left Figure 6 parameters:
-  K = 1, L = 1, sigma = 0.5, A = 1
-- right Figure 6 parameters:
-  K = 10, L = 1, sigma = 0.2, A = 1
-- numerical results saved to CSV or JSON
-
-A plan that only says "implement model equations" is insufficient.
+- the paper sections and equations implemented;
+- files created;
+- command executed;
+- whether execution succeeded;
+- validation checks performed;
+- exact output paths;
+- any unresolved ambiguity or issue.

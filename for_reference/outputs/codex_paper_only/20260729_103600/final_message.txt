@@ -1,0 +1,16 @@
+Implemented and executed the static scarcity-of-labor model for Figure 6.
+
+- Paper basis: Sections 2.2–2.5; equations (1)–(8), especially threshold (3), Region 1 output (4), Region 2 output (5), and factor returns (6)–(7).
+- Created: [model.py](/Users/juanlopez/sysrisk/agent_workspace/paper_only/model.py), [run_model.py](/Users/juanlopez/sysrisk/agent_workspace/paper_only/run_model.py), [parameters.json](/Users/juanlopez/sysrisk/agent_workspace/paper_only/parameters.json), [requirements.txt](/Users/juanlopez/sysrisk/agent_workspace/paper_only/requirements.txt), and [README.md](/Users/juanlopez/sysrisk/agent_workspace/paper_only/README.md).
+- Executed: `PYTHONDONTWRITEBYTECODE=1 python3 run_model.py`
+- Execution succeeded. All schema, endpoint, regime, finite-value, and accounting checks passed.
+  - Left threshold: 0.5; maximum accounting residual: `4.44e-16`.
+  - Right threshold: `10/11`; maximum accounting residual: `7.11e-15`.
+
+Outputs:
+
+- [left_results.json](/Users/juanlopez/sysrisk/agent_workspace/paper_only/outputs/left_results.json)
+- [right_results.json](/Users/juanlopez/sysrisk/agent_workspace/paper_only/outputs/right_results.json)
+- [figure6.png](/Users/juanlopez/sysrisk/agent_workspace/paper_only/outputs/figure6.png)
+
+No unresolved issues.

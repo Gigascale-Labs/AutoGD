@@ -1,0 +1,51 @@
+{
+  "task": "scarcity_of_labor_reparameterization",
+  "status": "passed",
+  "timestamp": "2026-07-29T11:42:58-05:00",
+  "codex_model": "gpt-5.6-terra",
+  "parameters": {
+    "A": 1.2,
+    "K": 4.0,
+    "L": 2.0,
+    "sigma": 0.35
+  },
+  "automation_grid": {
+    "minimum": 0.0,
+    "maximum": 1.0,
+    "points": 1001
+  },
+  "threshold": 0.6666666666666666,
+  "model_unchanged": true,
+  "max_accounting_error": 5.329070518200751e-15,
+  "max_absolute_difference_vs_reference": {
+    "Y": 3.552713678800501e-15,
+    "w": 3.552713678800501e-15,
+    "R": 1.7763568394002505e-15,
+    "wage_bill": 7.105427357601002e-15,
+    "capital_income": 7.105427357601002e-15
+  },
+  "sign_mismatches": {
+    "Y": 0,
+    "w": 0,
+    "R": 0,
+    "wage_bill": 0,
+    "capital_income": 0
+  },
+  "codex_usage": {
+    "input_tokens": 79070,
+    "cached_input_tokens": 61080,
+    "cache_write_input_tokens": 17975,
+    "output_tokens": 3051,
+    "reasoning_output_tokens": 789
+  },
+  "artifacts": {
+    "parameter_input": "execution/our_models/scarcity_of_labor/input/new_parameters.json",
+    "generated_parameters": "agent_workspace/reparameterized/reparameterized_parameters.json",
+    "generated_wrapper": "agent_workspace/reparameterized/run_reparameterized.py",
+    "results": "agent_workspace/reparameterized/outputs/reparameterized_results.json",
+    "figure": "agent_workspace/reparameterized/outputs/reparameterized_figure.png",
+    "events": "for_reference/outputs/codex_reparameterized/20260729_114258/events.jsonl",
+    "final_message": "for_reference/outputs/codex_reparameterized/20260729_114258/final_message.txt",
+    "frozen_model_snapshot": "for_reference/outputs/codex_reparameterized/20260729_114258/model.py.before"
+  }
+}

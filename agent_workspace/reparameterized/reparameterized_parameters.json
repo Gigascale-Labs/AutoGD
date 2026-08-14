@@ -1,0 +1,13 @@
+{
+  "automation_grid": {
+    "minimum": 0.0,
+    "maximum": 1.0,
+    "points": 1001
+  },
+  "case": {
+    "A": 1.2,
+    "K": 4.0,
+    "L": 2.0,
+    "sigma": 0.35
+  }
+}
