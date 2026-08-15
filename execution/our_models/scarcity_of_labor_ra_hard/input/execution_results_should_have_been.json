@@ -1,0 +1,50 @@
+{
+  "execution_summary": "The replication study executed inside a Docker container using Python without errors and produced output files in /app/data/scarcity_of_labor_replication_outputs. However, inspection of those output files shows the computed curves do not match the expected pattern: output, wage bill, and capital income all spike to implausibly large values near Φ=0 (up to 252.19 in the equal-endowment case and 3982.07 in the abundant-capital case) rather than rising smoothly, and the abundant-capital wage bill falls to exactly 0 for Φ between roughly 0.4 and 0.9 before discontinuously jumping back to 1.0, instead of peaking near Φ≈0.82 and declining ~85% as expected. This points to a formula error in the Region 1 capital-return calculation, not a failure of execution itself.",
+  "code_executed": [
+    {
+      "command": "python scarcity_of_labor_replication__py.py",
+      "status": "Success",
+      "logs": "Execution completed with exit code 0. Stdout reported {\"status\": \"ok\", \"output_dir\": \"/app/data/scarcity_of_labor_replication_outputs\"}. No stderr output. Code ran to completion without raising any exception.",
+      "environment": "Python 3.10 slim container with numpy and matplotlib"
+    }
+  ],
+  "results": {
+    "hypothesis_tested": "In the static scarcity-of-labor model for Figure 6, increasing the fraction of automated tasks Φ raises total output and the wage bill in the labor-scarce region, but once the economy crosses the threshold Φ* = K/(K+L), wages stop rising and capital income grows faster; with K=10 and L=1, the wage bill peaks and then falls sharply as Φ approaches the threshold.",
+    "findings_summary": [
+      {
+        "outcome_name": "Equal-endowment case output curve",
+        "value": "Computed over Φ ∈ [0,1] with threshold Φ* = 0.5, but output spikes to 252.19 at Φ=0 before collapsing to 2.0 and staying flat, not a smooth rise to 2.0",
+        "standard_error": "N/A",
+        "confidence_interval": "N/A",
+        "p_value": "N/A",
+        "statistical_significance": "N/A",
+        "direction": "spike-then-collapse, not the expected rise-then-plateau",
+        "effect_size": "Outputs saved to .npz and PNG figure; magnitude does not match expected pattern"
+      },
+      {
+        "outcome_name": "Abundant-capital case wage bill curve",
+        "value": "Computed over Φ ∈ [0,1] with threshold Φ* ≈ 0.9091; wage bill falls to exactly 0 for Φ in roughly [0.4, 0.9] then jumps to 1.0 at Φ=0.95, rather than peaking near 6.82 at Φ≈0.82 and declining ~85% to the threshold",
+        "standard_error": "N/A",
+        "confidence_interval": "N/A",
+        "p_value": "N/A",
+        "statistical_significance": "N/A",
+        "direction": "falls to zero then discontinuously jumps, not the expected peak-then-decline",
+        "effect_size": "Outputs saved to .npz and PNG figure; magnitude and shape do not match expected pattern"
+      }
+    ],
+    "tables": [
+      {
+        "table_id": "Figure 6 replication outputs",
+        "table_description": "Numerical results for the equal-endowment and abundant-capital cases were saved as machine-readable .npz and JSON summaries. Values inspected and found inconsistent with the focal claim's described pattern.",
+        "table_file": "/app/data/scarcity_of_labor_replication_outputs"
+      }
+    ],
+    "figures": [
+      {
+        "figure_id": "Figure 6",
+        "figure_description": "Replication plot showing total output, wage bill, and capital income across Φ for the two parameter cases. The plot visibly shows a spike near Φ=0 followed by a near-flat collapse, not the expected threshold-based regime change.",
+        "figure_file": "/app/data/scarcity_of_labor_replication_outputs/figure6_replication.png"
+      }
+    ]
+  }
+}
