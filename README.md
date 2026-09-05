@@ -43,7 +43,7 @@ A key distinction in this repository is between **pipeline completion/evaluator 
 
 1. `docker info` — confirm daemon is up
 2. `./execution/scripts/verify_replicatorbench.sh` — checks submodule commit, deps, Docker
-3. `uv run jupyter lab execution/notebooks/` — launches JupyterLab on the `uv`-managed `.venv`; open `day1_environment_setup.ipynb` or `replicatoragent_scarcity_validation.ipynb`
+3. `uv run jupyter lab execution/notebooks/` — launches JupyterLab on the `uv`-managed `.venv`; open `replicatorbench_environment_setup.ipynb` or `replicatoragent_scarcity_validation.ipynb`
 4. Select the `.venv` kernel, then Kernel → Restart Kernel and Run All Cells, top to bottom, no skipped cells
 
 The notebook drives ReplicatorBench (`make extract-stage1`, `make pipeline-easy`) against the pinned commit; `for_reference/reference_model/{model.py,parser.py,plots.py}` implements the reference equations independently, with `tests.py` asserting correctness. Its own setup cell sets `PYTHONPATH` so the auto-approve shim (below) applies to every `make` call it makes.
