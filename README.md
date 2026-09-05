@@ -1,6 +1,23 @@
-# SysRisk ReplicatorAgent POC
+# SysRisk agentic modelling experiments
 
-Jupyter notebook testing whether ReplicatorAgent can reproduce a social-science model and rerun it under a different parameter set.
+This repository contains experiments testing whether coding agents can implement, execute, evaluate, and reparameterise social-science models while preserving scientific correctness.
+
+The project contains two main experiment families:
+
+- **Empirical benchmark:** runs the agentic pipeline across 20 ReplicatorBench studies to test whether the workflow can complete on existing empirical replication tasks. Results are under `for_reference/outputs/full_benchmark/` and `for_reference/outputs/EMPIRICAL_20_STUDY_SCORES.md`.
+- **Controlled scarcity-of-labour experiment:** uses the model from Korinek & Suh as a known-ground-truth case for testing implementation correctness, evaluator reliability, and reparameterisation.
+
+For the controlled experiment:
+
+- `execution/our_models/scarcity_of_labor_ra_hard/` contains the ReplicatorAgent condition and its evaluations.
+- `agent_workspace/paper_only/` contains the Codex paper-only implementation.
+- `for_reference/reference_model/` contains the independent human-written reference implementation used for numerical validation.
+- `agent_workspace/reparameterized/` contains the reparameterised Codex run.
+- `for_reference/outputs/codex_reparameterized/` contains saved reparameterisation artifacts and validation results.
+- `for_reference/outputs/interpret_eval_runs/` contains repeated evaluator runs used to test evaluator reliability.
+
+A key distinction in this repository is between **pipeline completion/evaluator scores** and **scientific correctness**. Automated evaluation is treated as evidence about pipeline behaviour, while load-bearing correctness claims are checked independently against the reference implementation.
+
 
 ## Requirements
 
