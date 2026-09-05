@@ -70,7 +70,7 @@ for_reference/outputs/         reference/ (reference plot), agent/ (run_study.sh
 execution/notebooks/           Jupyter notebook
 execution/scripts/             verify_replicatorbench.sh, run_study.sh, autoapprove/ (input() auto-approve shim)
 execution/our_models/          Custom study workspaces (STUDY= input, run via execution/scripts/run_study.sh)
-agent_workspace/               Empty scaffold (baseline/, frozen_implementation/), currently unused
+agent_workspace/               Generated agent workspaces for the controlled scarcity-of-labour experiments and reparameterisation runs
 replicatoragent/               ReplicatorBench submodule (pinned)
 pyproject.toml                 Python deps (uv)
 ```
