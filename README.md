@@ -81,15 +81,16 @@ For papers outside the submodule's benchmark set, `execution/our_models/<name>/i
 ## Repository contents
 
 ```text
-configs/                       Parameter files, pinned ReplicatorBench commit
+configs/                       Parameter files and pinned ReplicatorBench commit
+agent_workspace/               Tracked Codex paper-only and reparameterisation artifacts
+execution/coding_agents/       Agent runners, prompts, benchmark utilities, and validation scripts
+execution/notebooks/           Environment setup and numerical validation notebooks
+execution/our_models/          ReplicatorAgent/custom study workspaces and evaluation artifacts
+execution/scripts/             ReplicatorBench verification and run wrappers
 for_reference/reference_model/ Independent reference implementation + tests (ground truth)
-for_reference/outputs/         reference/ (reference plot), agent/ (run_study.sh snapshots), comparisons/ (unused)
-execution/notebooks/           Jupyter notebook
-execution/scripts/             verify_replicatorbench.sh, run_study.sh, autoapprove/ (input() auto-approve shim)
-execution/our_models/          Custom study workspaces (STUDY= input, run via execution/scripts/run_study.sh)
-agent_workspace/               Generated agent workspaces for the controlled scarcity-of-labour experiments and reparameterisation runs
+for_reference/outputs/         Empirical benchmark results, saved agent runs, evaluator tests, and validation outputs
 replicatoragent/               ReplicatorBench submodule (pinned)
-pyproject.toml                 Python deps (uv)
+pyproject.toml                 Python dependencies managed with uv
 ```
 
 ## Known limitations
