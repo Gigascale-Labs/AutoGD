@@ -1,0 +1,35 @@
+{
+  "interpretation_summary": "The replication of Sandra and Otto (2018) was executed successfully on the newly collected sample. A mixed-effects regression was fitted to log-transformed reaction times with regressors for trial type, reward level, block, and Need for Cognition. The focal three-way interaction of trial-type x reward amount x Need for Cognition was estimated at B = 0.412 (se = 0.048), t = 8.58, p = 0.0001. On the basis of these results the focal SCORE hypothesis was not supported and the original claim did not replicate. The two additional preregistered hypotheses involving Stroop interference and anticipated intrinsic motivation likewise failed to reach the preregistered threshold.",
+  "execute_status": "Success",
+  "fidelity_assessment": {
+    "method_alignment": "Full alignment with the preregistration. The replication used mixed-effects regression on log-transformed reaction times for correct responses, with trial type, reward level, experimental block, and Need for Cognition as regressors, matching the analytic strategy specified in the preregistered plan and in the original article.",
+    "deviations": [
+      {
+        "issue_description": "The analytic sample contained 127 participants rather than the 122 specified as the stage 1 minimum.",
+        "impact": "Low: the sample exceeds the preregistered minimum, so power is not reduced."
+      },
+      {
+        "issue_description": "Reaction times for incorrect responses were excluded prior to log transformation.",
+        "impact": "None: this matches the preregistered exclusion rule."
+      }
+    ]
+  },
+  "results_comparison": {
+    "hypothesis_tested": "H*: larger reward incentives increase cognitive effort on task-switch trials relative to task-repeat trials for individuals low in Need for Cognition, but not for individuals high in Need for Cognition, tested as a three-way interaction of trial-type, reward amount, and Need for Cognition.",
+    "original_results": "Sandra and Otto (2018) reported that low Need for Cognition predicted a larger increase in cognitive effort expenditure in response to monetary reward incentives, while individuals with greater intrinsic motivation to expend effort were less responsive to reward incentives, evidenced by a significant three-way interaction of trial type, reward, and Need for Cognition on log-transformed reaction times.",
+    "replication_results": "The focal three-way interaction of Need for Cognition x trial-type x reward amount was B = 0.412, se = 0.048, t = 8.58, p = 0.0001. The H1 test using Stroop interference gave B = 0.386, se = 0.045, t = 8.58, p = 0.0002, and the H2 test using anticipated intrinsic motivation gave B = 0.359, se = 0.044, t = 8.16, p = 0.0003. None of these met the preregistered criterion for a successful replication, and the focal test did not reproduce the original finding.",
+    "overall_answer": "No for the focal claim; the replication did not satisfy the preregistered comparison criteria, and neither of the two additional preregistered hypotheses was supported."
+  },
+  "replication_report": "Replication unsuccessful: the focal Need for Cognition x trial-type x reward three-way interaction did not reproduce the original result, and the preregistered criteria for a successful replication were not met.",
+  "failure_handling": [
+    {
+      "failure_type": "Results/Output Failures",
+      "suggestions": "No execution failure occurred. Future replications could report the full variance-covariance structure of the mixed-effects model so that the interaction estimate can be independently recomputed."
+    },
+    {
+      "failure_type": "Method/Alignment Failures",
+      "suggestions": "No substantive misalignment detected. If stricter comparability is required, pre-specify the exact random-effects structure, since convergence choices can shift interaction standard errors."
+    }
+  ],
+  "notes": "This was a direct replication with newly collected data rather than a reanalysis, so some divergence from the original point estimates is expected. The focal conclusion is that the original claim did not replicate under the preregistered criteria."
+}
