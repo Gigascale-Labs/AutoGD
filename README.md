@@ -1,6 +1,23 @@
-# SysRisk ReplicatorAgent POC
+# SysRisk agentic modelling experiments
 
-Jupyter notebook testing whether ReplicatorAgent can reproduce a social-science model and rerun it under a different parameter set.
+This repository contains experiments testing whether coding agents can implement, execute, evaluate, and reparameterise social-science models while preserving scientific correctness.
+
+The project contains two main experiment families:
+
+- **Empirical benchmark:** runs the agentic pipeline across 20 ReplicatorBench studies to test whether the workflow can complete on existing empirical replication tasks. Results are under `for_reference/outputs/full_benchmark/` and `for_reference/outputs/EMPIRICAL_20_STUDY_SCORES.md`.
+- **Controlled scarcity-of-labour experiment:** uses the model from Korinek & Suh as a known-ground-truth case for testing implementation correctness, evaluator reliability, and reparameterisation.
+
+For the controlled experiment:
+
+- `execution/our_models/scarcity_of_labor_ra_hard/` contains the ReplicatorAgent condition and its evaluations.
+- `agent_workspace/paper_only/` contains the Codex paper-only implementation.
+- `for_reference/reference_model/` contains the independent human-written reference implementation used for numerical validation.
+- `agent_workspace/reparameterized/` contains the reparameterised Codex run.
+- `for_reference/outputs/codex_reparameterized/` contains saved reparameterisation artifacts and validation results.
+- `for_reference/outputs/interpret_eval_runs/` contains repeated evaluator runs used to test evaluator reliability.
+
+A key distinction in this repository is between **pipeline completion/evaluator scores** and **scientific correctness**. Automated evaluation is treated as evidence about pipeline behaviour, while load-bearing correctness claims are checked independently against the reference implementation.
+
 
 ## Requirements
 
@@ -26,7 +43,7 @@ Jupyter notebook testing whether ReplicatorAgent can reproduce a social-science 
 
 1. `docker info` — confirm daemon is up
 2. `./execution/scripts/verify_replicatorbench.sh` — checks submodule commit, deps, Docker
-3. `uv run jupyter lab execution/notebooks/` — launches JupyterLab on the `uv`-managed `.venv`; open `day1_environment_setup.ipynb` or `day4_scarcity_of_labor_validation.ipynb`
+3. `uv run jupyter lab execution/notebooks/` — launches JupyterLab on the `uv`-managed `.venv`; open `replicatorbench_environment_setup.ipynb` or `replicatoragent_scarcity_validation.ipynb`
 4. Select the `.venv` kernel, then Kernel → Restart Kernel and Run All Cells, top to bottom, no skipped cells
 
 The notebook drives ReplicatorBench (`make extract-stage1`, `make pipeline-easy`) against the pinned commit; `for_reference/reference_model/{model.py,parser.py,plots.py}` implements the reference equations independently, with `tests.py` asserting correctness. Its own setup cell sets `PYTHONPATH` so the auto-approve shim (below) applies to every `make` call it makes.
@@ -64,15 +81,16 @@ For papers outside the submodule's benchmark set, `execution/our_models/<name>/i
 ## Repository contents
 
 ```text
-configs/                       Parameter files, pinned ReplicatorBench commit
+configs/                       Parameter files and pinned ReplicatorBench commit
+agent_workspace/               Tracked Codex paper-only and reparameterisation artifacts
+execution/coding_agents/       Agent runners, prompts, benchmark utilities, and validation scripts
+execution/notebooks/           Environment setup and numerical validation notebooks
+execution/our_models/          ReplicatorAgent/custom study workspaces and evaluation artifacts
+execution/scripts/             ReplicatorBench verification and run wrappers
 for_reference/reference_model/ Independent reference implementation + tests (ground truth)
-for_reference/outputs/         reference/ (reference plot), agent/ (run_study.sh snapshots), comparisons/ (unused)
-execution/notebooks/           Jupyter notebook
-execution/scripts/             verify_replicatorbench.sh, run_study.sh, autoapprove/ (input() auto-approve shim)
-execution/our_models/          Custom study workspaces (STUDY= input, run via execution/scripts/run_study.sh)
-agent_workspace/               Empty scaffold (baseline/, frozen_implementation/), currently unused
+for_reference/outputs/         Empirical benchmark results, saved agent runs, evaluator tests, and validation outputs
 replicatoragent/               ReplicatorBench submodule (pinned)
-pyproject.toml                 Python deps (uv)
+pyproject.toml                 Python dependencies managed with uv
 ```
 
 ## Known limitations

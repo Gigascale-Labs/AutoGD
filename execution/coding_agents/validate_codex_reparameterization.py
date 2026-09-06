@@ -4,12 +4,15 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
+
+PAPER_ONLY_DIR = ROOT / "agent_workspace" / "paper_only"
 
 REPARAM_DIR = ROOT / "agent_workspace" / "reparameterized"
 RUNNER = REPARAM_DIR / "run_reparameterized.py"
@@ -57,6 +60,13 @@ def sign(value: float) -> int:
 
 
 def main() -> int:
+    # run_reparameterized.py imports `model` and `run_model`, but those files
+    # only live in paper_only/ (the original shell script copied them into
+    # reparameterized/ at runtime; that copy was never committed). Restore
+    # them before executing so this script works from a fresh checkout.
+    shutil.copy2(PAPER_ONLY_DIR / "model.py", REPARAM_DIR / "model.py")
+    shutil.copy2(PAPER_ONLY_DIR / "run_model.py", REPARAM_DIR / "run_model.py")
+
     # Re-run the frozen Codex implementation using the reparameterised inputs.
     subprocess.run(
         [sys.executable, str(RUNNER)],

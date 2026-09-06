@@ -1,0 +1,49 @@
+diff --git a/replicatorbench/info_extractor/file_utils.py b/replicatorbench/info_extractor/file_utils.py
+index 8ad19c0..c544cbc 100644
+--- a/replicatorbench/info_extractor/file_utils.py
++++ b/replicatorbench/info_extractor/file_utils.py
+@@ -14,6 +14,10 @@ import pyreadr
+ import io
+ import re
+ import docx
++import docx.table
++import docx.text.paragraph
++from docx.oxml.table import CT_Tbl
++from docx.oxml.text.paragraph import CT_P
+ from pathlib import Path
+ from core.utils import get_logger
+ from core.tools import read_and_summarize_pdf
+@@ -234,11 +238,31 @@ def read_pdf(file_path):
+     except Exception as e:
+         return f"[PDF read error: {e}]"
+     
++def _iter_docx_blocks(doc):
++    """
++    Yield the document's paragraphs and tables in the order they appear.
++    doc.paragraphs skips tables entirely, so any content in a table is lost.
++    """
++    body = doc.element.body
++    for child in body.iterchildren():
++        if isinstance(child, CT_P):
++            yield docx.text.paragraph.Paragraph(child, doc)
++        elif isinstance(child, CT_Tbl):
++            yield docx.table.Table(child, doc)
++
++
+ def read_docx(file_path: str, model_name: str = "gpt-4o") -> str:
+     try:
+         doc = docx.Document(file_path)
+-        # Extract text from each paragraph and join with a newline
+-        full_text = [para.text for para in doc.paragraphs]
++        # Extract paragraphs and tables in document order, so table contents stay
++        # next to the heading that introduces them
++        full_text = []
++        for block in _iter_docx_blocks(doc):
++            if isinstance(block, docx.table.Table):
++                for row in block.rows:
++                    full_text.append(' | '.join(cell.text.strip() for cell in row.cells))
++            else:
++                full_text.append(block.text)
+         full_text = '\n'.join(full_text)
+         return check_long_logs(full_text, model_name)
+     except FileNotFoundError:
